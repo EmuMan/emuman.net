@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5 px-5">
+    <h1>Discord Bots</h1>
+    <p>I do a lot of stuff with Discord bots in my spare time using the discord.py library. Here are some of the more prominent ones I've created.</p>
+    
+    <br><hr><br>
+
+    <div class="bot-list">
+        {% for bot in bots %}
+            <div class="bot-listing" id="{{ bot.name }}">
+                <div class="bot-header">
+                    <img class="pfp" src="{{ url_for('static', filename="icons/"+bot.pfp) }}">
+                    <span class="bot-name">{{ bot.name }}</span>
+                </div>
+                <p class="prefix">prefix: {{ bot.prefix }}</p>
+                <br>
+                {% for desc in bot.descriptions %}
+                    <p>{{ desc.text | safe }}</p>
+                    <ul>
+                        {% for element in desc.list %}
+                            <li>{{ element | safe }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endfor %}
+                <p>Add {{ bot.name }} to your server <a class="inline-link" href="{{ bot.link }}">here</a>.</p>
+                <br><hr><br>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5 px-5">
+    <h1>Songtober 2020</h1>
+
+    <br><hr><br>
+
+    <h2>What is Songtober?</h2>
+    <p>Songtober is a sort of challenge based off of the popular informal drawing event, Inktober. In the case of Inktober, for every day of October, there is a new prompt that should be drawn by whoever is participating. You can read more about it <a href="https://inktober.com/">here</a>. When one of my friends shared the 2020 prompt list, since I can't draw, I had the idea to do the challenge but with music instead of drawing. And thus Songtober was born.</p>
+    <p>Just as a side note, I am sure I am not the first to come up with this idea, but I have also never really seen anyone else do it, so for me it's a new concept. Enjoy my musical interpretations of these prompts.</p>
+            
+    <br>
+
+    <table>
+        <tr>
+            <th>Day</th>
+            <th>Prompt</th>
+            <th>Song</th>
+            <th>Description</th>
+        </tr>
+        {% for s in songs %}
+            <tr>
+                <td>{{ s.day }}</td>
+                <td>{{ s.prompt }}</td>
+                <td><audio controls><source src="{{ url_for('static', filename='music/songtober2020/'+s.file) }}" type="audio/mpeg"></audio></td>
+                <td style="width: 100%;">{{ s.description }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock content %}
