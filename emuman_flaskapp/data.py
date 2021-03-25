@@ -57,6 +57,18 @@ songtober_2020_songs = [
         "prompt": "Rodent",
         "file": "6.mp3",
         "description": "I had been thinking about it for a while. I mean how in the world am I supposed to make a song about rodents??? So I basically just took a kinda squeak-sounding lead and a fast-paced tempo to indicate something scurrying around, maybe running away from something, and went from there. And now I regret everything. I'm also fairly certain that I just completely copied the melody of some other random song out there. Either that or this is the most generic cartoon-y chase music ever written."
+    },
+    {
+        "day": 7,
+        "prompt": "Fancy",
+        "file": "7.mp3",
+        "description": "The first thing that came to mind when I heard \"Fancy\" was a bunch of old fashioned people sitting around in some ballroom sipping wine and listening to some guy in a wig play an old harpsichord. So that's what I tried to emulate here. I am fairly certain the beginning is extremely similar to an already existing song, but I tried to make it as unique as I could. It also might be relatively imperfect to the trained ear, but I don't think I'm going to worry about small inconsistencies like that. Oh well."
+    },
+    {
+        "day": 8,
+        "prompt": "Teeth",
+        "file": "8.mp3",
+        "description": "The long anticipated \"Teeth\" song. All of the percussion is made using my teeth in a questionable ASMR-like attempt at a groovy beat. The specific technique I used for the more tonal sounds (including the electric tooth near the middle) was to identify and boost the most prominent frequency in a teeth clack. This was also the first song I livestreamed, and it was pretty fun. The sort of \"stone-agey\" vibe was actually Khanjan's idea, so that's cool. It ventured off into a more atmospheric direction than I had anticipated, but hey, I'm not complaining."
     }
 ]
 
