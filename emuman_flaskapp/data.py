@@ -1,7 +1,7 @@
 art_pieces = [
     {
         "file": "desert_scene.png",
-        "description": "A quick desert scene I made in Blender, with touch-ups in photoshop."
+        "description": "A desert scene I made in Blender, with touch-ups in photoshop."
     },
     {
         "file": "cherry_blossom.png",
@@ -10,6 +10,14 @@ art_pieces = [
     {
         "file": "gemstones.png",
         "description": "An array of physically accurate gemstones inspired by Steven Universe, rendered using LuxCore."
+    },
+    {
+        "file": "calendar.png",
+        "description": "A part of a strangely coherent dream I had, photorealistically rendered out."
+    },
+    {
+        "file": "bound.png",
+        "description": "\"Bound\". Hollow Knight is a good game."
     }
 ]
 
