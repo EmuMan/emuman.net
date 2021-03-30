@@ -1,7 +1,7 @@
 import random
 import json
 import os, sys
-from flask import render_template, url_for, flash, redirect
+from flask import render_template, url_for, flash, redirect, request
 from emuman_flaskapp import app
 from emuman_flaskapp.data import art_pieces, songtober_2020_songs, discord_bots, spigot_plugins, misc_apps
 
@@ -32,6 +32,15 @@ def music():
 @app.route("/songtober/2020")
 def songtober_2020():
     return render_template("songtober_2020.html", title="Songtober 2020", songs=songtober_2020_songs)
+
+@app.route("/cbrenders")
+def cbrenders():
+    season = int(request.args.get("season", default=1, type=int))
+    if season < 1:
+        season = 1
+    elif season > 6:
+        season = 6
+    return render_template("cbrenders.html", season=season)
 
 @app.route("/about")
 def about():
