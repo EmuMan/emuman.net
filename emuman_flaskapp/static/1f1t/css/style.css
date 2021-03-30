@@ -1,0 +1,81 @@
+body {
+	background: url('/static/1f1t/images/background-day.png') no-repeat center center fixed; 
+	background-color: black;
+	
+	opacity: 1.0;
+	
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	
+	-webkit-transition: background 1.5s linear;
+	-moz-transition: background 1.5s linear;
+	-o-transition: background 1.5s linear;
+	-ms-transition: background 1.5s linear;
+	transition: background 1.5s linear;
+}
+
+.content {
+	color: whitesmoke;
+	font-family: Abel;
+}
+
+.centered {
+	text-align: center;
+}
+
+.big-divider {
+	text-align: center;
+	width: 50%;
+}
+
+.divider {
+	text-align: center;
+	width: 30%;
+}
+
+.main-icon-container {
+	width: 100%;
+	text-align: center;
+}
+
+.main-icon {
+	float: center;
+	text-align: center;
+	width: 30%;
+}
+
+img.pixel-art {
+	image-rendering: pixelated;
+	image-rendering: -moz-crisp-edges;
+	image-rendering: crisp-edges;
+}
+
+.info-text {
+	font-size: 80px;
+}
+
+.info-box {
+	font-size: 30px;
+	text-align: center;
+	margin: auto;
+	width: 50%;
+}
+
+a {
+	color: whitesmoke;
+	text-decoration: underline;
+}
+
+a:hover {
+	color: #d0d0d0;
+}
+
+a.no-underline {
+	text-decoration: none;
+}
+
+a.no-underline:hover {
+	text-decoration: none;
+}

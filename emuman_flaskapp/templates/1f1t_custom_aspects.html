@@ -1,0 +1,34 @@
+
+{% extends "1f1t_base.html" %}
+
+{% block content %}
+<div class="content">
+    <h1 class="mt-5 centered info-text">Custom Aspects</h1>
+    <h2 class="centered"><a class="no-underline" href="{{ url_for('test_1f1t') }}">( go back )</a></h2>
+    <p class="centered"><img src="{{ url_for('static', filename='1f1t/images/divider.png') }}" class="big-divider"></p>
+    <h1 class="my-5 centered" id="iridium" style="font-size: 50px;">Iridium</h1>
+    <div class="info-box">
+        <p>Iridium is a rare metal that can be crafted into many different items. These items all have stats equivelant to netherite, with the exception that they are completely unbreakable.</p>
+        <p>Iridium can only be obtained through <a href="#blacksmith">The Blacksmith</a>.</p>
+    </div>
+    <p class="centered"><img src="{{ url_for('static', filename='1f1t/images/divider.png') }}" class="divider"></p>
+    <h1 class="my-5 centered" id="prismaticshards" style="font-size: 50px;">Prismatic Shards</h1>
+    <div class="info-box">
+        <p>Prismatic shards are crystals that are less versatile than iridium. To be honest I think they can be used in only like one trade or something right now. Will probably be updated.</p>
+        <p>Prismatic shards can only be obtained through <a href="#blacksmith">The Blacksmith</a>.</p>
+    </div>
+    <p class="centered"><img src="{{ url_for('static', filename='1f1t/images/divider.png') }}" class="divider"></p>
+    <h1 class="my-5 centered" id="blacksmith" style="font-size: 50px;">The Blacksmith</h1>
+    <div class="info-box">
+        <p>The Blacksmith is an integral part of the server economy. After approaching him, full stacks of cobblestone can be gambled away, potentially giving you a number of prizes, including diamonds, emeralds, or even the rare materials listed above.</p>
+        <p>The Blacksmith can be found in his stone hut to the left of the spawn building.</p>
+    </div>
+    <p class="centered"><img src="{{ url_for('static', filename='1f1t/images/divider.png') }}" class="divider"></p>
+    <h1 class="my-5 centered" style="font-size: 50px;">The Shop</h1>
+    <div class="mb-5 info-box">
+        <p>This is where you will purchase many of your items, including the spawn and respawn charms that will allow you to quickly travel to spawn and back. You can also buy special sets of armor that give unique perks, such as infinite Haste II or Night Vision.</p>
+        <p>The shop can be accessed by entering the truck to the left of the spawn building.</p>
+    </div>
+    <br><br><br>
+</div>
+{% endblock content %}

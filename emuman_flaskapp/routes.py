@@ -45,3 +45,15 @@ def cbrenders():
 @app.route("/about")
 def about():
     return render_template("about.html", title="About Me")
+
+@app.route("/1f1t_test")
+def test_1f1t():
+    return render_template("1f1t_index.html")
+
+@app.route("/1f1t_test/custom_aspects")
+def test_1f1t_ca():
+    return render_template("1f1t_custom_aspects.html", title="Custom Aspects")
+
+@app.route("/1f1t_test/map")
+def test_1f1t_map():
+    return render_template("1f1t_map.html", title="Map View")
