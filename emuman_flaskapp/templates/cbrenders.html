@@ -10,7 +10,7 @@
     </select>
     <br><hr><br>
     <div class="map-div">
-        <iframe id="cbrender" src="static/cbrenders/s{{ season }}/index.html"></iframe>
+        <iframe id="cbrender" src="{{ url_for('static', filename='cbrenders/s'+season|string+'/index.html') }}"></iframe>
     </div>
 </div>
 
