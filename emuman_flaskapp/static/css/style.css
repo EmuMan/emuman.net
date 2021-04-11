@@ -74,31 +74,31 @@ hr {
 
 /* ----------------------- */
 
-table {
+.basic-table table {
     border-collapse: collapse;
     height: 100%;
     width: 100%;
 }
 
-table, th, td {
+.basic-table table, th, td {
     border: 1px solid whitesmoke;
 }
 
-th, td {
+.basic-table th, td {
     padding: 15px;
     text-align: left;
 }
 
-th {
+.basic-table th {
     background-color: #2c2e30;
     font-weight: bold;
 }
 
-tr {
+.basic-table tr {
     background-color: #34383a;
 }
 
-tr:nth-child(even) {
+.basic-table tr:nth-child(even) {
     background-color: #3d4144;
 }
 

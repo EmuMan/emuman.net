@@ -1,10 +1,43 @@
 
 {% extends "base.html" %}
 
+{% block headcontent %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/music.css') }}">
+
+<script
+    src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+    crossorigin="anonymous"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/music.js') }}"></script>
+{% endblock headcontent %}
+
 {% block content %}
 <div class="container mt-5 px-5">
     <h1>Original Music</h1>
+    <p>This page contains music that is, as of now, unreleased anywhere else. I will probably put stuff here before polishing and posting it in the future as well.</p>
     <br><hr><br>
-    <p>Coming soon...</p>
+    <div class="container scrolling-table">
+        <table id="song-table">
+            <thead>
+                <th>#</th>
+                <th>Title</th>
+                <th>Duration</th>
+            </thead>
+            <tbody>
+                {% for s in songs %}
+                <tr id="{{ s.id }}">
+                    <td class="song-index">{{ s.index }}</td>
+                    <td class="song-title">{{ s.title }}</td>
+                    <td class="song-duration">--:--</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <br><br>
+    <div id="player">
+        <p class="my-0">- Now playing -</p>
+        <p id="playing" style="font-size: 30px;"></p>
+    </div>
 </div>
 {% endblock content %}

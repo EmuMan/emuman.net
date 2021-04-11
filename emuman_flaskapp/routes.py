@@ -3,7 +3,7 @@ import json
 import os, sys
 from flask import render_template, url_for, flash, redirect, request
 from emuman_flaskapp import app
-from emuman_flaskapp.data import art_pieces, songtober_2020_songs, discord_bots, spigot_plugins, misc_apps
+from emuman_flaskapp.data import art_pieces, songtober_2020_songs, discord_bots, spigot_plugins, misc_apps, original_songs
 
 @app.route("/")
 def index():
@@ -27,7 +27,7 @@ def art():
 
 @app.route("/music")
 def music():
-    return render_template("music.html", title="Music")
+    return render_template("music.html", title="Music", songs=original_songs)
 
 @app.route("/songtober/2020")
 def songtober_2020():

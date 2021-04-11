@@ -72,6 +72,39 @@ songtober_2020_songs = [
     }
 ]
 
+original_songs = [
+    {
+        "index": 1,
+        "title": "Sunset Café",
+        "id": "sunset_cafe"
+    },
+    {
+        "index": 2,
+        "title": "Through an Endless Sky",
+        "id": "through_an_endless_sky"
+    },
+    {
+        "index": 3,
+        "title": "Grapefruit",
+        "id": "grapefruit"
+    },
+    {
+        "index": 4,
+        "title": "Simple Existence",
+        "id": "simple_existence"
+    },
+    {
+        "index": 5,
+        "title": "Moving As One",
+        "id": "moving_as_one"
+    },
+    {
+        "index": 6,
+        "title": "Onward",
+        "id": "onward"
+    }
+]
+
 discord_bots = [
     {
         "name": "corn",
