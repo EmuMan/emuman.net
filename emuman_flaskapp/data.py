@@ -102,6 +102,11 @@ original_songs = [
         "index": 6,
         "title": "Onward",
         "id": "onward"
+    },
+    {
+        "index": 7,
+        "title": "Fallen Glory",
+        "id": "fallen_glory"
     }
 ]
 

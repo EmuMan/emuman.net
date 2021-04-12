@@ -9,6 +9,8 @@
     position: sticky;
     top: 0;
     background-color: #303538;
+    border-top: hidden;
+    border-bottom: hidden;
 }
 
 #song-table {
@@ -16,11 +18,11 @@
     width: 100%;
 }
 
-th, td {
+.scrolling-table th, td {
     padding: 8px 16px;
 }
 
-tr {
+.song-entry {
     background-color: #404548;
 }
 
@@ -34,4 +36,18 @@ tr {
 
 .playing {
     background-color: #343b3d;
+}
+
+button {
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+
+.buttons {
+    border: hidden;
+    border-collapse: collapse;
 }
