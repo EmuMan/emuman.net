@@ -1,6 +1,6 @@
 
 // https://stackoverflow.com/questions/19491336/how-to-get-url-parameter-using-jquery-or-plain-javascript
-var currentSong = undefined;
+var currentSong = new Audio();
 var id = undefined;
 var seekIsClicked = false;
 var songList = [];
@@ -8,6 +8,16 @@ var lastVolume = 80;
 
 function durationStr(duration) {
     return ("0" + Math.floor(duration / 60)).slice(-2) + ":" + ("0" + Math.floor(duration % 60)).slice(-2);
+};
+
+function getSongURL(songID) {
+    if (currentSong.canPlayType("audio/mpeg;")) {
+        currentSong.type = "audio/mpeg";
+        return "/static/music/originals/" + songID + ".mp3";
+    } else {
+        currentSong.type = "audio/ogg";
+        return "/static/music/originals/" + songID + ".ogg";
+    }
 };
 
 function newSong(songID, play) {
@@ -23,7 +33,7 @@ function newSong(songID, play) {
         currentSong.pause();
     }
     // create new song
-    currentSong = new Audio("/static/music/" + songID + ".mp3");
+    currentSong.src = getSongURL(songID);
     // initialize audio volume at 80%
     currentSong.volume = 0.8;
     // initialize seek bar at 0
@@ -64,6 +74,14 @@ function newSong(songID, play) {
     // when the song ends, go to the next one
     currentSong.addEventListener("ended", function() {
         nextSong();
+    });
+    // update song description
+    $("#descriptions p").each(function() {
+        if ($(this).attr("id") === (songID + "-description")) {
+            $(this).show();
+        } else {
+            $(this).hide();
+        }
     });
 };
 
@@ -159,7 +177,11 @@ $(document).ready(function() {
                 id = currentID;
                 newSong(id, true);
             });
-            let song = new Audio("/static/music/" + currentID + ".mp3");
+            let song = new Audio("/static/music/originals/" + currentID + ".mp3");
+            if (!song.canPlayType("audio/mpeg;")) {
+                song.type = "audio/ogg";
+                song.src = "/static/music/originals/" + currentID + ".ogg";
+            }
             song.onloadedmetadata = function() {
                 $("#" + currentID).find(".song-duration").text(durationStr(this.duration));
             };

@@ -56,7 +56,14 @@
                     <input type="range" id="volume" style="width: 35%;" value="80" max="100">
                 </td>
             </tr>
-        </p>
+        </table>
     </div>
+    <br>
+    <div id="descriptions">
+        {% for s in songs %}
+            <p id="{{ s.id }}-description">{{ s.description }}</p>
+        {% endfor %}
+    </div>
+    <br>
 </div>
 {% endblock content %}

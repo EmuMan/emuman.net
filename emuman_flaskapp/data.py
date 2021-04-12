@@ -76,37 +76,44 @@ original_songs = [
     {
         "index": 1,
         "title": "Sunset Café",
-        "id": "sunset_cafe"
+        "id": "sunset_cafe",
+        "description": "One of the first songs I really made, all the way back in 2018 or something. Aivi and Surasshu were large inspirations, sort of that neo-chiptune vibe (I don't know if that is a term but it is now)."
     },
     {
         "index": 2,
         "title": "Through an Endless Sky",
-        "id": "through_an_endless_sky"
+        "id": "through_an_endless_sky",
+        "description": "I made this at basically the same time as Sunset Café, although it was less finished at the time. I recently picked it back up to write the end, and this is what I came up with."
     },
     {
         "index": 3,
         "title": "Grapefruit",
-        "id": "grapefruit"
+        "id": "grapefruit",
+        "description": "I saw my parents cutting grapefruit and I came up with this song. Not sure what else to say."
     },
     {
         "index": 4,
         "title": "Simple Existence",
-        "id": "simple_existence"
+        "id": "simple_existence",
+        "description": "Not sure what inspired this one, but it was one of the first orchestra-centered pieces I wrote. A bit janky at parts, but overall, it's not too bad (I think)."
     },
     {
         "index": 5,
         "title": "Moving As One",
-        "id": "moving_as_one"
+        "id": "moving_as_one",
+        "description": "I originally made this evolving orchestral/electronic mashup with the intent of using it as a demo for the wide range of capabilities with FL Studio, but it ended up turning into what is, in my opinion, quite a bop."
     },
     {
         "index": 6,
         "title": "Onward",
-        "id": "onward"
+        "id": "onward",
+        "description": "This one is probably on the older side. It still feels quite unfinished and empty for whatever reason, and I can't seem to fix it despite my efforts. Oh well."
     },
     {
         "index": 7,
         "title": "Fallen Glory",
-        "id": "fallen_glory"
+        "id": "fallen_glory",
+        "description": "Another orchestral composition, featuring potentially the muddiest mix known to humankind. Inspired by me playing on the piano randomly and it sounding kinda cool."
     }
 ]
 
