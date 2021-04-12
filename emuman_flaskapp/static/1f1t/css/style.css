@@ -1,5 +1,12 @@
+.start-day {
+	background: url('/static/1f1t/images/background-day.png') no-repeat center center fixed;
+}
+
+.start-night {
+	background: url('/static/1f1t/images/background-night.png') no-repeat center center fixed;
+}
+
 body {
-	background: url('/static/1f1t/images/background-day.png') no-repeat center center fixed; 
 	background-color: black;
 	
 	opacity: 1.0;

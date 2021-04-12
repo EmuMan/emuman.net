@@ -48,7 +48,7 @@ def about():
 
 @app.route("/1f1t_test")
 def test_1f1t():
-    return render_template("1f1t_index.html")
+    return render_template("1f1t_index.html", start_day=True)
 
 @app.route("/1f1t_test/custom_aspects")
 def test_1f1t_ca():

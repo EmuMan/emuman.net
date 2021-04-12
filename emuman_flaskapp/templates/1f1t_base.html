@@ -21,7 +21,11 @@
         <title>1f1t</title>
     {% endif %}
 </head>
-<body>
+{% if start_day %}
+<body class="start-day">
+{% else %}
+<body class="start-night">
+{% endif %}
 
 	<div class="main-icon-container">
 		<img class="mt-5 main-icon pixel-art" src="{{ url_for('static', filename='1f1t/images/logo.png') }}" alt="1f1t logo">
