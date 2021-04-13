@@ -6,6 +6,37 @@ var seekIsClicked = false;
 var songList = [];
 var lastVolume = 80;
 
+function initializeSong() {
+    // when the seek bar is moved, also change the song time
+    $("#seek").bind("change", function() {
+        currentSong.currentTime = $(this).val();
+        if (!isPlaying()) {
+            currentSong.pause();
+        }
+    });
+    // change volume of the song
+    $(document).on("input", "#volume", function() {
+        if (isMuted()) {
+            setMuted(false);
+        } 
+        setVolume($(this).val() / 100);
+    });
+    // when the song time changes, also move the seek bar
+    currentSong.addEventListener("timeupdate", function() {
+        if (!seekIsClicked) {
+            $("#seek").val(parseInt(currentSong.currentTime));
+            $("#seek").attr("value", parseInt(currentSong.currentTime));
+            $("#time").text(durationStr(currentSong.currentTime));
+        }
+    });
+    // when the song ends, go to the next one
+    currentSong.addEventListener("ended", function() {
+        nextSong();
+    });
+    // initialize audio volume at 80%
+    currentSong.volume = 0.8;
+}
+
 function durationStr(duration) {
     return ("0" + Math.floor(duration / 60)).slice(-2) + ":" + ("0" + Math.floor(duration % 60)).slice(-2);
 };
@@ -29,13 +60,9 @@ function newSong(songID, play) {
     $("tr").removeClass("playing");
     $("#" + songID).addClass("playing");
     // pause current song
-    if (currentSong != undefined) {
-        currentSong.pause();
-    }
+    currentSong.pause();
     // create new song
     currentSong.src = getSongURL(songID);
-    // initialize audio volume at 80%
-    currentSong.volume = 0.8;
     // initialize seek bar at 0
     $("#seek").val("0");
     $("#seek").attr("value", "0");
@@ -44,37 +71,11 @@ function newSong(songID, play) {
         $("#duration").text(durationStr(currentSong.duration));
         $("#seek").attr("max", parseInt(currentSong.duration));
     };
-    // when the seek bar is moved, also change the song time
-    $("#seek").bind("change", function() {
-        currentSong.currentTime = $(this).val();
-        if (!isPlaying()) {
-            currentSong.pause();
-        }
-    });
-    $(document).on("input", "#volume", function() {
-        if (isMuted()) {
-            setMuted(false);
-        } 
-        setVolume($(this).val() / 100);
-    });
-    // when the song time changes, also move the seek bar
-    currentSong.addEventListener("timeupdate", function() {
-        if (!seekIsClicked) {
-            $("#seek").val(parseInt(currentSong.currentTime));
-            $("#seek").attr("value", parseInt(currentSong.currentTime));
-            $("#time").text(durationStr(currentSong.currentTime));
-        }
-    });
     // whether or not to automatically play
+    currentSong.removeEventListener("canplaythrough", onSongLoad, false); // don't know if this is needed
     if (play) {
-        currentSong.addEventListener("canplaythrough", function() {
-            setPlaying(true);
-        }, false);
-    }
-    // when the song ends, go to the next one
-    currentSong.addEventListener("ended", function() {
-        nextSong();
-    });
+        currentSong.addEventListener("canplaythrough", onSongLoad, false);
+    };
     // update song description
     $("#descriptions p").each(function() {
         if ($(this).attr("id") === (songID + "-description")) {
@@ -104,6 +105,10 @@ function prevSong() {
     }
     newSong(id, true);
 };
+
+function onSongLoad() {
+    setPlaying(true);
+}
 
 function isPlaying() {
     return $("#play").find("img").attr("id") === "pause-button";
@@ -189,6 +194,7 @@ $(document).ready(function() {
     });
 
     newSong(id, false);
+    initializeSong();
 
     // so we don't automatically update the seek bar when it is clicked
     $("#seek").mousedown(function() {

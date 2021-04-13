@@ -9,13 +9,13 @@
     position: sticky;
     top: 0;
     background-color: #303538;
-    border-top: hidden;
-    border-bottom: hidden;
 }
 
 #song-table {
     border-collapse: collapse;
     width: 100%;
+    border-top: hidden;
+    border-bottom: hidden;
 }
 
 .scrolling-table th, td {
