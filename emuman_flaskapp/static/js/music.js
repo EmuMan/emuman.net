@@ -5,6 +5,7 @@ var id = undefined;
 var seekIsClicked = false;
 var songList = [];
 var lastVolume = 80;
+var musicPath = "/static/music/"
 
 function initializeSong() {
     // when the seek bar is moved, also change the song time
@@ -44,10 +45,10 @@ function durationStr(duration) {
 function getSongURL(songID) {
     if (currentSong.canPlayType("audio/mpeg;")) {
         currentSong.type = "audio/mpeg";
-        return "/static/music/originals/" + songID + ".mp3";
+        return musicPath + songID + ".mp3";
     } else {
         currentSong.type = "audio/ogg";
-        return "/static/music/originals/" + songID + ".ogg";
+        return musicPath + songID + ".ogg";
     }
 };
 
@@ -150,6 +151,8 @@ function setVolume(volume) {
 }
 
 $(document).ready(function() {
+    musicPath += $("body").find(".content").attr("id") + "/";
+
     let searchParams = new URLSearchParams(window.location.search);
     let firstSong = $("#song-table").find("tbody").find("tr").eq(0).attr("id");
 
@@ -182,10 +185,10 @@ $(document).ready(function() {
                 id = currentID;
                 newSong(id, true);
             });
-            let song = new Audio("/static/music/originals/" + currentID + ".mp3");
+            let song = new Audio(musicPath + currentID + ".mp3");
             if (!song.canPlayType("audio/mpeg;")) {
                 song.type = "audio/ogg";
-                song.src = "/static/music/originals/" + currentID + ".ogg";
+                song.src = musicPath + currentID + ".ogg";
             }
             song.onloadedmetadata = function() {
                 $("#" + currentID).find(".song-duration").text(durationStr(this.duration));

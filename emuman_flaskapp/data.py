@@ -23,51 +23,51 @@ art_pieces = [
 
 songtober_2020_songs = [
     {
-        "day": 1,
-        "prompt": "Fish",
-        "file": "1.mp3",
+        "index": 1,
+        "title": "Fish",
+        "id": "1",
         "description": "The main feature of this is the kind of arpeggiated chords in the background through the whole thing. I was kind of going for a \"bloop\" sound, and it sorta worked I guess? The wah-sounding thing at the beginning was supposed to be a little fishy as well, I don’t know why I made that correlation but hey I tried. The bells at the end were supposed to be underwater-y and smooth and stuff. I also drowned the whole thing in reverb (maybe a bit too much) and cut a lot of the high frequencies to add a little bit to the underwater feel."
     },
     {
-        "day": 2,
-        "prompt": "Wisp",
-        "file": "2.mp3",
+        "index": 2,
+        "title": "Wisp",
+        "id": "2",
         "description": "This one is more of a soundscape than anything, which is kinda cool I guess. It's like the song you'd expect to hear when you encounter a mysterious floating glow-y smoke-y thing in the woods at night or something. I used a whole tone scale to try to convey a sort of fantasy vibe for the whole thing. I actually based this off of an old sample I found of a vocal thing that I re-tuned to a single note and then put a crap ton of reverb on. I ran it through some granular synthesis, which is basically playing the sample from different points randomly to create like a whole bunch of the sound but all at different points in time, and then I played it really low and yeah. I hadn't really touched granular synthesis so it was pretty fun. The rest is mostly just ambient wind and chime noise I got off of a website and some extra noise to make the lead sound more breath-y."
     },
     {
-        "day": 3,
-        "prompt": "Bulky",
-        "file": "3.mp3",
+        "index": 3,
+        "title": "Bulky",
+        "id": "3",
         "description": "My first thought was basically that this bass would sound pretty bulky (in my eyes), so I kinda formed everything else around it. It turned out more sneaky than I would have liked, although it still has some of that chunky quality I think. Maybe something bulky sneaking around? I don't know. Other than that I'm actually okay with how it turned out. Also sorry if the bass is too loud or quiet, it's pretty headphone-dependent unfortunately and I went on the louder side."
     },
     {
-        "day": 4,
-        "prompt": "Radio",
-        "file": "4.mp3",
+        "index": 4,
+        "title": "Radio",
+        "id": "4",
         "description": "So the first thing I thought of when I heard \"radio\" was a sort of sampled lo-fi, retro aesthetic, but like, crunchier. So I kinda went with that here, and it worked out I think. The voice is from this video that I happened to remember."
     },
     {
-        "day": 5,
-        "prompt": "Blade",
-        "file": "5.mp3",
+        "index": 5,
+        "title": "Blade",
+        "id": "5",
         "description": "For this one I basically downloaded a few different sword sounds and used some percussion loops both from libraries and mine to create the kind of tribal groove going on behind. I also thought it got a little boring near the middle so I decided to add some dramatic orchestra parts to increase the energy. Not terribly well mixed, but oh well."
     },
     {
-        "day": 6,
-        "prompt": "Rodent",
-        "file": "6.mp3",
+        "index": 6,
+        "title": "Rodent",
+        "id": "6",
         "description": "I had been thinking about it for a while. I mean how in the world am I supposed to make a song about rodents??? So I basically just took a kinda squeak-sounding lead and a fast-paced tempo to indicate something scurrying around, maybe running away from something, and went from there. And now I regret everything. I'm also fairly certain that I just completely copied the melody of some other random song out there. Either that or this is the most generic cartoon-y chase music ever written."
     },
     {
-        "day": 7,
-        "prompt": "Fancy",
-        "file": "7.mp3",
+        "index": 7,
+        "title": "Fancy",
+        "id": "7",
         "description": "The first thing that came to mind when I heard \"Fancy\" was a bunch of old fashioned people sitting around in some ballroom sipping wine and listening to some guy in a wig play an old harpsichord. So that's what I tried to emulate here. I am fairly certain the beginning is extremely similar to an already existing song, but I tried to make it as unique as I could. It also might be relatively imperfect to the trained ear, but I don't think I'm going to worry about small inconsistencies like that. Oh well."
     },
     {
-        "day": 8,
-        "prompt": "Teeth",
-        "file": "8.mp3",
+        "index": 8,
+        "title": "Teeth",
+        "id": "8",
         "description": "The long anticipated \"Teeth\" song. All of the percussion is made using my teeth in a questionable ASMR-like attempt at a groovy beat. The specific technique I used for the more tonal sounds (including the electric tooth near the middle) was to identify and boost the most prominent frequency in a teeth clack. This was also the first song I livestreamed, and it was pretty fun. The sort of \"stone-agey\" vibe was actually Khanjan's idea, so that's cool. It ventured off into a more atmospheric direction than I had anticipated, but hey, I'm not complaining."
     }
 ]
