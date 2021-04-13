@@ -114,6 +114,12 @@ original_songs = [
         "title": "Fallen Glory",
         "id": "fallen_glory",
         "description": "Another orchestral composition, featuring potentially the muddiest mix known to humankind. Inspired by me playing on the piano randomly and it sounding kinda cool."
+    },
+    {
+        "index": 8,
+        "title": "The Music of Duccu",
+        "id": "the_music_of_duccu",
+        "description": "This is a combination of several musical ideas presented by some of my friends. I basically listened through their music, took what I thought sounded cool, and expanded upon it within the context of this song. There's not really a coherent genre, although I suppose it doesn't flow terribly. I think you could call it genre-bending, although I'd call it something more like genre-smushing."
     }
 ]
 
