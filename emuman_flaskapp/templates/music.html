@@ -61,7 +61,7 @@
     <br>
     <div id="descriptions">
         {% for s in songs %}
-            <p id="{{ s.id }}-description">{{ s.description }}</p>
+            <p id="{{ s.id }}-description">{{ s.description | safe }}</p>
         {% endfor %}
     </div>
     <br>
