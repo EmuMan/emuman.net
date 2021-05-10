@@ -1,0 +1,12 @@
+{% extends "raot_base.html" %}
+
+{% block content %}
+    <p class="py-5 content-title">Frequently Asked Questions</p>
+    <div>
+        {% for e in entries %}
+            <h1>{{ e.question | safe}}</h1>
+            <h4>{{ e.answer | safe}}</h4>
+            <br><br>
+        {% endfor %}
+    </div>
+{% endblock content %}

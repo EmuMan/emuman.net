@@ -4,6 +4,7 @@ import os, sys
 from flask import render_template, url_for, flash, redirect, request
 from emuman_flaskapp import app
 from emuman_flaskapp.data import art_pieces, songtober_2020_songs, discord_bots, spigot_plugins, misc_apps, original_songs
+from emuman_flaskapp.raot_data import faq_entries
 
 @app.route("/")
 def index():
@@ -57,3 +58,23 @@ def test_1f1t_ca():
 @app.route("/1f1t_test/map")
 def test_1f1t_map():
     return render_template("1f1t_map.html", title="Map View")
+
+@app.route("/raot")
+def test_raot():
+    return render_template("raot_index.html")
+
+@app.route("/raot/leaderboards")
+def test_raot_leaderboards():
+    race_map = request.args.get('map', default="cube", type=str)
+    if race_map not in ("cube", "spin", "cave"):
+        race_map = "cube"
+    raot_leaderboard_entries = [{"rank": i, "player": "EmuMan", "distance": "very far", "date": "01/01/2021"} for i in range(1, 20)]
+    return render_template("raot_leaderboards.html", title="Leaderboards", map=race_map, entries=raot_leaderboard_entries)
+
+@app.route("/raot/faq")
+def test_raot_faq():
+    return render_template("raot_faq.html", title="FAQ", entries=faq_entries)
+
+@app.route("/raot/competitive")
+def test_raot_competitive():
+    return render_template("raot_competitive.html", title="Competitive")
