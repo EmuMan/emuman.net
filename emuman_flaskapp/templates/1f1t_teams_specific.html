@@ -1,0 +1,25 @@
+
+{% extends "1f1t_base.html" %}
+
+{% block content %}
+    <h1 class="mt-5 centered info-text">{{ acronym }}</h1>
+    <p class="info-box">{{ team }}</p>
+    <br>
+    <p class="centered"><img src="{{ url_for('static', filename='1f1t/images/divider.png') }}" class="big-divider"></p>
+    {% if leaders %}
+        <h1 class="mt-5 centered" id="description" style="font-size: 50px;">Leaders</h1>
+        <div class="info-box">
+            {% for leader in info.leaders %}
+                <p>{{ leader }}</p>
+            {% endfor %}
+        </div>
+        <p class="centered"><img src="{{ url_for('static', filename='1f1t/images/divider.png') }}" class="divider"></p>
+    {% endif %}
+    <h1 class="mt-5 centered" id="joining" style="font-size: 50px;">Members</h1>
+    <div class="info-box">
+        {% for member in info.members %}
+            <p>{{ member }}</p>
+        {% endfor %}
+    </div>
+    <br><br><br>
+{% endblock content %}

@@ -4,6 +4,7 @@ import os, sys
 from flask import render_template, url_for, flash, redirect, request
 from emuman_flaskapp import app
 from emuman_flaskapp.data import art_pieces, songtober_2020_songs, discord_bots, spigot_plugins, misc_apps, original_songs
+from emuman_flaskapp.test_1f1t_data import teams
 from emuman_flaskapp.raot_data import faq_entries
 
 @app.route("/")
@@ -57,7 +58,21 @@ def test_1f1t_ca():
 
 @app.route("/1f1t_test/teams")
 def test_1f1t_teams():
-    return render_template("1f1t_teams.html", title="Teams")
+    entries = []
+    for team, info in teams.items():
+        entry = {}
+        entry["acronym"] = "".join([word[0] for word in team.split(" ")]).upper()
+        entry["name"] = team
+        entry["leaders"] = ", ".join(info["leaders"]) if len(info["leaders"]) > 0 else ""
+        entries.append(entry)
+    return render_template("1f1t_teams.html", title="Teams", entries=entries)
+
+@app.route("/1f1t_test/teams/<acronym>")
+def test_1f1t_teams_specific(acronym):
+    for team, info in teams.items():
+        if "".join([word[0] for word in team.split(" ")]).lower() == acronym.lower():
+            return render_template("1f1t_teams_specific.html", team=team, acronym=acronym.upper(), info=info)
+    return redirect(url_for("test_1f1t_teams"))
 
 @app.route("/1f1t_test/seasons")
 def test_1f1t_seasons():

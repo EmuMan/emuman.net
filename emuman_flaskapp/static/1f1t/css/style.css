@@ -26,6 +26,7 @@ body {
 .content {
 	color: whitesmoke;
 	font-family: Abel;
+	text-align: center;
 }
 
 .centered {
@@ -125,4 +126,26 @@ a.no-underline:hover {
 
 .navbar-logo {
     height: 45px;
+}
+
+.team-table {
+    width: 70%;
+    font-size: 30px;
+}
+
+th, td {
+    padding: 5px;
+    border-bottom: 1px solid #eeeeee;
+}
+
+td a {
+	display: block;
+}
+
+tr.full-hover a {
+	text-decoration: none;
+}
+
+tr.full-hover:hover a {
+	color: #d0d0d0;
 }
