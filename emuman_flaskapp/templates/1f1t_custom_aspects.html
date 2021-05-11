@@ -2,9 +2,7 @@
 {% extends "1f1t_base.html" %}
 
 {% block content %}
-<div class="content">
     <h1 class="mt-5 centered info-text">Custom Aspects</h1>
-    <h2 class="centered"><a class="no-underline" href="{{ url_for('test_1f1t') }}">( go back )</a></h2>
     <p class="centered"><img src="{{ url_for('static', filename='1f1t/images/divider.png') }}" class="big-divider"></p>
     <h1 class="mt-5 centered" id="iridium" style="font-size: 50px;">Iridium</h1>
     <div class="info-box">
@@ -40,5 +38,4 @@
         <p>On this server, explosions such as those from TNT and creepers do no damage to the surrounding blocks or entities. This means no griefing, random deaths, or random holes in the ground, but it also means no TNT-based resource farms.</p>
     </div>
     <br><br><br>
-</div>
 {% endblock content %}

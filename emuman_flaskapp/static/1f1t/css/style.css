@@ -30,6 +30,9 @@ body {
 
 .centered {
 	text-align: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .big-divider {
@@ -85,4 +88,41 @@ a.no-underline {
 
 a.no-underline:hover {
 	text-decoration: none;
+}
+
+.generic-navbar {
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.2);
+    width: 80%;
+	color: whitesmoke;
+	font-family: Abel;
+}
+
+.generic-navbar a {
+	float: left;
+    display: block;
+    text-align: center;
+    padding: 15px;
+    padding-left: 25px;
+    padding-right: 25px;
+    text-decoration: none;
+}
+
+#main-navbar {
+    font-size: 30px;
+}
+
+.sticky {
+    position: fixed;
+    top: 0%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+}
+
+.sticky + .content {
+    padding-top: 80px;
+}
+
+.navbar-logo {
+    height: 45px;
 }

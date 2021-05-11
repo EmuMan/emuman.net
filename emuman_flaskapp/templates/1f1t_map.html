@@ -2,13 +2,12 @@
 {% extends "1f1t_base.html" %}
 
 {% block content %}
-<div class="content">
     <h1 class="mt-5 centered info-text">Isometric Map</h1>
-    <h2 class="centered"><a class="no-underline" href="{{ url_for('test_1f1t') }}">( go back )</a></h2>
+    <p class="info-box">From Season 4</p>
+    <br>
     <p class="centered"><img src="{{ url_for('static', filename='1f1t/images/divider.png') }}" class="big-divider"></p>
     <div class="centered">
         <iframe class="centered" id="cbrender" src="{{ url_for('static', filename='1f1t/map/index.html') }}" style="width: 75%; aspect-ratio: 16/9;"></iframe>
     </div>
     <br><br><br>
-</div>
 {% endblock content %}

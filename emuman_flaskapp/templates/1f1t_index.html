@@ -2,7 +2,6 @@
 {% extends "1f1t_base.html" %}
 
 {% block content %}
-<div class="content">
     <h1 class="my-5 centered info-text" id="transition">IP: 1f1n1ty.mcpro.io</h1>
     <p class="centered"><img src="{{ url_for('static', filename='1f1t/images/divider.png') }}" class="big-divider"></p>
     <h1 class="my-5 centered" style="font-size: 50px;">About the Server</h1>
@@ -30,17 +29,16 @@
         <p><a href="{{ url_for('test_1f1t_map') }}">Click here to see it.</a></p>
     </div>
     <br><br><br>
-</div>
 
-<script>
-    var transitionPoint = $("#transition").offset().top; //gets offset of header
-    $(window).scroll(function(){
-        if($(window).scrollTop() > transitionPoint){
-           $(document.body).css({"background-image": "url('{{ url_for('static', filename='1f1t/images/background-night.png') }}')"});
-        }
-        else{
-           $(document.body).css({"background-image": "url('{{ url_for('static', filename='1f1t/images/background-day.png') }}')"});
-        }
-    });
-</script>
+    <script>
+        var transitionPoint = $("#transition").offset().top; //gets offset of header
+        $(window).scroll(function(){
+            if($(window).scrollTop() > transitionPoint){
+            $(document.body).css({"background-image": "url('{{ url_for('static', filename='1f1t/images/background-night.png') }}')"});
+            }
+            else{
+            $(document.body).css({"background-image": "url('{{ url_for('static', filename='1f1t/images/background-day.png') }}')"});
+            }
+        });
+    </script>
 {% endblock content %}

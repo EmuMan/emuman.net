@@ -14,6 +14,7 @@
 	<link href='https://fonts.googleapis.com/css?family=Abel' rel='stylesheet'>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="{{ url_for('static', filename='1f1t/js/navbar.js') }}"></script>
 
     {% if title %}
         <title>1f1t - {{ title }}</title>
@@ -30,9 +31,23 @@
 	<div class="main-icon-container">
 		<img class="mt-5 main-icon pixel-art" src="{{ url_for('static', filename='1f1t/images/logo.png') }}" alt="1f1t logo">
 	</div>
+    
+    <br><br>
+
+    <div class="generic-navbar centered container" id="main-navbar">
+        <a href="{{ url_for('test_1f1t') }}"><img src="{{ url_for('static', filename='1f1t/images/logo.png') }}" class="navbar-logo pixel-art"></a>
+        <a href="{{ url_for('test_1f1t') }}">About</a>
+        <a href="{{ url_for('test_1f1t_ca') }}">Custom Aspects</a>
+        <a href="{{ url_for('test_1f1t_teams') }}">Teams</a>
+        <a href="{{ url_for('test_1f1t_seasons') }}">Seasons</a>
+        <a href="{{ url_for('test_1f1t_contributors') }}">Contributors</a>
+        <a href="{{ url_for('test_1f1t_map') }}">Map</a>
+    </div>
 	
-    {% block content %}
-    {% endblock content %}
+    <div class="content">
+        {% block content %}
+        {% endblock content %}
+    </div>
 
 </body>
 </html>

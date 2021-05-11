@@ -55,6 +55,18 @@ def test_1f1t():
 def test_1f1t_ca():
     return render_template("1f1t_custom_aspects.html", title="Custom Aspects")
 
+@app.route("/1f1t_test/teams")
+def test_1f1t_teams():
+    return render_template("1f1t_teams.html", title="Teams")
+
+@app.route("/1f1t_test/seasons")
+def test_1f1t_seasons():
+    return render_template("1f1t_seasons.html", title="Seasons")
+
+@app.route("/1f1t_test/contributors")
+def test_1f1t_contributors():
+    return render_template("1f1t_contributors.html", title="Contributors")
+
 @app.route("/1f1t_test/map")
 def test_1f1t_map():
     return render_template("1f1t_map.html", title="Map View")
