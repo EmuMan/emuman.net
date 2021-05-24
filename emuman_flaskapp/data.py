@@ -153,11 +153,22 @@ spigot_plugins = [
     {
         "name": "InstaDeath",
         "description": "Basically, everything kills you in one hit. Your health will stay at 1/2 of a heart the whole time, and there's nothing you can do about it. Unlike most instant death plugins, the rest of the healthbar is even still there just to make you feel worse about your situation. Armor won't save you either, no matter how small the amount of damage you take is it will kill you. Instantly.",
-        "file": "instadeath-1.0.0.jar"
+        "file": "instadeath-1.0.jar"
+    },
+    {
+        "name": "Vegancraft",
+        "description": "Add an extra challenge to your Minecraft server by removing your ability to use animal products! Actions such as consuming meat, crafting honey blocks, or equipping leather armor will kill you instantly.",
+        "file": "vegancraft-1.0.0.jar"
     }
 ]
 
 misc_apps = [
+    {
+        "name": "1f1t",
+        "descriptions": [
+            "1f1t is a collaborative Minecraft server for which I am one of the developers. This mostly includes writing server plugins, but you can also find an unfinished website that I have set up <a class=\"inline-link\" href=\"https://emuman.net/1f1t_test\">here</a>."
+        ]
+    },
     {
         "name": "Blender MIDI Utils (Animusic inspired)",
         "descriptions": [

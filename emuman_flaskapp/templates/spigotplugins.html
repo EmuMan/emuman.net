@@ -11,7 +11,7 @@
         <div class="mx-3">
             <h2>{{ plugin.name }}</h2>
             <p>{{ plugin.description }}</p>
-            <p>You can download the plugin <a class="inline-link" href="{{ url_for('static', filename='plugins/'+plugin.file) }}">here</a>.</p>
+            <p>You can download the plugin <a class="inline-link" href="{{ url_for('static', filename='spigot/'+plugin.file) }}">here</a>.</p>
         </div>
         <br><hr><br>
     {% endfor %}
