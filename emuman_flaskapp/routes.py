@@ -1,11 +1,18 @@
 import random
 import json
 import os, sys
-from flask import render_template, url_for, flash, redirect, request
+from flask import render_template, url_for, redirect, request, send_from_directory
 from emuman_flaskapp import app
 from emuman_flaskapp.data import art_pieces, songtober_2020_songs, discord_bots, spigot_plugins, misc_apps, original_songs
 from emuman_flaskapp.test_1f1t_data import teams
 from emuman_flaskapp.raot_data import faq_entries
+
+
+@app.route("/robots.txt")
+@app.route("/sitemap.xml")
+def static_from_root():
+    return send_from_directory(app.static_folder, request.path[1:])
+
 
 @app.route("/")
 def index():
