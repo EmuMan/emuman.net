@@ -54,7 +54,7 @@ function getSongURL(songID) {
 
 function newSong(songID, play) {
     // update currently playing text
-    $("#playing").text($("#" + songID).find(".song-title").text());
+    $("#nowplaying").text($("#" + songID).find(".song-title").text());
     // update url
     window.history.replaceState(null, null, "?id=" + songID);
     // update playing colors in table
@@ -151,7 +151,7 @@ function setVolume(volume) {
 }
 
 $(document).ready(function() {
-    musicPath += $("body").find(".content").attr("id") + "/";
+    musicPath += $("body").find(".music-location").attr("id") + "/";
 
     let searchParams = new URLSearchParams(window.location.search);
     let firstSong = $("#song-table").find("tbody").find("tr").eq(0).attr("id");
@@ -218,7 +218,7 @@ $(document).ready(function() {
         setMuted(!isMuted());
     });
 
-    $("#playing").text($("#" + id).find(".song-title").text());
+    $("#nowplaying").text($("#" + id).find(".song-title").text());
 
 });
 

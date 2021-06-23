@@ -37,7 +37,7 @@ def miscprogramming():
     
 @app.route("/art")
 def art():
-    return render_template("art.html", title="Art", art_rows=[art_pieces[i:i + 3] for i in range(0, len(art_pieces), 3)])
+    return render_template("art.html", title="Art", art=art_pieces)
 
 @app.route("/music")
 def music():

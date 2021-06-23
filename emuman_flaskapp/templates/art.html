@@ -1,22 +1,22 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container mt-5 px-5">
-    <h1>My Art</h1>
-    <p>I'm no artist, but here's some stuff I've created anyways if you'd like to have a look around.</p>
-    
-    <br><hr><br>
-    {% for row in art_rows %}
-        <div class="card-deck pb-4">
-            {% for a in row %}
-                <div class="card bg-dark border-light" style="width: 18rem;">
-                    <img class="card-img-top" src="{{ url_for('static', filename='art/'+a.file) }}">
-                    <div class="card-body">
-                        <p class="card-text">{{ a.description }}</p>
-                    </div>
-                </div>
-            {% endfor %}
+<h1>My Art</h1>
+<p>I'm no artist, but here's some stuff I've created anyways if you'd like to have a look around.</p>
+
+<br><hr><br>
+{% for a in art %}
+<div class="gallery-responsive">
+    <div class="gallery-entry">
+        <a target="_blank" href="{{ url_for('static', filename='art/'+a.file) }}">
+            <img class="gallery-img" src="{{ url_for('static', filename='art/'+a.file) }}">
+        </a>
+        <div class="gallery-desc">
+            <p>{{ a.description }}</p>
         </div>
-    {% endfor %}
+    </div>
 </div>
+{% endfor %}
+
+<div class="clearfix"></div>
 {% endblock content %}

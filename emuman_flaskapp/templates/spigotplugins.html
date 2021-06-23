@@ -1,19 +1,17 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container mt-5 px-5">
-    <h1>Spigot Plugins</h1>
-    <p>Minecraft is fun, but plugins can make it even more fun! Here are some of the plugins I've made.</p>
+<h1>Spigot Plugins</h1>
+<p>Minecraft is fun, but plugins can make it even more fun! Here are some of the plugins I've made.</p>
 
+<br><hr><br>
+
+{% for plugin in plugins %}
+    <div class="mx-3">
+        <h2>{{ plugin.name }}</h2>
+        <p>{{ plugin.description }}</p>
+        <p>You can download the plugin <a class="inline-link" href="{{ url_for('static', filename='spigot/'+plugin.file) }}">here</a>.</p>
+    </div>
     <br><hr><br>
-
-    {% for plugin in plugins %}
-        <div class="mx-3">
-            <h2>{{ plugin.name }}</h2>
-            <p>{{ plugin.description }}</p>
-            <p>You can download the plugin <a class="inline-link" href="{{ url_for('static', filename='spigot/'+plugin.file) }}">here</a>.</p>
-        </div>
-        <br><hr><br>
-    {% endfor %}
-</div>
+{% endfor %}
 {% endblock content %}

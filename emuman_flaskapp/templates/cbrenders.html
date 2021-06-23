@@ -2,16 +2,14 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container mt-5 px-5">
-    <h1>Creeper Booty SMP Isometric Renders</h1>
-    <select name="season" class="dark-dropdown" id="season">
-        <option value="1"{% if season == 1 %} selected{% endif %}>Season 1</option>
-        <option value="6"{% if season == 6 %} selected{% endif %}>Season 6</option>
-    </select>
-    <br><hr><br>
-    <div class="map-div">
-        <iframe id="cbrender" src="{{ url_for('static', filename='cbrenders/s'+season|string+'/index.html') }}"></iframe>
-    </div>
+<h1>Creeper Booty SMP Isometric Renders</h1>
+<select name="season" class="dark-dropdown" id="season">
+    <option value="1"{% if season == 1 %} selected{% endif %}>Season 1</option>
+    <option value="6"{% if season == 6 %} selected{% endif %}>Season 6</option>
+</select>
+<br><hr><br>
+<div class="map-div">
+    <iframe id="cbrender" src="{{ url_for('static', filename='cbrenders/s'+season|string+'/index.html') }}"></iframe>
 </div>
 
 <script src="{{ url_for('static', filename='js/cbrenders.js') }}"></script>

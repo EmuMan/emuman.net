@@ -1,23 +1,213 @@
+:root {
+    --clr-neutral-200: #303138;
+    --clr-neutral-300: #3d3f46;
+    --clr-neutral-400: #4a4d55;
+    --clr-neutral-600: #9496a0;
+    --clr-neutral-900: #eaedf8;
+
+    --ff-accent: 'Courier New', Courier, monospace;
+    --ff-primary: Arial, Helvetica, sans-serif;
+}
+
+/* no clue what this does */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body,
+h1,
+h2,
+h3,
+p {
+    margin: 0;
+}
+
 a.nounderline {
     text-decoration: none;
 }
 
 body {
     /* font-family: 'Courier New', Courier, monospace; */
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: #272c30;
-    color: white;
+    font-family: var(--ff-primary);
+    background-color: var(--clr-neutral-200);
+    color: var(--clr-neutral-900);
 }
   
 a {
-    color: white;
+    color: var(--clr-neutral-900);
 }
 
 #page-title {
     text-align: center;
     font-size: 70px;
-    font-family: 'Courier New', Courier, monospace;
-    font-weight: bold;
+    font-family: var(--ff-accent);
+    font-weight: 900;
+    padding-top: 200px;
+}
+
+.container {
+    margin-inline: auto;
+    width: min(85%, 1250px);
+}
+
+.clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* ------------------------------ */
+
+.content h1,
+.content h2,
+.content h3,
+.content p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    line-height: 1.4em;
+}
+
+.content {
+    padding-bottom: 100px;
+}
+
+/* ------------------------------ */
+/* ref: https://css-tricks.com/solved-with-css-dropdown-menus/ */
+
+.topnav {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    width: 100%;
+}
+
+.topnav ul {
+    background: var(--clr-neutral-300);
+    list-style: none;
+    margin: 0px;
+    padding-left: 0px;
+    display: flex;
+    outline: 1px solid var(--clr-neutral-900);
+}
+
+.topnav li {
+    color: var(--clr-neutral-900);
+    background: var(--clr-neutral-300);
+    display: block;
+    float: left;
+    padding: 1em;
+    padding-left: 2em;
+    padding-right: 2em;
+    position: relative;
+    text-decoration: none;
+}
+
+.topnav li:hover {
+    background: var(--clr-neutral-400);
+    cursor: pointer;
+}
+
+.topnav ul li ul  {
+    background: var(--clr-neutral-300);
+    visibility: hidden;
+    opacity: 0;
+    min-width: max-content;
+    position: absolute;
+    margin-top: 1.1rem;
+    left: 0px;
+    display: none;
+}
+
+/* This compound selector will still work in IE 11 because :focus-within isn't mixed in */
+.topnav ul li:hover > ul,
+.topnav ul li ul:hover {
+    visibility: visible;
+    opacity: 1;
+    display: block;
+}
+
+/* IE 11 won't get this, but at least the top-level menus will work */
+.topnav ul li:focus-within > ul {
+    visibility: visible;
+    opacity: 1;
+    display: block;
+}
+
+.topnav ul li ul li {
+    clear: both;
+    width: 100%;
+}
+
+.topnav a {
+    font-size: 25px;
+    color: var(--clr-neutral-900);
+    font-family: var(--ff-accent);
+    font-weight: 900;
+    text-decoration: none;
+}
+
+@media (max-width: 1200px) {
+    .topnav ul {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .topnav li {
+        color: var(--clr-neutral-900);
+        background: var(--clr-neutral-300);
+        display: block;
+        float: initial;
+        padding: 1em;
+        padding-left: 2em;
+        padding-right: 2em;
+        position: initial;
+        text-decoration: none;
+    }
+
+    .topnav ul li ul  {
+        position: initial;
+        margin-top: 1rem;
+        display: none;
+    }
+}
+
+/* ------------------------------ */
+
+div.gallery-entry {
+    border: 1px solid var(--clr-neutral-600);
+}
+
+div.gallery-entry:hover {
+    border: 1px solid var(--clr-neutral-900)
+}
+
+img.gallery-img {
+    width: 100%;
+    height: auto;
+}
+
+div.gallery-desc {
+    padding: 15px;
+    text-align: center;
+}
+
+.gallery-responsive {
+    padding: 6px 6px;
+    float: left;
+    width: 24.9999%;
+}
+
+@media only screen and (max-width: 1200px) {
+    .gallery-responsive {
+        width: 49.9999%;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    .gallery-responsive {
+        width: 100%;
+    }
 }
 
 /* ------------------------------ */
@@ -31,6 +221,15 @@ a {
     font-size: 28px;
     display: table-cell;
     vertical-align: middle;
+}
+
+.bot-list {
+    line-height: 1.3em;
+}
+
+.bot-list li {
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
 }
 
 .prefix {
@@ -51,24 +250,12 @@ a.inline-link {
 }
 
 a.inline-link:hover {
-    color: lightslategray;
-}
-
-.content {
-padding: 30px 35px;
-background-color: #1f1f1f;
-}
-
-.topnav a {
-    font-size: 25px;
-    color: white;
-    font-family: 'Courier New', Courier, monospace;
-    font-weight: bold;
+    color: var(--clr-neutral-600);
 }
 
 hr {
     display: block; height: 1px;
-    border: 0; border-top: 1px solid #ccc;
+    border: 0; border-top: 1px solid var(--clr-neutral-600);
     margin: 1em 0; padding: 0;
 }
 
@@ -81,7 +268,7 @@ hr {
 }
 
 .basic-table table, th, td {
-    border: 1px solid whitesmoke;
+    border: 1px solid var(--clr-neutral-900);
 }
 
 .basic-table th, td {
@@ -90,16 +277,16 @@ hr {
 }
 
 .basic-table th {
-    background-color: #2c2e30;
+    background-color: var(--clr-neutral-200);
     font-weight: bold;
 }
 
 .basic-table tr {
-    background-color: #34383a;
+    background-color: var(--clr-neutral-300);
 }
 
 .basic-table tr:nth-child(even) {
-    background-color: #3d4144;
+    background-color: var(--clr-neutral-400);
 }
 
 /* ----------------------- */
@@ -111,9 +298,107 @@ hr {
 }
 
 .dark-dropdown {
-    color: whitesmoke;
+    color: var(--clr-neutral-900);
     font-size: 20px;
-    background-color: #34383a;
+    background-color: var(--clr-neutral-300);
     padding: 5px;
-    border-color: whitesmoke;
+    border-color: var(--clr-neutral-900);
+}
+
+/* ----------------------- */
+
+.scrolling-table {
+    overflow-y: auto;
+    height: 300px;
+}
+
+.scrolling-table thead th {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    background-color: var(--clr-neutral-200);
+}
+
+.playing {
+    background-color: var(--clr-neutral-600);
+}
+
+.scrolling-table tr {
+    background-color: var(--clr-neutral-300);
+}
+
+.scrolling-table tr:nth-child(even) {
+    background-color: var(--clr-neutral-400);
+}
+
+.scrolling-table tr:hover {
+    background-color: var(--clr-neutral-200);
+}
+
+#song-table {
+    border-collapse: collapse;
+    width: 100%;
+    border-top: hidden;
+    border-bottom: hidden;
+}
+
+.scrolling-table th, td {
+    padding: 8px 16px;
+}
+
+#nowplaying {
+    font-size: 30px;
+}
+
+#player {
+	text-align: center;
+}
+
+#seek {
+    width: 70%;
+}
+
+#volume {
+    width: min(40%, 150px);
+}
+
+button {
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+}
+
+.buttons > * {
+    flex-basis: 100%;
+}
+
+.song-navigation {
+    text-align: center;
+}
+
+.vol-control {
+    text-align: left;
+}
+
+@media only screen and (max-width: 1200px) {
+    .buttons {
+        flex-direction: column;
+    }
+    .vol-control {
+        text-align: center;
+    }
+}
+
+#descriptions {
+    text-align: center;
+    padding-left: 20%;
+    padding-right: 20%;
 }

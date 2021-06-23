@@ -2,8 +2,6 @@
 {% extends "base.html" %}
 
 {% block headcontent %}
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/music.css') }}">
-
 <script
     src="https://code.jquery.com/jquery-3.6.0.min.js"
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
@@ -12,58 +10,55 @@
 {% endblock headcontent %}
 
 {% block content %}
-<div class="container mt-5 px-5 content" id="originals">
-    <h1>Original Music</h1>
-    <p>This page contains music that is, as of now, unreleased anywhere else. I will probably put stuff here before polishing and posting it in the future as well. And yes, I did build my own audio player just to avoid properly posting my work online.</p>
-    <p><b>NOTE:</b> Wearing headphones or using external speakers (not your phone or laptop's built-in speakers) will make your listening experience much better. I promise.</p>
-    <hr><br>
-    <div class="container scrolling-table">
-        <table id="song-table">
-            <thead>
-                <th style="width: 10%; text-align: center;">#</th>
-                <th>Title</th>
-                <th>Duration</th>
-            </thead>
-            <tbody>
-                {% for s in songs %}
-                <tr class="song-entry" id="{{ s.id }}">
-                    <td class="song-index py-1" style="text-align: center;">{{ s.index }}</td>
-                    <td class="song-title">{{ s.title }}</td>
-                    <td class="song-duration">--:--</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    <br><br>
-    <div id="player">
-        <p class="my-0">- Now playing -</p>
-        <p id="playing" style="font-size: 30px;"></p>
-        <p>
-            <input type="range" id="seek" style="width: 50%;" value="0" max="">
-            <span id="time">--:--</span> / <span id="duration">--:--</span>
-        </p>
-        <table class="buttons" style="width: 100%;">
-            <tr>
-                <td class="buttons" style="width: 34.2%;"></td>
-                <td class="buttons" style="text-align: center;">
-                    <button id="prev"><img src="{{ url_for('static', filename='images/prev.png') }}"></button>
-                    <button id="play"><img id="play-button" src="{{ url_for('static', filename='images/play.png') }}"></button>
-                    <button id="next"><img src="{{ url_for('static', filename='images/next.png') }}"></button>
-                </td>
-                <td class="buttons" style="text-align: left;">
-                    <button id="mute"><img id="speaker-button" src="{{ url_for('static', filename='images/speaker.png') }}"></button>
-                    <input type="range" id="volume" style="width: 35%;" value="80" max="100">
-                </td>
+<h1>Original Music</h1>
+<p>This page contains music that is, as of now, unreleased anywhere else. I will probably put stuff here before polishing and posting it in the future as well. And yes, I did build my own audio player just to avoid properly posting my work online.</p>
+<p><b>NOTE:</b> Wearing headphones or using external speakers (not your phone or laptop's built-in speakers) will make your listening experience much better. I promise.</p>
+<br><hr><br><br>
+<div class="container scrolling-table">
+    <table id="song-table">
+        <thead>
+            <th style="width: 10%; text-align: center;">#</th>
+            <th>Title</th>
+            <th>Duration</th>
+        </thead>
+        <tbody>
+            {% for s in songs %}
+            <tr class="song-entry" id="{{ s.id }}">
+                <td class="song-index py-1" style="text-align: center;">{{ s.index }}</td>
+                <td class="song-title">{{ s.title }}</td>
+                <td class="song-duration">--:--</td>
             </tr>
-        </table>
-    </div>
-    <br>
-    <div id="descriptions">
-        {% for s in songs %}
-            <p id="{{ s.id }}-description">{{ s.description | safe }}</p>
-        {% endfor %}
-    </div>
-    <br>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
+<br><br>
+<div class="music-location" id="originals"></div>
+<div id="player">
+    <p>- Now playing -</p>
+    <p id="nowplaying"></p>
+    <p>
+        <input type="range" id="seek" value="0" max="">
+        <span id="time">--:--</span> / <span id="duration">--:--</span>
+    </p>
+    <div class="buttons">
+        <div></div>
+        <div class="song-navigation">
+            <button id="prev"><img src="{{ url_for('static', filename='images/prev.png') }}"></button>
+            <button id="play"><img id="play-button" src="{{ url_for('static', filename='images/play.png') }}"></button>
+            <button id="next"><img src="{{ url_for('static', filename='images/next.png') }}"></button>
+        </div>
+        <div class="vol-control">
+            <button id="mute"><img id="speaker-button" src="{{ url_for('static', filename='images/speaker.png') }}"></button>
+            <input type="range" id="volume" value="80" max="100">
+        </div>
+    </div>
+</div>
+<br>
+<div id="descriptions">
+    {% for s in songs %}
+        <p id="{{ s.id }}-description">{{ s.description | safe }}</p>
+    {% endfor %}
+</div>
+<br>
 {% endblock content %}
