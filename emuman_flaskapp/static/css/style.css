@@ -89,7 +89,7 @@ a {
     margin: 0px;
     padding-left: 0px;
     display: flex;
-    outline: 1px solid var(--clr-neutral-900);
+    border: 1px solid var(--clr-neutral-900);
 }
 
 .topnav li {
@@ -115,7 +115,7 @@ a {
     opacity: 0;
     min-width: max-content;
     position: absolute;
-    margin-top: 1.1rem;
+    margin-top: 1rem;
     left: 0px;
     display: none;
 }
