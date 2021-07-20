@@ -69,6 +69,12 @@ songtober_2020_songs = [
         "title": "Teeth",
         "id": "8",
         "description": "The long anticipated \"Teeth\" song. All of the percussion is made using my teeth in a questionable ASMR-like attempt at a groovy beat. The specific technique I used for the more tonal sounds (including the electric tooth near the middle) was to identify and boost the most prominent frequency in a teeth clack. This was also the first song I livestreamed, and it was pretty fun. The sort of \"stone-agey\" vibe was actually Khanjan's idea, so that's cool. It ventured off into a more atmospheric direction than I had anticipated, but hey, I'm not complaining."
+    },
+    {
+        "index": 9,
+        "title": "Throw",
+        "id": "9",
+        "description": "I bought a slide whistle for this song. A good one too. Was it worth it? Absolutely, the slide whistle is great and I would never change my decision. I tried something a bit new with this one, playing on the idea of an object rising up and falling back down to the ground and anchored to the motion of the slide whistle. It turned out okay? I think? Definitely more electronic-y than my other stuff, which was kinda fun to experiment with."
     }
 ]
 
