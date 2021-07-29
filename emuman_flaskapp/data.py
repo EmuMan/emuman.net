@@ -79,7 +79,7 @@ songtober_2020_songs = [
     {
         "index": 10,
         "title": "Hope",
-        "id": "9",
+        "id": "10",
         "description": "This one was honestly harder than I would have imagined. I had something else written at the end, but I felt it was a bit lacking both thematically and compositionally, so I changed it to what is now displayed here. The idea was to start off with a rather dismal tone and bring an element of, well, hope, into it, so I hope I at least got somewhat close to that goal."
     }
 ]
