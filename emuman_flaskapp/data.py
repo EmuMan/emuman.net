@@ -75,6 +75,12 @@ songtober_2020_songs = [
         "title": "Throw",
         "id": "9",
         "description": "I bought a slide whistle for this song. A good one too. Was it worth it? Absolutely, the slide whistle is great and I would never change my decision. I tried something a bit new with this one, playing on the idea of an object rising up and falling back down to the ground and anchored to the motion of the slide whistle. It turned out okay? I think? Definitely more electronic-y than my other stuff, which was kinda fun to experiment with."
+    },
+    {
+        "index": 10,
+        "title": "Hope",
+        "id": "9",
+        "description": "This one was honestly harder than I would have imagined. I had something else written at the end, but I felt it was a bit lacking both thematically and compositionally, so I changed it to what is now displayed here. The idea was to start off with a rather dismal tone and bring an element of, well, hope, into it, so I hope I at least got somewhat close to that goal."
     }
 ]
 
