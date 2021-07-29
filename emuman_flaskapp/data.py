@@ -81,6 +81,12 @@ songtober_2020_songs = [
         "title": "Hope",
         "id": "10",
         "description": "This one was honestly harder than I would have imagined. I had something else written at the end, but I felt it was a bit lacking both thematically and compositionally, so I changed it to what is now displayed here. The idea was to start off with a rather dismal tone and bring an element of, well, hope, into it, so I hope I at least got somewhat close to that goal."
+    },
+    {
+        "index": 11,
+        "title": "Disgusting",
+        "id": "11",
+        "description": "I started off with a bunch of bubbly ambience, and then I decided to try some sound design and everything went downhill from there. It ended up sounding like a sort of swampy boss theme to me? Or something like that. Maybe. E says that the bass sounds like a fart sound but I guess that fits the prompt too so I can't complain much."
     }
 ]
 
