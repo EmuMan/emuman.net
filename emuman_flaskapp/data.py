@@ -134,6 +134,7 @@ discord_bots = [
         "name": "corn",
         "pfp": "corn.png",
         "prefix": "c!",
+        "link": "https://discordapp.com/oauth2/authorize?client_id=461849775516418059&scope=bot&permissions=0",
         "descriptions": [
             {
                 "text": "corn is one of the first Discord bots I've ever made, but it's still one of my favorites. The rules are simple:",
