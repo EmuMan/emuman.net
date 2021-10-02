@@ -138,6 +138,12 @@ original_songs = [
         "title": "The Music of Duccu",
         "id": "the_music_of_duccu",
         "description": "This is a combination of several musical ideas presented by some of my friends, mainly <a class=\"inline-link\" target=\"_blank\" href=\"https://rosetta222.tumblr.com/\">rosetta222</a> and the great <a class=\"inline-link\" target=\"_blank\" href=\"https://www.instagram.com/_.jahmusic/\">Jonathan A. Mio</a>. I basically listened through their music, took what I thought sounded cool, and expanded upon it within the context of this song. There's not really a coherent genre, although I suppose it doesn't flow terribly. I think you could call it genre-bending, although I'd call it something more like genre-smushing."
+    },
+    {
+        "index": 9,
+        "title": "Redzone (Instrumental)",
+        "id": "redzone_instrumental",
+        "description": "A tentatively named and unmastered song that I was inspired to write after watching, of course, Initial D. I'm still working on lyrics and stuff that I might add, but I figured why not put what I have up here anyways."
     }
 ]
 
