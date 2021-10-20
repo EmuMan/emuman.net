@@ -12,7 +12,9 @@
         <meta property="og:title" content="EmuMan's Website">
     {% endif %}
     <meta property="og:type" content="website">
+    {% if not error %}
     <meta property="og:url" content="https://emuman.net{{ url_for(request.endpoint) }}">
+    {% endif %}
     <meta property="og:image" content="https://emuman.net{{ url_for('static', filename='images/emu.png') }}">
     <meta property="og:description" content="Hello, EmuMan here. On this website, you can find out about all of the stuff I do, such as programming, writing music, and more!">
 

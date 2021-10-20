@@ -144,6 +144,12 @@ original_songs = [
         "title": "Redzone (Instrumental)",
         "id": "redzone_instrumental",
         "description": "A tentatively named and unmastered song that I was inspired to write after watching, of course, Initial D. I'm still working on lyrics and stuff that I might add, but I figured why not put what I have up here anyways."
+    },
+    {
+        "index": 10,
+        "title": "Zenith",
+        "id": "zenith",
+        "description": "I wanted to try some more sound-design-y stuff with this one, and I'm pretty happy with how it turned out. Maybe a bit repetitive, but I couldn't really think of anything else to continue the song. It's a bit different from my usual stuff, as everything else seems to be, but I had fun making it."
     }
 ]
 

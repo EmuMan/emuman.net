@@ -13,6 +13,9 @@ from emuman_flaskapp.raot_data import faq_entries
 def static_from_root():
     return send_from_directory(app.static_folder, request.path[1:])
 
+@app.errorhandler(404)
+def page_not_found(error):
+    return render_template('404.html', error=True, title="Page Not Found"), 404
 
 @app.route("/streamredirect")
 def stream_redirect():
@@ -59,6 +62,10 @@ def cbrenders():
 @app.route("/about")
 def about():
     return render_template("about.html", title="About Me")
+
+@app.route("/for_roark")
+def for_roark():
+    return render_template("for_roark.html", title="For Roark")
 
 @app.route("/1f1t_test")
 def test_1f1t():
