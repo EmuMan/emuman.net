@@ -4,6 +4,19 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="An old test website for RAoTFG that I put together.">
+
+    {% if title %}
+    <meta property="og:title" content="RAoTFG - {{ title }}">
+    {% else %}
+    <meta property="og:title" content="RAoTFG">
+    {% endif %}
+    <meta property="og:type" content="website">
+    {% if not error %}
+    <meta property="og:url" content="https://emuman.net{{ url_for(request.endpoint) }}">
+    {% endif %}
+    <meta property="og:image" content="https://emuman.net{{ url_for('static', filename='raot/images/logo.png') }}">
+    <meta property="og:description" content="An old test website for RAoTFG that I put together.">
 
     <link rel="preload" as="image" href="{{ url_for('static', filename='raot/images/menu-background-4k.png') }}">
 
