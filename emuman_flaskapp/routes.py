@@ -74,6 +74,12 @@ def fake_grubhub():
     order = request.args.get('order', default=931, type=int)
     return render_template("fake_grubhub.html", title="Fake Grubhub", restaurant=restaurant, order=order, time=time.strftime('%I:%M%p', time.localtime()))
 
+@app.route('/fake_screener')
+def fake_screener():
+    name = request.args.get('name', default='Name', type=str)
+    email = request.args.get('email', default='Email', type=str)
+    return render_template('fake_screener.html', title='Fake Screener', name=name, email=email)
+
 @app.route("/1f1t_test")
 def test_1f1t():
     return render_template("1f1t_index.html", start_day=True)

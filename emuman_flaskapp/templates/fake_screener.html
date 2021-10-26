@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta property="og:title" content="EmuMan - {{ title }}">
+
+    <link rel="stylesheet" type="text/css" href="https://calpoly.sjc1.qualtrics.com/jfe/themes/templated-skins/qualtrics.base:null:af3890e1f37232f2673dfdcd4c6213e24ad9fba9/version-1634833759932-7bb096/stylesheet.css">
+
+	<script src="{{ url_for('static', filename='fake_screener/js/date.js') }}"></script>
+
+    {% if title %}
+        <title>EmuMan - {{ title }}</title>
+    {% else %}
+        <title>EmuMan</title>
+    {% endif %}
+</head>
+<body>
+
+    <div class="JFE" id="P_1635225508707">
+        <div class="JFEContent SkinV2 webkit CSS3" style>
+            <form id="Page" name="Page" class="Page ActivePage" data-testid="page-ready" style>
+                <meta name="HandheldFriendly" content="true">
+                <meta name="viewport" content="user-scalable = yes, maximum-scale=10, minimum-scale=1, initial-scale = 1, width = device-width">
+                <div class="Skin">
+                    <div id="Overlay"></div>
+                    <div id="Wrapper">
+                        <div class="SkinInner">
+                            <div id="LogoContainer">
+                                <div id="Logo">
+                                    <img src="https://calpoly.sjc1.qualtrics.com/CP/Graphic.php?IM=IM_d7jxxPNAViPGBz7" data-image-state="ready">
+                                </div>
+                            </div>
+                            <div id="Headercontainer">
+                                <div id="Header" role="banner"></div>
+                            </div>
+                            <div id="SkinContent">
+                                <div id="Questions" role="main" style>
+                                    <div id="EndOfSurvey" aria-live="polite" class="END_OF_SURVEY EndOfSurvey BorderColor ">
+                                        <strong tabindex="-1" style="outline: rgb(0, 0, 0) solid 0px;">Based on your responses you are cleared to access campus today.</strong>
+                                        <br>
+                                        <br>
+                                        If you were exposed to COVID-19, and feel completely well, we still <strong>highly recommend</strong> that you get tested at the Saliva Lab on Day 3-5 and again on Day 10, regardless of your vaccination status (twice during the 10 days after exposure).
+                                        <br>
+                                        <br>
+                                        Students are required to follow current local <a href="https://www.emergencyslo.org/en/currentrestrictions.aspx">public health guidelines</a>. Thank you for taking care of your health and keeping your community safe.
+                                        <br>
+                                        <br>
+                                        <div style="text-align: center;">
+                                            Status: <strong style="color:#154734;">CERTIFIED</strong>
+                                            <br>
+                                            <u style="font-size:1.5em">{{ name }}</u>
+                                            <br>
+                                            <u>{{ email }}</u>
+                                            <br>
+                                            <span style="font-size:1.5em">VALID: <span id="date"></span></span>
+                                            <br>
+                                            <img src="https://calpoly.az1.qualtrics.com/ControlPanel/Graphic.php?IM=IM_6Rm7mJnPu3Et7Uh" width="150" height="150" data-image-state="ready">
+                                            <br>
+                                            <img height="150" src="https://xvufjx5ui5.execute-api.us-west-2.amazonaws.com/prod/qrcode?data=https://calpoly.sjc1.qualtrics.com/jfe/form/SV_20tfTMZRFvKVYNL?EmailID=jckeller@calpoly.edu%26uid=D32A78863E6F1EB140000100007F16B0" width="150" data-image-state="ready">
+                                        </div>
+                                        <div id="SI_4IRI7E7Didzz5Nr"></div>
+                                    </div>
+                                </div>
+                                <div id="ProgressBar"></div>
+                            </div>
+                            <div id="ProgressBar"></div>
+                        </div>
+                        <div id="Footer" role="contentinfo"></div>
+                        <div id="PushStickyFooter"></div>
+                    </div>
+                    <div id="Plug" style="display:block !important;">
+                        <a style="display:block !important;" href="https://www.qualtrics.com/?utm_source=internal%2Binitiatives&amp;utm_medium=survey%2Bpowered%2Bby%2Bqualtrics&amp;utm_content=calpoly&amp;utm_survey_id=SV_9Er2Iu1bOsUE1hj" target="_blank" aria-label="Powered by Qualtrics: Learn more about Qualtrics in a new tab">
+                            Powered by Qualtrics
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
