@@ -8,6 +8,7 @@
 
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='fake_grubhub/css/style.css') }}">
 
+	<script src="{{ url_for('static', filename='fake_grubhub/js/time.js') }}"></script>
 
 
     {% if title %}
@@ -32,7 +33,7 @@
 
     <div class="container">
         <p class="normal-text black-body-text medium-spaced-text">Estimated pickup time</p>
-        <p class="bold-text black-body-text medium-spaced-text">{{ time }} | Order is ready</p>
+        <p class="bold-text black-body-text medium-spaced-text"><span id="time"></span> | Order is ready</p>
         <img src="{{ url_for('static', filename='fake_grubhub/images/progress_bar.png') }}" alt="Progress bar" class="progress-bar">
         <p class="normal-text black-body-text split-line large-spaced-text">Campus pickup at<span class="purple-body-text right-text">Get directions</span></p>
         <p class="bold-text black-body-text large-spaced-text">1 Grand Avenue BLDG 112</p>
