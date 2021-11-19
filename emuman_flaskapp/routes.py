@@ -1,6 +1,8 @@
 import random
 import json
 import os, sys
+import time
+
 from flask import render_template, url_for, redirect, request, send_from_directory, make_response
 from emuman_flaskapp import app
 from emuman_flaskapp.data import art_pieces, songtober_2020_songs, discord_bots, spigot_plugins, misc_apps, original_songs
@@ -79,6 +81,18 @@ def about():
 @app.route("/for_roark")
 def for_roark():
     return render_template("for_roark.html", title="For Roark")
+
+@app.route("/fake_grubhub")
+def fake_grubhub():
+    restaurant = request.args.get('restaurant', default="Sunday Brunch", type=str)
+    order = request.args.get('order', default=931, type=int)
+    return render_template("fake_grubhub.html", title="Fake Grubhub", restaurant=restaurant, order=order, time=time.strftime('%I:%M%p', time.localtime()))
+
+@app.route('/fake_screener')
+def fake_screener():
+    name = request.args.get('name', default='Name', type=str)
+    email = request.args.get('email', default='Email', type=str)
+    return render_template('fake_screener.html', title='Fake Screener', name=name, email=email)
 
 @app.route("/1f1t_test")
 def test_1f1t():
