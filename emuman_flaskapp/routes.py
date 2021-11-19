@@ -1,7 +1,7 @@
 import random
 import json
 import os, sys
-from flask import render_template, url_for, redirect, request, send_from_directory
+from flask import render_template, url_for, redirect, request, send_from_directory, make_response
 from emuman_flaskapp import app
 from emuman_flaskapp.data import art_pieces, songtober_2020_songs, discord_bots, spigot_plugins, misc_apps, original_songs
 from emuman_flaskapp.test_1f1t_data import teams
@@ -16,6 +16,19 @@ def static_from_root():
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template('404.html', error=True, title="Page Not Found"), 404
+
+@app.after_request
+def add_cors_headers(response):
+    # https://stackoverflow.com/questions/42681311/flask-access-control-allow-origin-for-multiple-urls
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Credentials', 'true')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+    response.headers.add('Access-Control-Allow-Headers', 'Cache-Control')
+    response.headers.add('Access-Control-Allow-Headers', 'X-Requested-With')
+    response.headers.add('Access-Control-Allow-Headers', 'Authorization')
+    #response.headers.add('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE')
+    return response
+
 
 @app.route("/streamredirect")
 def stream_redirect():
