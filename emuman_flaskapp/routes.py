@@ -37,6 +37,11 @@ def stream_redirect():
     return render_template("redirect.html")
 
 
+@app.route("/cpe-123")
+def cpe123():
+    return render_template('cpe_123_final_project.html')
+
+
 @app.route("/")
 def index():
     return render_template("index.html")
