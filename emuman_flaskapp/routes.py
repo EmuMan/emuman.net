@@ -6,8 +6,14 @@ import time
 from flask import render_template, url_for, redirect, request, send_from_directory, make_response
 from emuman_flaskapp import app
 from emuman_flaskapp.data import art_pieces, songtober_2020_songs, discord_bots, spigot_plugins, misc_apps, original_songs
-from emuman_flaskapp.test_1f1t_data import teams
+from emuman_flaskapp.test_1f1t_data import teams, features
 from emuman_flaskapp.raot_data import faq_entries
+from emuman_flaskapp.utils import urlify, replace_links, portion, cols2rows
+
+app.jinja_env.globals.update(replace_links=replace_links)
+app.jinja_env.globals.update(urlify=urlify)
+app.jinja_env.globals.update(portion=portion)
+app.jinja_env.globals.update(cols2rows=cols2rows)
 
 
 @app.route("/robots.txt")
@@ -99,15 +105,25 @@ def fake_screener():
     email = request.args.get('email', default='Email', type=str)
     return render_template('fake_screener.html', title='Fake Screener', name=name, email=email)
 
-@app.route("/1f1t_test")
+@app.route("/1f1t")
 def test_1f1t():
     return render_template("1f1t_index.html", start_day=True)
 
-@app.route("/1f1t_test/custom_aspects")
-def test_1f1t_ca():
-    return render_template("1f1t_custom_aspects.html", title="Custom Aspects")
+@app.route("/1f1t/features")
+def test_1f1t_features():
+    # maybe cache/preload all of this at some point?
+    return render_template("1f1t_features.html", title="Features", features=features)
 
-@app.route("/1f1t_test/teams")
+@app.route('/1f1t/features/<feature>')
+def test_1f1t_feature(feature):
+    # again, caching would be cool here
+    for category in features:
+        for f in category['entries']:
+            if str(feature).lower() == urlify(f['name']).lower():
+                return render_template('1f1t_features_specific.html', title=f['name'], feature=f)
+    return redirect(url_for('test_1f1t_features'))
+
+@app.route("/1f1t/teams")
 def test_1f1t_teams():
     entries = []
     for team, info in teams.items():
@@ -118,22 +134,22 @@ def test_1f1t_teams():
         entries.append(entry)
     return render_template("1f1t_teams.html", title="Teams", entries=entries)
 
-@app.route("/1f1t_test/teams/<acronym>")
+@app.route("/1f1t/teams/<acronym>")
 def test_1f1t_teams_specific(acronym):
     for team, info in teams.items():
         if "".join([word[0] for word in team.split(" ")]).lower() == acronym.lower():
             return render_template("1f1t_teams_specific.html", team=team, acronym=acronym.upper(), info=info)
     return redirect(url_for("test_1f1t_teams"))
 
-@app.route("/1f1t_test/seasons")
+@app.route("/1f1t/seasons")
 def test_1f1t_seasons():
     return render_template("1f1t_seasons.html", title="Seasons")
 
-@app.route("/1f1t_test/contributors")
+@app.route("/1f1t/contributors")
 def test_1f1t_contributors():
     return render_template("1f1t_contributors.html", title="Contributors")
 
-@app.route("/1f1t_test/map")
+@app.route("/1f1t/map")
 def test_1f1t_map():
     return render_template("1f1t_map.html", title="Map View")
 
