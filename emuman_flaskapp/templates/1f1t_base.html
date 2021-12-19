@@ -4,6 +4,16 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="The temporary website for the 1f1t Minecraft server.">
+
+    {% if title %}
+    <meta property="og:title" content="1f1t - {{ title }}">
+    {% else %}
+    <meta property="og:title" content="1f1t">
+    {% endif %}
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://emuman.net{{ url_for('static', filename='1f1t/images/logo.png') }}">
+    <meta property="og:description" content="The temporary website for the 1f1t Minecraft server.">
 
     <link rel="preload" as="image" href="{{ url_for('static', filename='1f1t/images/background-day.png') }}">
     <link rel="preload" as="image" href="{{ url_for('static', filename='1f1t/images/background-night.png') }}">
