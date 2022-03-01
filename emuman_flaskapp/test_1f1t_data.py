@@ -50,16 +50,16 @@ features = [
         'category': 'Items',
         'entries': [
             {
-                'name': 'Test Item',
+                'name': 'Ewi',
                 'description': [
-                    'This is one line of the item\'s description.',
-                    'This is another line.'
+                    'The masterful robo oboe.',
+                    'Alright it\'s drum time!'
                 ],
-                'image': 'test_item.png',
+                'image': 'ewi.png',
                 'pixelart': True,
                 'data': [
-                    ['Speed', 55],
-                    ['Location', 'Sold by {Test NPC}']
+                    ['Attack Damage', +12],
+                    ['Location', 'Sold by {Fred}']
                 ]
             }
         ]
@@ -72,19 +72,32 @@ features = [
         'category': 'NPCs',
         'entries': [
             {
-                'name': 'Test NPC',
+                'name': 'iUwU',
                 'description': [
-                    'Basically the same as items.',
-                    'Put lines of description here.',
-                    'This NPC only sells you {Test Item}s.'
+                    'Hot as heck.',
+                    'Funnei Owner.',
+                    'aaa.'
                 ],
                 'image': 'test_npc.png',
                 'pixelart': False,
                 'data': [
-                    ['Location', 'Skyloft'],
-                    ['Other Stat', 'Yes']
+                    ['Location', 'Ur Mom'],
+                    ['Other Stat', 'No']
+                ]
+            },
+{
+                'name': 'Fred',
+                'description': [
+                    'Amazing marketer of many odd trinkets.',
+                    'This NPC sells you {Ewi}s.'
+                ],
+                'image': 'villager_fred.png',
+                'pixelart': False,
+                'data': [
+                    ['Location', 'Skyloft']
                 ]
             }
+
         ]
     }
 
