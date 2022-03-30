@@ -190,28 +190,40 @@ spigot_plugins = [
         "name": "Vegancraft",
         "description": "Add an extra challenge to your Minecraft server by removing your ability to use animal products! Actions such as consuming meat, crafting honey blocks, or equipping leather armor will kill you instantly.",
         "file": "vegancraft-1.0.0.jar"
+    },
+    {
+        "name": "Spigot Manhunt",
+        "description": "A plugin to reproduce the Minecraft Manhunt scenario from, uh, Dream's videos. It uses the Lodestone Compass feature to track players, which doesn't really matter functionally, I just think it's cooler.",
+        "file": "spigot-manhunt-1.0.0.jar"
     }
 ]
 
 misc_apps = [
     {
-        "name": "1f1t",
-        "descriptions": [
-            "1f1t is a collaborative Minecraft server for which I am one of the developers. This mostly includes writing server plugins, but you can also find an unfinished website that I have set up <a class=\"inline-link\" href=\"https://emuman.net/1f1t_test\">here</a>."
-        ]
-    },
-    {
-        "name": "Blender MIDI Utils (Animusic inspired)",
-        "descriptions": [
-            "If you've ever heard of Animusic, you probably have a pretty good idea of what this does. It basically allows you to take MIDI input and convert it into Blender keyframes, allowing you to easily create Animusic-like animations. Here is a small <a class=\"inline-link\" href=\"https://youtu.be/Duti3pvmtCU\" target=\"_blank\">demo</a> showcasing its capabilities as of now (admittedly not much, but I'm working on it).",
-            "If you want to try it out for yourself, you can find the source code and documentation <a class=\"inline-link\" href=\"https://github.com/EmuMan/blender-midi-utils\">here</a>."
-        ]
-    },
-    {
         "name": "Reddit Sheets",
         "descriptions": [
-            "Reddit Sheets is a Reddit client built to run in Google Sheets using multiple different API interactions through a Python script. It was conceived when I wanted a good unblocked Reddit client for school use, but I also wanted it to be 1) easily disguised and 2) future-proof.",
-            "Unfortunately, since Reddit Sheets uses both the Reddit and Google APIs, both of which have request limits (and would give you basic access to my account), I cannot just go around giving away a link to the sheets page willy-nilly. However, if you would like to set this up for yourself, you can find the source code <a class=\"inline-link\" href=\"https://github.com/EmuMan/reddit-sheets\" target=\"_blank\">here</a>. There are also instructions to help you get started (well there aren't any now but there will be soon)."
+            "Reddit Sheets is a Reddit client built to run in Google Sheets using multiple different API interactions through a Python script. It was conceived when I wanted a good unblocked Reddit client for school use, but it ended up just being a fun project when virtual classes came about.",
+            "Unfortunately, since Reddit Sheets uses both the Reddit and Google APIs, both of which have request limits (and would give you basic access to my account), I cannot just go around giving away a link to the sheets page willy-nilly. However, if you would like to set this up for yourself, you can find the source code <a class=\"inline-link\" href=\"https://github.com/EmuMan/reddit-sheets\" target=\"_blank\">here</a>. There are also instructions to help you get started."
+        ]
+    },
+    {
+        "name": "Blender MIDI Utils",
+        "descriptions": [
+            "If you've ever heard of Animusic, you probably have a pretty good idea of what this does. It basically allows you to take MIDI input and convert it into Blender keyframes, allowing you to easily create Animusic-like animations. Here is a small <a class=\"inline-link\" href=\"https://youtu.be/Duti3pvmtCU\" target=\"_blank\">demo</a> showcasing its capabilities as of now (admittedly not much, but I'm working on it).",
+            "If you want to try it out for yourself, you can find the source code and documentation <a class=\"inline-link\" href=\"https://github.com/EmuMan/blender-midi-utils\" target=\"_blank\">here</a>."
+        ]        
+    },
+    {
+        "name": "CPE-123 Coursework",
+        "descriptions": [
+            "Normally I wouldn't put coursework in a section like this, but I had fun messing around in this class (within reason of course). I ended up writing a small engine that wraps around p5.js, which I continually added to throughout the quarter. Eventually, it became a functional 2D/3D game engine with rudimentary axis-aligned bounding box collisions/physics.",
+            "I was going to upload the work onto here, but I figured it would be better to just link to the website hosted on GitHub since it's easier to both publish and maintain. So, you can find a list of the labs and projects <a class=\"inline-link\" href=\"https://emuman.github.io/cpe-123\" target=\"_blank\">here</a>."
+        ]
+    },
+    {
+        "name": "Overwatch EmuPatch",
+        "descriptions": [
+            "Being tired of the lack of updates to Overwatch made me realize that I could use the game's workshop feature to create my own patch. It's still in development (although I haven't worked on it in a while) and I'm very open to ideas and suggestions. The crazier, the better. More information and the code itself can be found <a class=\"inline-link\" href=\"https://github.com/EmuMan/overwatch-emupatch\" target=\"_blank\">here</a>."
         ]
     }
 ]
