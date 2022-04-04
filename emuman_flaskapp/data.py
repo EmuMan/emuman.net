@@ -161,7 +161,7 @@ discord_bots = [
         "link": "https://discordapp.com/oauth2/authorize?client_id=461849775516418059&scope=bot&permissions=0",
         "descriptions": [
             {
-                "text": "corn is one of the first Discord bots I've ever made, but it's still one of my favorites. The rules are simple:",
+                "text": "corn is one of the first Discord bots I ever made, but it's still one of my favorites. The rules are simple:",
                 "list": [
                     "If a message has the word \"corn\" in it (must be in order, repeated letters are okay) with only punctuation/spaces separating the letters (e.g. \"<b>corn</b>\", \"<b>coooorn</b>\", \"<b>c</b>-<b>o</b>/<b>r</b>.<b>n</b>\", \"epi<b>c or n</b>ot\"), then corn will respond with \"hello corn\".",
                     "If a message has the word \"corn\" in it (must be in order) BUT there are other characters in between (e.g. \"<b>co</b>ol bu<b>rn</b>ing\", \"<b>c</b>ars <b>o</b>n <b>r</b>aw <b>n</b>oodles\", but not \"<b>c</b>ars <b>o</b>f New Je<b>r</b>sey\"), then corn reacts with the 🌽 emoji.",
@@ -174,6 +174,23 @@ discord_bots = [
                 "list": [
                     "<code>c!cool_corn &lt;caption&gt;</code> - generates a very cool picture with a given caption.",
                     "<code>c!link</code> - gives the link to add corn to your server."
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Cord Against Humanity",
+        "pfp": "cah.png",
+        "prefix": "cah ",
+        "link": "https://discordapp.com/oauth2/authorize?client_id=959984417747660801&scope=bot&permissions=0",
+        "descriptions": [
+            {
+                "text": "As the name suggests, Cord Against Humanity aims to bring the Cards Against Humanity experience directly into Discord. It might not be the most elegant interface, but if for some reason you don't want to use any external services, it works. Features include",
+                "list": [
+                    "Channel-unique games",
+                    "Unlimited players",
+                    "Easily add new cards through a text file upload",
+                    "Automatic score tracking"
                 ]
             }
         ]
