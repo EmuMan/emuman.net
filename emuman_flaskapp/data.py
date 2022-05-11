@@ -163,17 +163,18 @@ discord_bots = [
             {
                 "text": "corn is one of the first Discord bots I ever made, but it's still one of my favorites. The rules are simple:",
                 "list": [
-                    "If a message has the word \"corn\" in it (must be in order, repeated letters are okay) with only punctuation/spaces separating the letters (e.g. \"<b>corn</b>\", \"<b>coooorn</b>\", \"<b>c</b>-<b>o</b>/<b>r</b>.<b>n</b>\", \"epi<b>c or n</b>ot\"), then corn will respond with \"hello corn\".",
-                    "If a message has the word \"corn\" in it (must be in order) BUT there are other characters in between (e.g. \"<b>co</b>ol bu<b>rn</b>ing\", \"<b>c</b>ars <b>o</b>n <b>r</b>aw <b>n</b>oodles\", but not \"<b>c</b>ars <b>o</b>f New Je<b>r</b>sey\"), then corn reacts with the 🌽 emoji.",
-                    "If an image has corn in it, then corn will react with a corn emoji (this utilizes the Clarifai API, which isn't 100% accurate, but it's pretty good).",
-                    "Sometimes corn will give you... another response."
+                    "If a message has the word \"corn\" in it (must be in order, repeated letters are okay) with only punctuation/spaces separating the letters (e.g. \"<b>corn</b>\", \"<b>coooorn</b>\", \"<b>c</b>-<b>o</b>/<b>r</b>.<b>n</b>\", \"epi<b>c or n</b>ot\"), or if there is a 🌽 emoji in the message, then corn will respond with \"hello corn\".",
+                    "If a message has the word \"corn\" in it (must be in order) BUT there are other characters in between (e.g. \"<b>co</b>ol bu<b>rn</b>ing\", \"<b>c</b>ars <b>o</b>n <b>r</b>aw <b>n</b>oodles\", but not \"<b>c</b>ars <b>o</b>f New Je<b>r</b>sey\"), then corn reacts with the 🌽 emoji."
                 ]
             },
             {
                 "text": "Some other commmands you can give it:",
                 "list": [
                     "<code>c!cool_corn &lt;caption&gt;</code> - generates a very cool picture with a given caption.",
-                    "<code>c!link</code> - gives the link to add corn to your server."
+                    "<code>c!link</code> - gives the link to add corn to your server.",
+                    "<code>c!daily</code> - performs your daily shucking of corn (resets at 00:00 UTC).",
+                    "<code>c!corn</code> - gets your total corn count.",
+                    "<code>c!leaderboards</code> - displays the top corn havers in the guild."
                 ]
             }
         ]
