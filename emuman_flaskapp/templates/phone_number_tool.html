@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+    <meta name="description" content="Hello, EmuMan here. On this website, you can find out about all of the stuff I do, such as programming, writing music, and more!">
+    
+    <meta property="og:title" content="EmuMan - Phone Number Entry Tool">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://emuman.net{{ url_for(request.endpoint) }}">
+    <meta property="og:image" content="https://emuman.net{{ url_for('static', filename='images/emu.png') }}">
+    <meta property="og:description" content="A state-of-the-art phone number entry tool for your convenience.">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/phone_number_style.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/phone_number.js') }}"></script>
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <title>Phone Number Entry Tool</title>
+</head>
+<body>
+    <div class="center-div">
+        <div class="entry centered">
+            <p>Please enter your phone number</p>
+            <p id="number"></p>
+        </div>
+        <div id="buttons">
+            <div class="buttons" id="simple">
+                <button type="button" id="mult3">X 3</button>
+                <button type="button" id="add7">+ 7</button>
+                <button type="button" id="div5">/ 5</button>
+                <button type="button" id="sub2">- 2</button>
+            </div>
+            <div class="buttons" id="advanced">
+                <button type="button" id="floor">FLOOR</button>
+                <button type="button" id="sqrt">√</button>
+                <button type="button" id="sqr">x²</button>
+                <button type="button" id="log10">LOG 10</button>
+            </div>
+        </div>
+        <div class="centered">
+            <button type="button" id="submit">Submit</button>
+        </div>
+        <div class="centered">
+            <button type="button" id="advanced-btn">Advanced mode</button>
+        </div>
+    </div>
+</body>
+</html>

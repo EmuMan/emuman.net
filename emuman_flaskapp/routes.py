@@ -106,6 +106,10 @@ def fake_screener():
     email = request.args.get('email', default='Email', type=str)
     return render_template('fake_screener.html', title='Fake Screener', name=name, email=email)
 
+@app.route('/phone_number_tool')
+def phone_number_tool():
+    return render_template('phone_number_tool.html')
+
 @app.route("/1f1t")
 def test_1f1t():
     return render_template("1f1t_index.html", start_day=True)

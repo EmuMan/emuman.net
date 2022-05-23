@@ -1,0 +1,124 @@
+:root {
+    --clr-neutral-100: #121212;
+    --clr-neutral-200: #303030;
+    --clr-neutral-300: #3d3d3d;
+    --clr-neutral-400: #4a4a4a;
+    --clr-neutral-500: #757575;
+    --clr-neutral-600: #949494;
+    --clr-neutral-900: #e0e0e0;
+
+    --clr-primary: #dbeff0;
+    --clr-accent: #fbb8a0;
+
+    --ff-primary: Arial, Helvetica, sans-serif;
+    --ff-accent: 'Courier New', Courier, monospace;
+}
+
+/* no clue what this does */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body,
+h1,
+h2,
+h3,
+p {
+    margin: 0;
+}
+
+body {
+    /* font-family: 'Courier New', Courier, monospace; */
+    font-family: var(--ff-primary);
+    background-color: var(--clr-neutral-900);
+    color: var(--clr-neutral-100);
+    font-size: 2rem;
+}
+  
+a {
+    color: var(--clr-neutral-900);
+}
+
+.container {
+    margin-inline: auto;
+    width: min(85%, 1250px);
+}
+
+/* ------------------------------ */
+
+.content h1,
+.content h2,
+.content h3,
+.content p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    line-height: 1.4em;
+}
+
+.centered {
+    text-align: center;
+}
+
+.center-div {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    position: absolute;
+}
+
+#number {
+    border: 2px solid var(--clr-neutral-100);
+    padding: 0.4rem;
+}
+
+.entry > p {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+button {
+    cursor: pointer;
+}
+
+button:not(#advanced-btn) {
+    border: 2px solid var(--clr-neutral-100);
+    color: var(--clr-neutral-100);
+    padding: 1rem 0.5rem;
+    margin: 0.5rem 0.5rem;
+    min-width: 4.5rem;
+    text-align: center;
+    font-size: 2rem;
+    font-family: var(--ff-accent);
+}
+
+#simple > button, #submit {
+    background-color: var(--clr-primary);
+}
+
+#submit {
+    font-family: var(--ff-primary);
+}
+
+#advanced > button {
+    background-color: var(--clr-accent);
+}
+
+#advanced-btn {
+    border: none;
+    background-color: var(--clr-neutral-900);
+    font-family: var(--ff-primary);
+    font-size: 1.2rem;
+}
+
+
+#advanced {
+    display: none;
+}
