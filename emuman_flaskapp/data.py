@@ -218,12 +218,28 @@ spigot_plugins = [
 
 misc_apps = [
     {
+        "name": "corn",
+        "descriptions": [
+            "One of my primary passion projects, corn is a leaderboards-style Discord chat bot that I have been slowly adding to for the past few years. It started in Python as I was learning how to interact with different frameworks. Recently, in pursuit of a more robust structure, I migrated it to C# with the .NET framework, and also moved the data storage from JSON to SQLite. Today, corn is in 46 different servers and has many enthusiastic fans.",
+            "There are quite a few things you can do with corn, including ranking up on the server-wide leaderboards and generating images of corn with custom captions. I am working on getting it up on more public channels, but for now, you can either add it to your server <a class=\"inline-link\" href=\"https://discordapp.com/oauth2/authorize?client_id=461849775516418059&scope=bot&permissions=0\" target=\"_blank\">here</a> or click the Discord icon down below to join the official server."
+        ],
+        "image": "corn-demo.gif"
+    },
+    {
         "name": "Reddit Sheets",
         "descriptions": [
             "Reddit Sheets is a Reddit client built to run in Google Sheets using multiple different API interactions through a Python script. It was conceived when I wanted a good unblocked Reddit client for school use, but it ended up just being a fun project when virtual classes came about.",
             "Unfortunately, since Reddit Sheets uses both the Reddit and Google APIs, both of which have request limits (and would give you basic access to my account), I cannot just go around giving away a link to the sheets page willy-nilly. However, if you would like to set this up for yourself, you can find the source code <a class=\"inline-link\" href=\"https://github.com/EmuMan/reddit-sheets\" target=\"_blank\">here</a>. There are also instructions to help you get started."
         ],
         "image": "reddit-sheets-demo.gif"
+    },
+    {
+        "name": "CPE-123 Coursework",
+        "descriptions": [
+            "I had a lot of fun messing around in this class (within reason of course), which was supposed to be an introduction to programming concepts using p5.js (Processing 5 in JavaScript). I ended up writing a small engine that wraps around p5.js, which I continually added to throughout the quarter. Eventually, it became a functional 2D/3D game engine with rudimentary axis-aligned bounding box collisions/physics.",
+            "I was going to upload the work onto here, but I figured it would be better to just link to the website hosted on GitHub since it's easier to both publish and maintain. So, you can find a list of the labs and projects <a class=\"inline-link\" href=\"https://emuman.github.io/cpe-123\" target=\"_blank\">here</a>."
+        ],
+        "image": "cpe-123-demo.gif"
     },
     {
         "name": "Blender MIDI Utils",
@@ -234,11 +250,11 @@ misc_apps = [
         "image": "blender-midi-utils-demo.gif"  
     },
     {
-        "name": "CPE-123 Coursework",
+        "name": "C++ Wireframe Renderer",
         "descriptions": [
-            "Normally I wouldn't put coursework in a section like this, but I had fun messing around in this class (within reason of course). I ended up writing a small engine that wraps around p5.js, which I continually added to throughout the quarter. Eventually, it became a functional 2D/3D game engine with rudimentary axis-aligned bounding box collisions/physics.",
-            "I was going to upload the work onto here, but I figured it would be better to just link to the website hosted on GitHub since it's easier to both publish and maintain. So, you can find a list of the labs and projects <a class=\"inline-link\" href=\"https://emuman.github.io/cpe-123\" target=\"_blank\">here</a>."
+            "I actually made this during a summer camp at DigiPen back around 2016 (I think?). It was some sort of introduction to computer graphics course, and I had a lot of fun learning about how everything worked. The summer camp lasted, if I remember correctly, about 2 weeks, and I was very proud about what I was able to accomplish in such a short time from almost no C++ knowledge.",
+            "The application uses OpenGL, and everything down to the line-drawing algorithm is custom made. It also includes a simple .OBJ parser, which is how I loaded the models you see to the side from Blender. Because I wrote it so long ago, it is very buggy and probably packed with memory leaks, but I have it on my to-do list to clean it up and put it on GitHub for showcase. I will update here when that happens."
         ],
-        "image": "cpe-123-demo.gif"
+        "image": "wireframe-renderer-demo.gif"
     }
 ]

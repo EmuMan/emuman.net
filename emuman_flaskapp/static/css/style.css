@@ -217,7 +217,11 @@ a {
 }
 
 .programming-img {
-    width: 30rem;
+}
+
+.programming-img > img {
+    width: 23rem;
+    border-radius: 5%;
     object-fit: cover;
 }
 

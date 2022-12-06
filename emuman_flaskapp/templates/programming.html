@@ -17,7 +17,9 @@
                 <p>{{ description | safe }}</p>
             {% endfor %}
         </div>
-        <img class="programming-img" src="{{ url_for('static', filename='images/' + app.image) }}">
+        <div class="programming-img">
+            <img src="{{ url_for('static', filename='images/' + app.image) }}">
+        </div>
     </div>
     <br>
     {% endfor %}
