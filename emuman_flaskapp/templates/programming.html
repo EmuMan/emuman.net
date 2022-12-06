@@ -2,8 +2,24 @@
 
 {% block content %}
 <div class="centered">
-    <h1>Welcome!</h1>
+    <h1>Programming Projects</h1>
+    <p>A series of projects that I've worked on over the years, both for hobby and for school.</p>
     <br><hr><br>
-    <p>This is my website, in which you will find various content related to me, including different projects, applications, and art. Feel free to dig around!</p>
+    {% for app in applications %}
+    {% if loop.index0 % 2 == 0 %}
+    <div class="programming-entry flex-row-forwards">
+    {% else %}
+    <div class="programming-entry flex-row-reverse">
+    {% endif %}
+        <div>
+            <h2 class="font-accent">{{ app.name }}</h2>
+            {% for description in app.descriptions %}
+                <p>{{ description | safe }}</p>
+            {% endfor %}
+        </div>
+        <img class="programming-img" src="{{ url_for('static', filename='images/' + app.image) }}">
+    </div>
+    <br>
+    {% endfor %}
 </div>
 {% endblock content %}

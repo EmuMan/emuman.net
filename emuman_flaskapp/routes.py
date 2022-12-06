@@ -67,7 +67,7 @@ def miscprogramming():
 
 @app.route("/programming")
 def programming():
-    return render_template("programming.html")
+    return render_template("programming.html", title="Programming", applications=misc_apps)
     
 @app.route("/art")
 def art():

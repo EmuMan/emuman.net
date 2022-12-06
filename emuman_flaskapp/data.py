@@ -222,26 +222,23 @@ misc_apps = [
         "descriptions": [
             "Reddit Sheets is a Reddit client built to run in Google Sheets using multiple different API interactions through a Python script. It was conceived when I wanted a good unblocked Reddit client for school use, but it ended up just being a fun project when virtual classes came about.",
             "Unfortunately, since Reddit Sheets uses both the Reddit and Google APIs, both of which have request limits (and would give you basic access to my account), I cannot just go around giving away a link to the sheets page willy-nilly. However, if you would like to set this up for yourself, you can find the source code <a class=\"inline-link\" href=\"https://github.com/EmuMan/reddit-sheets\" target=\"_blank\">here</a>. There are also instructions to help you get started."
-        ]
+        ],
+        "image": "reddit-sheets-demo.gif"
     },
     {
         "name": "Blender MIDI Utils",
         "descriptions": [
             "If you've ever heard of Animusic, you probably have a pretty good idea of what this does. It basically allows you to take MIDI input and convert it into Blender keyframes, allowing you to easily create Animusic-like animations. Here is a small <a class=\"inline-link\" href=\"https://youtu.be/Duti3pvmtCU\" target=\"_blank\">demo</a> showcasing its capabilities as of now (admittedly not much, but I'm working on it).",
             "If you want to try it out for yourself, you can find the source code and documentation <a class=\"inline-link\" href=\"https://github.com/EmuMan/blender-midi-utils\" target=\"_blank\">here</a>."
-        ]        
+        ],
+        "image": "blender-midi-utils-demo.gif"  
     },
     {
         "name": "CPE-123 Coursework",
         "descriptions": [
             "Normally I wouldn't put coursework in a section like this, but I had fun messing around in this class (within reason of course). I ended up writing a small engine that wraps around p5.js, which I continually added to throughout the quarter. Eventually, it became a functional 2D/3D game engine with rudimentary axis-aligned bounding box collisions/physics.",
             "I was going to upload the work onto here, but I figured it would be better to just link to the website hosted on GitHub since it's easier to both publish and maintain. So, you can find a list of the labs and projects <a class=\"inline-link\" href=\"https://emuman.github.io/cpe-123\" target=\"_blank\">here</a>."
-        ]
-    },
-    {
-        "name": "Overwatch EmuPatch",
-        "descriptions": [
-            "Being tired of the lack of updates to Overwatch made me realize that I could use the game's workshop feature to create my own patch. It's still in development (although I haven't worked on it in a while) and I'm very open to ideas and suggestions. The crazier, the better. More information and the code itself can be found <a class=\"inline-link\" href=\"https://github.com/EmuMan/overwatch-emupatch\" target=\"_blank\">here</a>."
-        ]
+        ],
+        "image": "cpe-123-demo.gif"
     }
 ]
