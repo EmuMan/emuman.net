@@ -51,7 +51,7 @@ def cpe123():
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return render_template("index.html", reveal=True)
     
 @app.route("/discordbots")
 def discordbots():
@@ -64,6 +64,10 @@ def spigotplugins():
 @app.route("/miscprogramming")
 def miscprogramming():
     return render_template("miscprogramming.html", title="Misc Programming", applications=misc_apps)
+
+@app.route("/programming")
+def programming():
+    return render_template("programming.html")
     
 @app.route("/art")
 def art():

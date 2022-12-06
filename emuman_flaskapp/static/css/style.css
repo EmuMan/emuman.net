@@ -1,4 +1,5 @@
 :root {
+    --clr-neutral-000: #000000;
     --clr-neutral-200: #303138;
     --clr-neutral-300: #3d3f46;
     --clr-neutral-400: #4a4d55;
@@ -6,11 +7,14 @@
     --clr-neutral-600: #9496a0;
     --clr-neutral-900: #eaedf8;
 
-    --ff-accent: 'Courier New', Courier, monospace;
+    --clr-accent-000: #100725;
+    --clr-accent-100: #25144b;
+    --clr-accent-200: #241d36;
+
+    --ff-accent: 'Consolas', Consolas, monospace;
     --ff-primary: Arial, Helvetica, sans-serif;
 }
 
-/* no clue what this does */
 *,
 *::before,
 *::after {
@@ -32,7 +36,7 @@ a.nounderline {
 body {
     /* font-family: 'Courier New', Courier, monospace; */
     font-family: var(--ff-primary);
-    background-color: var(--clr-neutral-200);
+    background-color: var(--clr-accent-000);
     color: var(--clr-neutral-900);
 }
   
@@ -59,6 +63,10 @@ a {
     clear: both;
 }
 
+.centered {
+    text-align: center;
+}
+
 /* ------------------------------ */
 
 .content h1,
@@ -71,144 +79,97 @@ a {
 }
 
 .content {
-    padding-bottom: 100px;
+    padding-bottom: 2rem;
+}
+
+.delay-reveal {
+    opacity: 0%;
+    padding-top: 2rem;
+    animation: 0.5s ease-out 1.5s 1 forwards reveal;
+}
+
+@keyframes reveal {
+    0% { padding-top: 2rem; opacity: 0%; }
+    100% { padding-top: 0rem; opacity: 100%; }
 }
 
 /* ------------------------------ */
-/* ref: https://css-tricks.com/solved-with-css-dropdown-menus/ */
+
+.typed-container {
+    margin: 0;
+    font-family: var(--ff-accent);
+    font-size: 7.5rem;
+    display: grid;
+    place-items: center;
+    width: 25rem;
+    margin: auto;
+}
+
+.typed {
+    margin: 0;
+    box-sizing: content-box;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 0.5rem solid;
+    width: 0;
+    animation: typing 1.0s steps(6, end) forwards, blinking 1s 1.5s infinite;
+    color: var(--clr-neutral-900);
+}
+
+@keyframes typing {
+    from { width: 0% }
+    to { width: 100% }
+}
+
+@keyframes blinking {
+    0% {border-color: transparent}
+    30% {border-color: transparent}
+    50% {border-color: var(--clr-neutral-900)}
+    80% {border-color: var(--clr-neutral-900)}
+    100% {border-color: transparent}
+}
+
+/* ------------------------------ */
+
+.header {
+    padding-top: 15rem;
+    padding-bottom: 5rem;
+}
+
+/* ------------------------------ */
 
 .topnav {
-    padding-top: 50px;
-    padding-bottom: 50px;
-    width: 100%;
-}
-
-.topnav ul {
-    background: var(--clr-neutral-300);
-    list-style: none;
-    margin: 0px;
-    padding-left: 0px;
     display: flex;
-    border: 1px solid var(--clr-neutral-900);
-}
-
-.topnav li {
-    color: var(--clr-neutral-900);
-    background: var(--clr-neutral-300);
-    display: block;
-    float: left;
-    padding: 1em;
-    padding-left: 2em;
-    padding-right: 2em;
-    position: relative;
-    text-decoration: none;
-}
-
-.topnav li:hover {
-    background: var(--clr-neutral-400);
-    cursor: pointer;
-}
-
-.topnav ul li ul  {
-    background: var(--clr-neutral-300);
-    visibility: hidden;
-    opacity: 0;
-    min-width: max-content;
-    position: absolute;
-    margin-top: 1rem;
-    left: 0px;
-    display: none;
-}
-
-/* This compound selector will still work in IE 11 because :focus-within isn't mixed in */
-.topnav ul li:hover > ul,
-.topnav ul li ul:hover {
-    visibility: visible;
-    opacity: 1;
-    display: block;
-}
-
-/* IE 11 won't get this, but at least the top-level menus will work */
-.topnav ul li:focus-within > ul {
-    visibility: visible;
-    opacity: 1;
-    display: block;
-}
-
-.topnav ul li ul li {
-    clear: both;
-    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+    padding-bottom: 3rem;
 }
 
 .topnav a {
-    font-size: 25px;
     color: var(--clr-neutral-900);
     font-family: var(--ff-accent);
-    font-weight: 900;
-    text-decoration: none;
-}
-
-@media (max-width: 1200px) {
-    .topnav ul {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .topnav li {
-        color: var(--clr-neutral-900);
-        background: var(--clr-neutral-300);
-        display: block;
-        float: initial;
-        padding: 1em;
-        padding-left: 2em;
-        padding-right: 2em;
-        position: initial;
-        text-decoration: none;
-    }
-
-    .topnav ul li ul  {
-        position: initial;
-        margin-top: 1rem;
-        display: none;
-    }
-}
-
-/* ------------------------------ */
-
-div.gallery-entry {
-    border: 1px solid var(--clr-neutral-600);
-}
-
-div.gallery-entry:hover {
-    border: 1px solid var(--clr-neutral-900)
-}
-
-img.gallery-img {
-    width: 100%;
-    height: auto;
-}
-
-div.gallery-desc {
-    padding: 15px;
     text-align: center;
+    padding: 1rem 3rem;
+    text-decoration: none;
+    font-size: 2rem;
+    transition: color 0.5s cubic-bezier(1, 0, 0, 1) 0s;
 }
 
-.gallery-responsive {
-    padding: 6px 6px;
-    float: left;
-    width: 24.9999%;
+.topnav a:hover {
+    color: var(--clr-neutral-500);
 }
 
-@media only screen and (max-width: 1200px) {
-    .gallery-responsive {
-        width: 49.9999%;
-    }
+.socials {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 2rem 0.5rem;
 }
 
-@media only screen and (max-width: 800px) {
-    .gallery-responsive {
-        width: 100%;
-    }
+.socials a {
+    text-align: center;
+    padding: 0.5rem;
+    font-size: 3rem;
 }
 
 /* ------------------------------ */
@@ -262,52 +223,6 @@ hr {
 
 /* ----------------------- */
 
-.basic-table table {
-    border-collapse: collapse;
-    height: 100%;
-    width: 100%;
-}
-
-.basic-table table, th, td {
-    border: 1px solid var(--clr-neutral-900);
-}
-
-.basic-table th, td {
-    padding: 15px;
-    text-align: left;
-}
-
-.basic-table th {
-    background-color: var(--clr-neutral-200);
-    font-weight: bold;
-}
-
-.basic-table tr {
-    background-color: var(--clr-neutral-300);
-}
-
-.basic-table tr:nth-child(even) {
-    background-color: var(--clr-neutral-400);
-}
-
-/* ----------------------- */
-
-#cbrender {
-    width: 100%;
-    aspect-ratio: 16/9;
-    border: none;
-}
-
-.dark-dropdown {
-    color: var(--clr-neutral-900);
-    font-size: 20px;
-    background-color: var(--clr-neutral-300);
-    padding: 5px;
-    border-color: var(--clr-neutral-900);
-}
-
-/* ----------------------- */
-
 .scrolling-table {
     overflow-y: auto;
     height: 300px;
@@ -317,23 +232,19 @@ hr {
     position: -webkit-sticky;
     position: sticky;
     top: 0;
-    background-color: var(--clr-neutral-200);
+    background-color: var(--clr-accent-100);
 }
 
 .playing:not(.scrolling-table tr:hover) {
-    background-color: var(--clr-neutral-600);
+    background-color: var(--clr-accent-200);
 }
 
 .scrolling-table tr:not(.playing) {
-    background-color: var(--clr-neutral-300);
-}
-
-.scrolling-table tr:nth-child(even) {
-    background-color: var(--clr-neutral-400);
+    background-color: var(--clr-accent-000);
 }
 
 .scrolling-table tr:hover {
-    background-color: var(--clr-neutral-500);
+    background-color: var(--clr-accent-200);
 }
 
 #song-table {
@@ -370,11 +281,13 @@ button {
     cursor: pointer;
     overflow: hidden;
     outline: none;
+    height: max-content;
 }
 
 .buttons {
     display: flex;
     flex-direction: row;
+    align-items: center;
 }
 
 .buttons > * {
