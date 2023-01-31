@@ -10,55 +10,58 @@
 {% endblock headcontent %}
 
 {% block content %}
-<h1>Original Music</h1>
-<p>This page contains music that is, as of now, unreleased anywhere else. I will probably put stuff here before polishing and posting it in the future as well. And yes, I did build my own audio player just to avoid properly posting my work online.</p>
-<p><b>NOTE:</b> Wearing headphones or using external speakers (not your phone or laptop's built-in speakers) will make your listening experience much better. I promise.</p>
-<br><hr><br><br>
-<div class="container scrolling-table">
-    <table id="song-table">
-        <thead>
-            <th style="width: 10%; text-align: center;">#</th>
-            <th>Title</th>
-            <th>Duration</th>
-        </thead>
-        <tbody>
-            {% for s in songs %}
-            <tr class="song-entry" id="{{ s.id }}">
-                <td class="song-index py-1" style="text-align: center;">{{ s.index }}</td>
-                <td class="song-title">{{ s.title }}</td>
-                <td class="song-duration">--:--</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
-<br><br>
-<div class="music-location" id="originals"></div>
-<div id="player">
-    <p>- Now playing -</p>
-    <p id="nowplaying"></p>
-    <p>
-        <input type="range" id="seek" value="0" max="">
-        <span id="time">--:--</span> / <span id="duration">--:--</span>
-    </p>
-    <div class="buttons">
-        <div></div>
-        <div class="song-navigation">
-            <button id="prev"><img src="{{ url_for('static', filename='images/prev.png') }}"></button>
-            <button id="play"><img id="play-button" src="{{ url_for('static', filename='images/play.png') }}"></button>
-            <button id="next"><img src="{{ url_for('static', filename='images/next.png') }}"></button>
-        </div>
-        <div class="vol-control">
-            <button id="mute"><img id="speaker-button" src="{{ url_for('static', filename='images/speaker.png') }}"></button>
-            <input type="range" id="volume" value="80" max="100">
+<div class="centered">
+    <h1>Original Music</h1>
+    <br><hr><br>
+    <p>I write music sometimes, and before I started properly posting it online, I kept it here for display. I've since uploaded these tracks to Spotify, Soundcloud, and more, but I decided to keep them here because I was rather proud of the system I had set up. Also, I find value of having extra information presented below the song. It allows me to say things that I otherwise would not be able to in just a title.</p>
+    <p><b>NOTE:</b> Wearing headphones or using external speakers (not your phone or laptop's built-in speakers) will make your listening experience much better. I promise.</p>
+    <br><hr><br><br>
+    <div class="container scrolling-table">
+        <table id="song-table">
+            <thead>
+                <th style="width: 10%; text-align: center;">#</th>
+                <th>Title</th>
+                <th>Duration</th>
+            </thead>
+            <tbody>
+                {% for s in songs %}
+                <tr class="song-entry" id="{{ s.id }}">
+                    <td class="song-index py-1" style="text-align: center;">{{ s.index }}</td>
+                    <td class="song-title">{{ s.title }}</td>
+                    <td class="song-duration">--:--</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <br><br>
+    <div class="music-location" id="originals"></div>
+    <div id="player">
+        <p>- Now playing -</p>
+        <p id="nowplaying"></p>
+        <p>
+            <input type="range" id="seek" value="0" max="">
+            <span id="time">--:--</span> / <span id="duration">--:--</span>
+        </p>
+        <div class="buttons">
+            <div></div>
+            <div class="song-navigation">
+                <button id="prev"><img src="{{ url_for('static', filename='images/prev.png') }}"></button>
+                <button id="play"><img id="play-button" src="{{ url_for('static', filename='images/play.png') }}"></button>
+                <button id="next"><img src="{{ url_for('static', filename='images/next.png') }}"></button>
+            </div>
+            <div class="vol-control">
+                <button id="mute"><img id="speaker-button" src="{{ url_for('static', filename='images/speaker.png') }}"></button>
+                <input type="range" id="volume" value="80" max="100">
+            </div>
         </div>
     </div>
+    <br>
+    <div id="descriptions">
+        {% for s in songs %}
+            <p id="{{ s.id }}-description">{{ s.description | safe }}</p>
+        {% endfor %}
+    </div>
+    <br>
 </div>
-<br>
-<div id="descriptions">
-    {% for s in songs %}
-        <p id="{{ s.id }}-description">{{ s.description | safe }}</p>
-    {% endfor %}
-</div>
-<br>
 {% endblock content %}

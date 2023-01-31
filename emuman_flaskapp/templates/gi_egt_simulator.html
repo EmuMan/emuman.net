@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+    <meta name="description" content="A mostly-accurate elemental gauge theory simulation tool for learning and experimentation.">
+    
+    <meta property="og:title" content="Elemental Gauge Theory Simulator">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://emuman.net{{ url_for(request.endpoint) }}">
+    <meta property="og:image" content="https://emuman.net{{ url_for('static', filename='images/emu.png') }}">
+    <meta property="og:description" content="A mostly-accurate elemental gauge theory simulation tool for learning and experimentation.">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/gi_egt_simulator_style.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/gi_egt_simulator.js') }}"></script>
+
+    <title>Elemental Gauge Theory Simulator</title>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Elemental Gauge Theory Simulator</h1>
+            <p>A (mostly) accurate simulator for elemental application and reactions</p>
+            <p><small><i>Note: There are bound to be errors at this point in development. If you see any, message EmuMan#2495 on Discord (or ping me in KQM). I am especially looking for help with burning EGT, which I think is mostly right, but at this point I'm too afraid to think about it anymore.</i></small></p>
+        </div>
+        <div id="bars">
+        </div>
+        <div id="buttons">
+        </div>
+    </div>
+</body>
+</html>

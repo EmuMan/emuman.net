@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="centered">
+    <h1>Programming Projects</h1>
+    <p>A series of projects that I've worked on over the years, both for hobby and for school.</p>
+    <br><hr><br>
+    {% for app in applications %}
+    {% if loop.index0 % 2 == 0 %}
+    <div class="programming-entry flex-row-forwards">
+    {% else %}
+    <div class="programming-entry flex-row-reverse">
+    {% endif %}
+        <div>
+            <h2 class="font-accent">{{ app.name }}</h2>
+            {% for description in app.descriptions %}
+                <p>{{ description | safe }}</p>
+            {% endfor %}
+        </div>
+        <div class="programming-img">
+            <img src="{{ url_for('static', filename='images/' + app.image) }}">
+        </div>
+    </div>
+    <br>
+    {% endfor %}
+</div>
+{% endblock content %}

@@ -51,7 +51,7 @@ def cpe123():
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return render_template("index.html", reveal=True)
     
 @app.route("/discordbots")
 def discordbots():
@@ -64,6 +64,10 @@ def spigotplugins():
 @app.route("/miscprogramming")
 def miscprogramming():
     return render_template("miscprogramming.html", title="Misc Programming", applications=misc_apps)
+
+@app.route("/programming")
+def programming():
+    return render_template("programming.html", title="Programming", applications=misc_apps)
     
 @app.route("/art")
 def art():
@@ -109,6 +113,10 @@ def fake_screener():
 @app.route('/phone_number_tool')
 def phone_number_tool():
     return render_template('phone_number_tool.html')
+
+@app.route('/egt_simulator')
+def egt_simulator():
+    return render_template('gi_egt_simulator.html')
 
 @app.route("/1f1t")
 def test_1f1t():
