@@ -216,9 +216,6 @@ a {
     flex-direction: row-reverse;
 }
 
-.programming-img {
-}
-
 .programming-img > img {
     width: 23rem;
     border-radius: 5%;

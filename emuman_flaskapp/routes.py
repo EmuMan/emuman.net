@@ -114,6 +114,10 @@ def fake_screener():
 def phone_number_tool():
     return render_template('phone_number_tool.html')
 
+@app.route('/egt_simulator')
+def egt_simulator():
+    return render_template('gi_egt_simulator.html')
+
 @app.route("/1f1t")
 def test_1f1t():
     return render_template("1f1t_index.html", start_day=True)
