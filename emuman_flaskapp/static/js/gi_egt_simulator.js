@@ -24,6 +24,7 @@ window.onload = function() {
 
     let barsContainer = document.getElementById("bars");
     let buttonsContainer = document.getElementById("buttons");
+    let logContainer = document.getElementById("reaction-log");
 
     let trackedAuras = [];
     
@@ -92,31 +93,40 @@ window.onload = function() {
             if (this.auraType === "anemo") {
                 if (element === "cryo") {
                     reactionCoefficient = 0.5;
+                    logReaction(element, "cryo swirl");
                 } else if (element === "dendro") {
                     reactionCoefficient = 0.0;
                 } else if (element === "electro") {
                     reactionCoefficient = 0.5;
+                    logReaction(element, "electro swirl");
                 } else if (element === "geo") {
                     reactionCoefficient = 0.0;
                 } else if (element === "hydro") {
                     reactionCoefficient = 0.5;
+                    logReaction(element, "hydro swirl");
                 } else if (element === "pyro") {
                     reactionCoefficient = 0.5;
+                    logReaction(element, "pyro swirl");
                 }
             } else if (this.auraType === "cryo") {
                 if (element === "anemo") {
                     reactionCoefficient = 0.5;
+                    logReaction(element, "cryo swirl");
                 } else if (element === "dendro") {
                     reactionCoefficient = 0.0;
                 } else if (element === "electro") {
                     reactionCoefficient = 1.0;
+                    logReaction(element, "superconduct");
                 } else if (element === "geo") {
                     reactionCoefficient = 0.5;
+                    logReaction(element, "crystallize");
                 } else if (element === "hydro") {
                     reactionCoefficient = 1.0;
+                    logReaction(element, "frozen");
                     applyFrozen(gauge, this.gauge);
                 } else if (element === "pyro") {
                     reactionCoefficient = 2.0;
+                    logReaction(element, "forward melt")
                 }
             } else if (this.auraType === "dendro") {
                 if (element === "anemo") {
@@ -125,108 +135,142 @@ window.onload = function() {
                     reactionCoefficient = 0.0;
                 } else if (element === "electro") {
                     reactionCoefficient = 1.0;
+                    logReaction(element, "quicken");
                     applyQuicken(gauge, this.gauge);
                 } else if (element === "geo") {
                     reactionCoefficient = 0.0; // TODO: verify
                 } else if (element === "hydro") {
                     reactionCoefficient = 0.5;
+                    logReaction(element, "reverse bloom");
                 } else if (element === "pyro") {
                     reactionCoefficient = 0.0;
                     // pretty sure burning cannot be refreshed by pyro
                     if (!auraExists("burning")) {
+                        logReaction(element, "burning");
                         applyBurning();
                     }
                 }
             } else if (this.auraType === "electro") {
                 if (element === "anemo") {
                     reactionCoefficient = 0.5;
+                    logReaction(element, "electro swirl");
                 } else if (element === "cryo") {
                     reactionCoefficient = 1.0;
+                    logReaction(element, "superconduct");
                 } else if (element === "dendro") {
                     reactionCoefficient = 1.0;
+                    logReaction(element, "quicken");
                     applyQuicken(this.gauge, gauge);
                 } else if (element === "geo") {
                     reactionCoefficient = 0.5;
+                    logReaction(element, "crystallize");
                 } else if (element === "hydro") {
                     reactionCoefficient = 0.0;
+                    logReaction(element, "electro-charged");
                 } else if (element === "pyro") {
                     reactionCoefficient = 1.0;
+                    logReaction(element, "overloaded");
                 }
             } else if (this.auraType === "geo") {
                 if (element === "anemo") {
                     reactionCoefficient = 0.0; // TODO: verify
                 } else if (element === "cryo") {
                     reactionCoefficient = 0.5;
+                    logReaction(element, "crystallize");
                 } else if (element === "dendro") {
                     reactionCoefficient = 0.0; // TODO: verify
                 } else if (element === "electro") {
                     reactionCoefficient = 0.5;
+                    logReaction(element, "crystallize");
                 } else if (element === "hydro") {
                     reactionCoefficient = 0.5;
+                    logReaction(element, "crystallize");
                 } else if (element === "pyro") {
                     reactionCoefficient = 0.5;
+                    logReaction(element, "crystallize");
                 }
             } else if (this.auraType === "hydro") {
                 if (element === "anemo") {
                     reactionCoefficient = 0.5;
+                    logReaction(element, "hydro swirl");
                 } else if (element === "cryo") {
                     reactionCoefficient = 1.0;
+                    logReaction(element, "frozen");
                     applyFrozen(this.gauge, gauge);
                 } else if (element === "dendro") {
                     reactionCoefficient = 2.0;
+                    logReaction(element, "forward bloom");
                 } else if (element === "electro") {
                     reactionCoefficient = 0.0;
+                    logReaction(element, "electro-charged");
                 } else if (element === "geo") {
                     reactionCoefficient = 0.5;
+                    logReaction(element, "crystallize");
                 } else if (element === "pyro") {
                     reactionCoefficient = 0.5;
+                    logReaction(element, "reverse vaporize");
                 }
             } else if (this.auraType === "pyro") {
                 if (element === "anemo") {
                     reactionCoefficient = 0.5;
+                    logReaction(element, "pyro swirl");
                 } else if (element === "cryo") {
                     reactionCoefficient = 0.5;
+                    logReaction(element, "reverse melt");
                 } else if (element === "dendro") {
                     reactionCoefficient = 0.0;
+                    logReaction(element, "burning");
                     applyBurning();
                 } else if (element === "electro") {
                     reactionCoefficient = 1.0;
+                    logReaction(element, "overloaded");
                 } else if (element === "geo") {
                     reactionCoefficient = 0.5;
+                    logReaction(element, "pyro crystallize");
                 } else if (element === "hydro") {
                     reactionCoefficient = 2.0;
+                    logReaction(element, "forward vaporize");
                 }
             } else if (this.auraType === "burning") {
                 if (element === "anemo") {
                     reactionCoefficient = 0.5;
+                    logReaction(element, "burning swirl");
                 } else if (element === "cryo") {
                     reactionCoefficient = 0.5;
+                    logReaction(element, "burning reverse melt");
                 } else if (element === "dendro") {
                     reactionCoefficient = 0.0;
                 } else if (element === "electro") {
                     reactionCoefficient = 1.0;
+                    logReaction(element, "burning overloaded");
                 } else if (element === "geo") {
                     reactionCoefficient = 0.0;
                 } else if (element === "hydro") {
                     reactionCoefficient = 2.0;
+                    logReaction(element, "burning forward vaporize");
                 } else if (element === "pyro") {
                     reactionCoefficient = 0.0;
                 }
             } else if (this.auraType === "frozen") {
                 if (element === "anemo") {
                     reactionCoefficient = 0.5;
+                    logReaction(element, "frozen swirl");
                 } else if (element === "cryo") {
                     reactionCoefficient = 0.0;
                 } else if (element === "dendro") {
                     reactionCoefficient = 0.0;
                 } else if (element === "electro") {
                     reactionCoefficient = 1.0;
+                    logReaction(element, "frozen superconduct");
                 } else if (element === "geo") {
-                    reactionCoefficient = 0.5; // TODO: shatter
+                    reactionCoefficient = 0.5;
+                    logReaction(element, "crystallize + shatter");
+                    this.remove(); // shatter basically removes frozen
                 } else if (element === "hydro") {
                     reactionCoefficient = 0.0;
                 } else if (element === "pyro") {
                     reactionCoefficient = 2.0;
+                    logReaction(element, "frozen forward melt");
                 }
             } else if (this.auraType === "quicken") {
                 if (element === "anemo") {
@@ -241,10 +285,12 @@ window.onload = function() {
                     reactionCoefficient = 0.0; // TODO: verify
                 } else if (element === "hydro") {
                     reactionCoefficient = 0.5;
+                    logReaction(element, "quicken reverse bloom");
                 } else if (element === "pyro") {
                     reactionCoefficient = 0.0;
                     // pretty sure burning cannot be refreshed by pyro
                     if (!auraExists("burning")) {
+                        logReaction(element, "quicken burning");
                         applyBurning();
                     }
                 }
@@ -456,7 +502,8 @@ window.onload = function() {
         // burning ticks
         burningAura = getAuraIfExists("burning");
         dendroAura = getAuraIfExists("dendro");
-        if (burningAura !== null && dendroAura !== null &&
+        quickenAura = getAuraIfExists("quicken");
+        if (burningAura !== null && (dendroAura !== null || quickenAura !== null) &&
             currentTime - lastBurningApplication > 2000.0) {
             processElementalApplication("pyro", 1.0);
             lastBurningApplication = currentTime;
@@ -476,6 +523,15 @@ window.onload = function() {
         }
         
         lastDecayTime = currentTime;
+    }
+
+    function logReaction(element, description) {
+        let logElement = document.createElement("li");
+        logElement.classList.add(`color-${element}`);
+        logElement.classList.add("log-message");
+        logElement.textContent = description;
+        logContainer.appendChild(logElement);
+        logElement.scrollIntoView();
     }
     
     ELEMENTS.forEach(element => {
