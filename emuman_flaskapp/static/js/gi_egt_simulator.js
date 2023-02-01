@@ -307,6 +307,15 @@ window.onload = function() {
             this.progressElement.classList.add("progress");
             this.progressElement.classList.add(`background-${this.auraType}`);
             this.barElement.appendChild(this.progressElement);
+
+            let markerList = document.createElement("ul");
+            markerList.classList.add("marker-list");
+            for (let i = 1; i < 8; i++) {
+                let marker = document.createElement("li");
+                marker.classList.add("marker");
+                markerList.appendChild(marker);
+            }
+            this.barElement.appendChild(markerList);
             
             this.update();
         }
