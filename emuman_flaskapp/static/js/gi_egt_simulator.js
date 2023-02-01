@@ -119,7 +119,7 @@ window.onload = function() {
                     logReaction(element, "superconduct");
                 } else if (element === "geo") {
                     reactionCoefficient = 0.5;
-                    logReaction(element, "crystallize");
+                    logReaction(element, "cryo crystallize");
                 } else if (element === "hydro") {
                     reactionCoefficient = 1.0;
                     logReaction(element, "frozen");
@@ -163,7 +163,7 @@ window.onload = function() {
                     applyQuicken(this.gauge, gauge);
                 } else if (element === "geo") {
                     reactionCoefficient = 0.5;
-                    logReaction(element, "crystallize");
+                    logReaction(element, "electro crystallize");
                 } else if (element === "hydro") {
                     reactionCoefficient = 0.0;
                     logReaction(element, "electro-charged");
@@ -176,18 +176,18 @@ window.onload = function() {
                     reactionCoefficient = 0.0; // TODO: verify
                 } else if (element === "cryo") {
                     reactionCoefficient = 0.5;
-                    logReaction(element, "crystallize");
+                    logReaction(element, "cryo crystallize");
                 } else if (element === "dendro") {
                     reactionCoefficient = 0.0; // TODO: verify
                 } else if (element === "electro") {
                     reactionCoefficient = 0.5;
-                    logReaction(element, "crystallize");
+                    logReaction(element, "electro crystallize");
                 } else if (element === "hydro") {
                     reactionCoefficient = 0.5;
-                    logReaction(element, "crystallize");
+                    logReaction(element, "hydro crystallize");
                 } else if (element === "pyro") {
                     reactionCoefficient = 0.5;
-                    logReaction(element, "crystallize");
+                    logReaction(element, "pyro crystallize");
                 }
             } else if (this.auraType === "hydro") {
                 if (element === "anemo") {
@@ -205,7 +205,7 @@ window.onload = function() {
                     logReaction(element, "electro-charged");
                 } else if (element === "geo") {
                     reactionCoefficient = 0.5;
-                    logReaction(element, "crystallize");
+                    logReaction(element, "hydro crystallize");
                 } else if (element === "pyro") {
                     reactionCoefficient = 0.5;
                     logReaction(element, "reverse vaporize");
@@ -264,7 +264,7 @@ window.onload = function() {
                     logReaction(element, "frozen superconduct");
                 } else if (element === "geo") {
                     reactionCoefficient = 0.5;
-                    logReaction(element, "crystallize + shatter");
+                    logReaction(element, "frozen crystallize + shatter");
                     this.remove(); // shatter basically removes frozen
                 } else if (element === "hydro") {
                     reactionCoefficient = 0.0;
