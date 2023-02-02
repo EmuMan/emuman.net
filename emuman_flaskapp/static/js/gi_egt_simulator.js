@@ -5,9 +5,7 @@ const ELEMENTS = ["anemo", "cryo", "dendro", "electro", "geo", "hydro", "pyro"];
 const AURA_TYPES = ["anemo", "cryo", "dendro", "electro", "geo", "hydro", "pyro", "burning", "frozen", "quicken"];
 const NO_AURA = ["anemo", "geo"];
 
-// This is a little tricky. I'm not sure all of this data is correct, but it's what the wiki
-// had to offer. KQM has a slightly different take that seemed more character-focused and
-// didn't go into depth on specific reactions, so I decided that this would be good enough.
+// This is a little tricky. I'm not sure all of this data is correct, but it's what the wiki had to offer.
 const SIMULTANEOUS_REACTION_PRIORITY = {
     "pyro": ["electro", "anemo", "hydro", "cryo", "dendro"],
     "hydro": ["pyro", "anemo", "cryo", "dendro", "electro"],
@@ -39,8 +37,10 @@ window.onload = function() {
             this.progressElement = null;
             this.valueElement = null;
             this.containerElement = null;
+            this.decayRateInheritance = true;
             this.auraType = element;
             this._gauge = 0.0;
+            this.decayRate = null;
             this.setupGauge(gauge);
         }
     
@@ -58,16 +58,20 @@ window.onload = function() {
         setGaugeWithTax(gauge) {
             this.gauge = gauge * AURA_TAX;
         }
-
+        
         setupGauge(gauge) {
             this.setGaugeWithTax(gauge);
-            this.decayRate = 1 / (35 / (4 * gauge) + 25 / 8); // in U per second
+            if (this.decayRate === null || !this.decayRateInheritance) {
+                this.decayRate = 1 / (35 / (4 * gauge) + 25 / 8); // in U per second
+            }
         }
 
         applyTrigger(element, gauge) {
             if (element === this.auraType) {
                 // if the incoming aura is stronger, apply it
-                this.gauge = Math.max(gauge * AURA_TAX, this.gauge);
+                if (gauge * AURA_TAX > this.gauge) {
+                    this.setupGauge(gauge);
+                }
                 return 0.0;
             }
             
@@ -341,6 +345,9 @@ window.onload = function() {
                 reactionCoefficient = 0.5;
                 logReaction(element, "hydro crystallize");
             } else if (element === "pyro") {
+                if (auraExists("frozen")) {
+                    return 0.0; // reject vape when frozen
+                }
                 reactionCoefficient = 0.5;
                 logReaction(element, "reverse vaporize");
             }
@@ -351,6 +358,7 @@ window.onload = function() {
     class PyroAura extends Aura {
         constructor(gauge) {
             super("pyro", gauge);
+            this.decayRateInheritance = false;
         }
 
         getReactionCoefficient(element, gauge) {
