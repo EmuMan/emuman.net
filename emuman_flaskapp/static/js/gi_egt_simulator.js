@@ -1,9 +1,10 @@
 const AURA_MAX = 8.0;
 const AURA_TAX = 0.8;
-const gaugeS = [1.0, 1.5, 2.0, 4.0, 8.0];
+const GAUGES = [1.0, 1.5, 2.0, 4.0, 8.0];
 const ELEMENTS = ["anemo", "cryo", "dendro", "electro", "geo", "hydro", "pyro"];
 const AURA_TYPES = ["anemo", "cryo", "dendro", "electro", "geo", "hydro", "pyro", "burning", "frozen", "quicken"];
 const NO_AURA = ["anemo", "geo"];
+const TIMESCALES = [0.1, 0.25, 0.5, 1.0, 2.0, 4.0];
 
 // This is a little tricky. I'm not sure all of this data is correct, but it's what the wiki had to offer.
 const SIMULTANEOUS_REACTION_PRIORITY = {
@@ -20,16 +21,23 @@ const SIMULTANEOUS_REACTION_PRIORITY = {
 
 window.onload = function() {
 
+    let timeScale = 1.0;
+    let timeScaleIndex = 3;
+    let totalElapsedTime = 0.0;
+    let lastRealTimeMeasurement = performance.now();
+    let showDurability = false;
+
     let barsContainer = document.getElementById("bars");
-    let buttonsContainer = document.getElementById("buttons");
+    let buttonsContainer = document.getElementById("element-buttons");
     let logContainer = document.getElementById("reaction-log");
+    let playButton = document.getElementById("play");
+    let pauseButton = document.getElementById("pause");
 
     let trackedAuras = [];
     
-    let lastDecayTime = performance.now();
-    let lastElectroChargedTick = performance.now();
+    let lastElectroChargedTick = 0.0;
     let currentMaxFreezeGauge = 0.0;
-    let lastBurningApplication = performance.now();
+    let lastBurningApplication = 0.0;
 
     class Aura {
         constructor(element, gauge) {
@@ -117,7 +125,11 @@ window.onload = function() {
         update() {
             let width = (this.gauge / AURA_MAX) * 100;
             this.progressElement.style["width"] = `${width}%`;
-            this.valueElement.textContent = `${this.gauge.toFixed(2)}U`;
+            if (showDurability) {
+                this.valueElement.textContent = `${(this.gauge * 25).toFixed(1)}d`;
+            } else {
+                this.valueElement.textContent = `${this.gauge.toFixed(2)}U`;
+            }
         }
 
         add() {
@@ -462,7 +474,11 @@ window.onload = function() {
         update() {
             let width = (this.gauge / currentMaxFreezeGauge) * 100;
             this.progressElement.style["width"] = `${width}%`;
-            this.valueElement.textContent = `${this.gauge.toFixed(2)}U`;
+            if (showDurability) {
+                this.valueElement.textContent = `${(this.gauge * 25).toFixed(1)}d`;
+            } else {
+                this.valueElement.textContent = `${this.gauge.toFixed(2)}U`;
+            }
         }
     }
 
@@ -629,9 +645,8 @@ window.onload = function() {
         }
     }
 
-    function decayAuras() {
-        currentTime = performance.now();
-        elapsedTime = currentTime - lastDecayTime;
+    function tick(elapsedTime) {
+        totalElapsedTime += elapsedTime;
 
         // electrocharged ticks
         let electroAura = getAuraIfExists("electro");
@@ -639,10 +654,10 @@ window.onload = function() {
         if (electroAura !== null && hydroAura !== null &&
             // wiki says this is a thing but i say it's not
             // electroAura.gauge > 0.4 && hydroAura.gauge > 0.4 && 
-            currentTime - lastElectroChargedTick > 1000.0) {
+            totalElapsedTime - lastElectroChargedTick > 1000.0) {
             electroAura.attackAura(0.4);
             hydroAura.attackAura(0.4);
-            lastElectroChargedTick = currentTime;
+            lastElectroChargedTick = totalElapsedTime;
         }
 
         // burning ticks
@@ -650,9 +665,9 @@ window.onload = function() {
         let dendroAura = getAuraIfExists("dendro");
         let quickenAura = getAuraIfExists("quicken");
         if (burningAura !== null && (dendroAura !== null || quickenAura !== null) &&
-            currentTime - lastBurningApplication > 2000.0) {
+            totalElapsedTime - lastBurningApplication > 2000.0) {
             processElementalApplication("pyro", 1.0);
-            lastBurningApplication = currentTime;
+            lastBurningApplication = totalElapsedTime;
         }
 
         // general decay
@@ -667,8 +682,6 @@ window.onload = function() {
                 auraIndex++;
             }
         }
-        
-        lastDecayTime = currentTime;
     }
 
     function logReaction(element, description) {
@@ -681,10 +694,16 @@ window.onload = function() {
     }
     
     ELEMENTS.forEach(element => {
-        gaugeS.forEach(gauge => {
-            button = document.createElement("button");
-            button.textContent = `${gauge}U ${element}`;
-            button.classList.add("button");
+        let label = document.createElement("p");
+        label.textContent = element;
+        label.classList.add("element-button-label");
+        label.classList.add(`color-${element}`);
+        buttonsContainer.appendChild(label);
+        GAUGES.forEach(gauge => {
+            let button = document.createElement("button");
+            button.setAttribute("type", "button");
+            button.textContent = `${gauge}U`;
+            button.classList.add("element-button");
             button.classList.add(`background-${element}`);
             button.addEventListener("click", function() {
                 processElementalApplication(element, gauge);
@@ -693,8 +712,54 @@ window.onload = function() {
         });
     });
 
+    function pauseSimulation() {
+        timeScale = 0.0;
+        playButton.classList.remove("hide-button");
+        pauseButton.classList.add("hide-button");
+    }
+
+    function playSimulation() {
+        timeScale = TIMESCALES[timeScaleIndex];
+        playButton.classList.add("hide-button");
+        pauseButton.classList.remove("hide-button");
+    }
+
+    playButton.addEventListener("click", playSimulation);
+
+    pauseButton.addEventListener("click", pauseSimulation);
+
+    document.getElementById("step-forward").addEventListener("click", function () {
+        let elapsedTime = 500.0;
+        tick(elapsedTime);
+    }, false);
+
+    document.getElementById("clear").addEventListener("click", function () {
+        while (trackedAuras.length > 0) {
+            trackedAuras[0].remove();
+        }
+        logContainer.innerHTML = "";
+    });
+    
+    document.getElementById("speed").addEventListener("change", function () {
+        timeScaleIndex = parseInt(this.value, 10);
+        timeScale = TIMESCALES[timeScaleIndex];
+    });
+
+    document.getElementById("show-durability-checkbox").addEventListener("change", function () {
+        showDurability = this.checked;
+        trackedAuras.forEach(aura => { aura.update() });
+    });
+
+    function getMainLoopDeltaTime() {
+        let currentTime = performance.now();
+        let deltaTime = currentTime - lastRealTimeMeasurement;
+        lastRealTimeMeasurement = currentTime;
+        return deltaTime;
+    }
+
     setInterval(function() {
-        decayAuras();
+        let elapsedTime = getMainLoopDeltaTime();
+        tick(elapsedTime * timeScale);
         trackedAuras.forEach(aura => { aura.update(); });
     }, 10);
 }

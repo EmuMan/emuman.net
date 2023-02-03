@@ -15,6 +15,7 @@
 
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/gi_egt_simulator_style.css') }}">
     <script type="text/javascript" src="{{ url_for('static', filename='js/gi_egt_simulator.js') }}"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.3/iconify-icon.min.js"></script>
 
     <title>Elemental Gauge Theory Simulator</title>
 </head>
@@ -36,8 +37,31 @@
                 </div>
             </div>
         </div>
-        <div id="buttons">
+        <div class="ui-container">
+            <div class="playback-buttons-container">
+                <a id="clear"><iconify-icon icon="clarity:trash-solid"></iconify-icon></a>
+                <a id="play" class="hide-button"><iconify-icon icon="clarity:play-solid"></iconify-icon></a>
+                <a id="pause"><iconify-icon icon="clarity:pause-solid"></iconify-icon></a>
+                <a id="step-forward"><iconify-icon icon="clarity:step-forward-solid"></iconify-icon></a>
+                <select name="speed" id="speed">
+                    <option value="0">0.25x</option>
+                    <option value="1">0.5x</option>
+                    <option selected value="2">1.0x</option>
+                    <option value="3">2.0x</option>
+                    <option value="4">4.0x</option>
+                </select>
+            </div>
+            <div class="checkbox-container">
+                <input type="checkbox" id="show-durability-checkbox" class="checkbox" value="Show Durability">
+                <label for="show-durability-checkbox" class="checkbox-label">Show Durability</label>
+            </div>
+            <div id="element-buttons">
+            </div>
+            <div id="keybinds">
+
+            </div>
         </div>
+
     </div>
 </body>
 </html>
