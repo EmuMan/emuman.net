@@ -16,7 +16,8 @@ const SIMULTANEOUS_REACTION_PRIORITY = {
     "frozen": ["electro", "pyro", "anemo"],
     "anemo": ["electro", "pyro", "hydro", "cryo", "frozen"],
     "geo": ["frozen", "electro", "pyro", "hydro", "cryo"], // TODO: frozen crystallize (at end)
-    "quicken": ["pyro", "hydro"]
+    "quicken": ["pyro", "hydro"],
+    "burning": []
 }
 
 window.onload = function() {
@@ -38,6 +39,9 @@ window.onload = function() {
     let lastElectroChargedTick = 0.0;
     let currentMaxFreezeGauge = 0.0;
     let lastBurningApplication = 0.0;
+    
+    // stack for new auras to be created, because reactions happen first
+    let aurasToAdd = [];
 
     class Aura {
         constructor(element, gauge) {
@@ -49,6 +53,7 @@ window.onload = function() {
             this.auraType = element;
             this._gauge = 0.0;
             this.decayRate = null;
+            this.auraTax = AURA_TAX;
             this.setupGauge(gauge);
         }
     
@@ -64,7 +69,7 @@ window.onload = function() {
         }
 
         setGaugeWithTax(gauge) {
-            this.gauge = gauge * AURA_TAX;
+            this.gauge = gauge * this.auraTax;
         }
         
         setupGauge(gauge) {
@@ -77,7 +82,7 @@ window.onload = function() {
         applyTrigger(element, gauge) {
             if (element === this.auraType) {
                 // if the incoming aura is stronger, apply it
-                if (gauge * AURA_TAX > this.gauge) {
+                if (gauge * this.auraTax > this.gauge) {
                     this.setupGauge(gauge);
                 }
                 return 0.0;
@@ -193,6 +198,11 @@ window.onload = function() {
             } else if (element === "pyro") {
                 reactionCoefficient = 0.5;
                 logReaction(element, "pyro swirl");
+            } else if (element === "frozen") {
+                reactionCoefficient = 0.5;
+                logReaction(element, "frozen swirl");
+            } else if (element === "quicken") {
+                reactionCoefficient = 0.0;
             }
             return reactionCoefficient
         }
@@ -223,6 +233,10 @@ window.onload = function() {
             } else if (element === "pyro") {
                 reactionCoefficient = 2.0;
                 logReaction(element, "forward melt")
+            } else if (element === "frozen") {
+                reactionCoefficient = 0.0;
+            } else if (element === "quicken") {
+                reactionCoefficient = 0.0;
             }
             return reactionCoefficient;
         }
@@ -255,6 +269,10 @@ window.onload = function() {
                     logReaction(element, "burning");
                     applyBurning();
                 }
+            } else if (element === "frozen") {
+                reactionCoefficient = 0.0;
+            } else if (element === "quicken") {
+                reactionCoefficient = 0.0;
             }
             return reactionCoefficient;
         }
@@ -296,10 +314,17 @@ window.onload = function() {
                 logReaction(element, "electro crystallize");
             } else if (element === "hydro") {
                 reactionCoefficient = 0.0;
+                applyElectroCharged();
                 logReaction(element, "electro-charged");
             } else if (element === "pyro") {
                 reactionCoefficient = 1.0;
                 logReaction(element, "overloaded");
+            } else if (element === "frozen") {
+                reactionCoefficient = 1.0;
+                logReaction(element, "frozen superconduct");
+            } else if (element === "quicken") {
+                reactionCoefficient = 0.0;
+                // TODO: i don't *think* aggravating off of a quicken aura can happen...
             }
             return reactionCoefficient;
         }
@@ -328,6 +353,11 @@ window.onload = function() {
             } else if (element === "pyro") {
                 reactionCoefficient = 0.5;
                 logReaction(element, "pyro crystallize");
+            } else if (element === "frozen") {
+                reactionCoefficient = 0.5;
+                logReaction(element, "frozen crystallize");
+            } else if (element === "quicken") {
+                reactionCoefficient = 0.0;
             }
             return reactionCoefficient;
         }
@@ -352,6 +382,7 @@ window.onload = function() {
                 logReaction(element, "forward bloom");
             } else if (element === "electro") {
                 reactionCoefficient = 0.0;
+                applyElectroCharged();
                 logReaction(element, "electro-charged");
             } else if (element === "geo") {
                 reactionCoefficient = 0.5;
@@ -362,6 +393,11 @@ window.onload = function() {
                 }
                 reactionCoefficient = 0.5;
                 logReaction(element, "reverse vaporize");
+            } else if (element === "frozen") {
+                reactionCoefficient = 0.0;
+            } else if (element === "quicken") {
+                reactionCoefficient = 2.0;
+                logReaction(element, "quicken forward bloom");
             }
             return reactionCoefficient;
         }
@@ -394,6 +430,12 @@ window.onload = function() {
             } else if (element === "hydro") {
                 reactionCoefficient = 2.0;
                 logReaction(element, "forward vaporize");
+            } else if (element === "frozen") {
+                reactionCoefficient = 0.5;
+                logReaction(element, "frozen reverse melt");
+            } else if (element === "quicken") {
+                reactionCoefficient = 0.0;
+                logReaction(element, "quicken burning");
             }
             return reactionCoefficient;
         }
@@ -423,6 +465,11 @@ window.onload = function() {
                 reactionCoefficient = 2.0;
                 logReaction(element, "burning forward vaporize");
             } else if (element === "pyro") {
+                reactionCoefficient = 0.0;
+            } else if (element === "frozen") {
+                reactionCoefficient = 0.5;
+                logReaction(element, "burning frozen rev melt");
+            } else if (element === "quicken") {
                 reactionCoefficient = 0.0;
             }
             return reactionCoefficient;
@@ -460,6 +507,8 @@ window.onload = function() {
             } else if (element === "pyro") {
                 reactionCoefficient = 2.0;
                 logReaction(element, "frozen forward melt");
+            } else if (element === "quicken") {
+                reactionCoefficient = 0.0;
             }
             return reactionCoefficient;
         }
@@ -485,6 +534,7 @@ window.onload = function() {
     class QuickenAura extends Aura {
         constructor(gauge) {
             super("quicken", gauge);
+            this.auraTax = 1.0;
         }
 
         getReactionCoefficient(element, gauge) {
@@ -509,6 +559,8 @@ window.onload = function() {
                     logReaction(element, "quicken burning");
                     applyBurning();
                 }
+            } else if (element === "frozen") {
+                reactionCoefficient = 0.0;
             }
             return reactionCoefficient;
         }
@@ -550,43 +602,30 @@ window.onload = function() {
 
     function applyFrozen(hydroGauge, cryoGauge) {
         let gauge = 2 * Math.min(hydroGauge, cryoGauge);
-        let frozen = getAuraIfExists("frozen");
-        if (frozen !== null) {
-            if (frozen.gauge < gauge) {
-                frozen.setupGauge(gauge);
-            }
-        } else {
-            (new FrozenAura(gauge)).add();
-        }
+        aurasToAdd.push({element: "frozen", gauge: gauge});
     }
 
     function applyQuicken(electroGauge, dendroGauge) {
         let gauge = Math.min(electroGauge, dendroGauge);
-        let quicken = getAuraIfExists("quicken");
-        if (quicken !== null) {
-            if (quicken.gauge < gauge) {
-                quicken.setupGauge(gauge);
-            }
-        } else {
-            (new QuickenAura(gauge)).add();
-        }
+        aurasToAdd.push({element: "quicken", gauge: gauge});
     }
 
     function applyBurning() {
-        let burning = getAuraIfExists("burning");
-        if (burning !== null) {
-            burning.setupGauge(2.0);
-        } else {
-            (new BurningAura(2.0)).add();
-        }
+        aurasToAdd.push({element: "burning", gauge: 2.0});
     }
 
-    function processElementalApplication(element, gauge) {        
+    function applyElectroCharged() {
+        // doesn't actually apply anything, just sets the last ec time
+        // to add a very slight damage tick delay
+        lastElectroChargedTick = totalElapsedTime + 150.0;
+    }
+
+    function processElementalApplication(element, gauge) {
         let initialGauge = gauge;
         let elementSRP = SIMULTANEOUS_REACTION_PRIORITY[element];
         for (let i in elementSRP) {
             let auraType = elementSRP[i];
-            let toReactWith = getAuraIfExists(auraType)
+            let toReactWith = getAuraIfExists(auraType);
             let remaining = gauge;
             if (toReactWith !== null) {
                 remaining = toReactWith.applyTrigger(element, gauge);
@@ -611,6 +650,10 @@ window.onload = function() {
                 if (frozenAura !== null) {
                     remaining = Math.min(remaining, frozenAura.applyTrigger(element, gauge));
                 }
+            }
+            if (gauge !== initialGauge && element === "geo") {
+                // geo doesn't do multiple reactions apparently
+                break;
             }
             gauge = remaining;
             if (gauge === 0.0) {
@@ -637,11 +680,25 @@ window.onload = function() {
                     (new HydroAura(gauge)).add();
                 } else if (element === "pyro") {
                     (new PyroAura(gauge)).add();
+                } else if (element === "burning") {
+                    (new BurningAura(gauge)).add();
+                } else if (element === "frozen") {
+                    (new FrozenAura(gauge)).add();
+                } else if (element === "quicken") {
+                    (new QuickenAura(gauge)).add();
                 }
             } else {
                 existing.applyTrigger(element, gauge);
             }
+        }
 
+        // this loop becomes kinda weird when the recursion of the function
+        // is taken into account, and if i'm not being dumb it doesn't
+        // actually have to be a loop, just an if statement. but i feel better
+        // about it like this. idk.
+        while (aurasToAdd.length > 0) {
+            newAura = aurasToAdd.pop();
+            processElementalApplication(newAura.element, newAura.gauge);
         }
     }
 
@@ -762,4 +819,8 @@ window.onload = function() {
         tick(elapsedTime * timeScale);
         trackedAuras.forEach(aura => { aura.update(); });
     }, 10);
+
+    document.onkeydown = function (e) {
+        // console.log(e);
+    }
 }
