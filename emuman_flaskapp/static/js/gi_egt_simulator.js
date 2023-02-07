@@ -4,7 +4,7 @@ const GAUGES = [1.0, 1.5, 2.0, 4.0, 8.0];
 const ELEMENTS = ["anemo", "cryo", "dendro", "electro", "geo", "hydro", "pyro"];
 const AURA_TYPES = ["anemo", "cryo", "dendro", "electro", "geo", "hydro", "pyro", "burning", "frozen", "quicken"];
 const NO_AURA = ["anemo", "geo"];
-const TIMESCALES = [0.1, 0.25, 0.5, 1.0, 2.0, 4.0];
+const TIMESCALES = [0.25, 0.5, 1.0, 2.0, 4.0];
 
 // This is a little tricky. I'm not sure all of this data is correct, but it's what the wiki had to offer.
 const SIMULTANEOUS_REACTION_PRIORITY = {
@@ -15,7 +15,7 @@ const SIMULTANEOUS_REACTION_PRIORITY = {
     "cryo": ["electro", "pyro", "anemo", "hydro"],
     "frozen": ["electro", "pyro", "anemo"],
     "anemo": ["electro", "pyro", "hydro", "cryo", "frozen"],
-    "geo": ["frozen", "electro", "pyro", "hydro", "cryo"], // TODO: frozen crystallize (at end)
+    "geo": ["frozen", "electro", "pyro", "hydro", "cryo"],
     "quicken": ["pyro", "hydro"],
     "burning": []
 }
@@ -23,16 +23,25 @@ const SIMULTANEOUS_REACTION_PRIORITY = {
 window.onload = function() {
 
     let timeScale = 1.0;
-    let timeScaleIndex = 3;
+    let timeScaleIndex = 2;
     let totalElapsedTime = 0.0;
     let lastRealTimeMeasurement = performance.now();
     let showDurability = false;
+    let paused = false;
 
     let barsContainer = document.getElementById("bars");
     let buttonsContainer = document.getElementById("element-buttons");
     let logContainer = document.getElementById("reaction-log");
     let playButton = document.getElementById("play");
     let pauseButton = document.getElementById("pause");
+    let speedDropdown = document.getElementById("speed");
+    let keybindListElement = document.getElementById("keybind-list");
+
+    let keybinds = [];
+    let readingKeybindInputFor = 0;
+    let readingKeyPress = false;
+    let readingAction = false;
+    let firstTimeCreatingKeybind = true;
 
     let trackedAuras = [];
     
@@ -741,6 +750,13 @@ window.onload = function() {
         }
     }
 
+    function clearAuras() {
+        while (trackedAuras.length > 0) {
+            trackedAuras[0].remove();
+        }
+        logContainer.innerHTML = "";
+    }
+
     function logReaction(element, description) {
         let logElement = document.createElement("li");
         logElement.classList.add(`color-${element}`);
@@ -763,7 +779,14 @@ window.onload = function() {
             button.classList.add("element-button");
             button.classList.add(`background-${element}`);
             button.addEventListener("click", function() {
-                processElementalApplication(element, gauge);
+                if (readingAction) {
+                    let keybind = keybinds[readingKeybindInputFor];
+                    keybind.element = element;
+                    keybind.gauge = gauge;
+                    setReadingKeybindAction("apply");
+                } else {
+                    processElementalApplication(element, gauge);
+                }
             }, false);
             buttonsContainer.appendChild(button);
         });
@@ -771,40 +794,74 @@ window.onload = function() {
 
     function pauseSimulation() {
         timeScale = 0.0;
+        paused = true;
         playButton.classList.remove("hide-button");
         pauseButton.classList.add("hide-button");
     }
 
     function playSimulation() {
         timeScale = TIMESCALES[timeScaleIndex];
+        paused = false;
         playButton.classList.add("hide-button");
         pauseButton.classList.remove("hide-button");
     }
 
-    playButton.addEventListener("click", playSimulation);
+    function togglePlay() {
+        if (paused) {
+            playSimulation();
+        } else {
+            pauseSimulation();
+        }
+    }
 
-    pauseButton.addEventListener("click", pauseSimulation);
+    function simulationStepForward() {
+        tick(500.0);
+    }
+
+    function setTimeScale(tsIndex) {
+        timeScaleIndex = Math.max(0, Math.min(TIMESCALES.length - 1, tsIndex));
+        timeScale = TIMESCALES[timeScaleIndex];
+    }
+
+    playButton.addEventListener("click", function () {
+        if (readingAction) {
+            setReadingKeybindAction("toggle-play");
+        } else {
+            playSimulation();
+        }
+    });
+
+    pauseButton.addEventListener("click", function () {
+        if (readingAction) {
+            setReadingKeybindAction("toggle-play");
+        } else {
+            pauseSimulation();
+        }
+    });
 
     document.getElementById("step-forward").addEventListener("click", function () {
-        let elapsedTime = 500.0;
-        tick(elapsedTime);
+        if (readingAction) {
+            setReadingKeybindAction("step-forward");
+        } else {
+            simulationStepForward();
+        }
     }, false);
 
     document.getElementById("clear").addEventListener("click", function () {
-        while (trackedAuras.length > 0) {
-            trackedAuras[0].remove();
+        if (readingAction) {
+            setReadingKeybindAction("clear");
+        } else {
+            clearAuras();
         }
-        logContainer.innerHTML = "";
     });
     
-    document.getElementById("speed").addEventListener("change", function () {
-        timeScaleIndex = parseInt(this.value, 10);
-        timeScale = TIMESCALES[timeScaleIndex];
+    speedDropdown.addEventListener("change", function () {
+        setTimeScale(parseInt(this.value, 10));
     });
 
     document.getElementById("show-durability-checkbox").addEventListener("change", function () {
         showDurability = this.checked;
-        trackedAuras.forEach(aura => { aura.update() });
+        trackedAuras.forEach(aura => { aura.update(); });
     });
 
     function getMainLoopDeltaTime() {
@@ -814,13 +871,182 @@ window.onload = function() {
         return deltaTime;
     }
 
+    class Keybind {
+        constructor(key, action) {
+            this.id = getFirstEmptyKeybindID();
+            this._key = key;
+            this._action = action;
+            this.element = null;
+            this.gauge = null;
+            this.dom_element = null;
+            this.dom_element_key = null;
+            this.dom_element_action = null;
+        }
+
+        set key(value) {
+            this._key = value;
+            this.update();
+        }
+
+        get key() {
+            return this._key;
+        }
+
+        set action(value) {
+            this._action = value;
+            this.update();
+        }
+
+        get action() {
+            return this._action;
+        }
+
+        add() {
+            var keybindEntryElement = document.createElement("li");
+            keybindEntryElement.id = `keybind-${this.id}`;
+    
+            var keybindRemoveElement = document.createElement("a");
+            keybindRemoveElement.classList.add("keybind-remove");
+            keybindRemoveElement.innerHTML = "<iconify-icon icon=\"clarity:remove-line\"></iconify-icon>";
+            var keybindID = this.id // this.id does not work in the listener
+            keybindRemoveElement.addEventListener("click", function () {
+                removeKeybind(keybindID);
+            });
+            keybindEntryElement.appendChild(keybindRemoveElement);
+    
+            var keybindKeyElement = document.createElement("span");
+            keybindKeyElement.id = `keybind-${this.id}-key`;
+            keybindEntryElement.appendChild(keybindKeyElement);
+    
+            var keybindActionElement = document.createElement("span");
+            keybindKeyElement.id = `keybind-${this.id}-action`;
+            keybindEntryElement.appendChild(keybindActionElement);
+    
+            keybindListElement.appendChild(keybindEntryElement);
+    
+            this.dom_element = keybindEntryElement;
+            this.dom_element_key = keybindKeyElement;
+            this.dom_element_action = keybindActionElement;
+
+            this.update();
+            
+            keybinds.push(this);
+        }
+
+        setElementAndGauge(element, gauge) {
+            this.element = element;
+            this.gauge = gauge;
+        }
+
+        remove() {
+            this.dom_element.remove();
+            keybinds.splice(keybinds.indexOf(this), 1);
+        }
+
+        update() {
+            var keyText = this.key.replace("Key", "");
+            this.dom_element_key.textContent = keyText;
+
+            var actionElement = this.dom_element_action;
+            if (this.action === "apply") {
+                actionElement.textContent = `${this.gauge}U ${this.element}`;
+                actionElement.classList.add(`color-${this.element}`);
+            } else {
+                var actionText = this.action.replace("_", " ");
+                let firstChar = actionText.substring(0, 1);
+                actionText = firstChar.toUpperCase() + actionText.substring(1, actionText.length);
+                actionElement.textContent = actionText;
+            }
+        }
+
+        handleAction() {
+            switch (this.action) {
+                case "clear":
+                    clearAuras();
+                    break;
+                case "toggle_play":
+                    togglePlay();
+                    break;
+                case "speed_down":
+                    setTimeScale(timeScaleIndex - 1);
+                    speedDropdown.value = timeScaleIndex;
+                    break;
+                case "speed_up":
+                    setTimeScale(timeScaleIndex + 1);
+                    speedDropdown.value = timeScaleIndex;
+                    break;
+                case "step_forward":
+                    simulationStepForward();
+                    break;
+                case "apply":
+                    processElementalApplication(this.element, this.gauge);
+                    break;
+            }
+        }
+    }
+
+    function getFirstEmptyKeybindID() {
+        var i = 0;
+        while (keybinds.some(keybind => { return keybind.id === i; })) {
+            i++;
+        }
+        return i;
+    }
+
+    function removeKeybind(keybindID) {
+        for (var i = 0; i < keybinds.length; i++) {
+            if (keybinds[i].id == keybindID) {
+                keybinds[i].remove();
+                return;
+            }
+        }
+    }
+
+    function  setReadingKeybindKey(key) {
+        keybinds[readingKeybindInputFor].key = key;
+        readingKeyPress = false;
+        readingAction = true;
+    }
+
+    function setReadingKeybindAction(action) {
+        keybinds[readingKeybindInputFor].action = action;
+        readingAction = false;
+    }
+
+    new Keybind("KeyC", "clear").add();
+    new Keybind("KeyP", "toggle_play").add();
+    new Keybind("ArrowLeft", "speed_down").add();
+    new Keybind("ArrowRight", "speed_up").add();
+
+    document.onkeydown = function (e) {
+        if (e.type == "keydown") {
+            if (readingKeyPress) {
+                setReadingKeybindKey(e.code);
+                return;
+            }
+            keybinds.forEach(keybind => {
+                if (e.code == keybind.key) {
+                    keybind.handleAction();
+                }
+            });
+        }
+    }
+
+    document.getElementById("add-keybind").addEventListener("click", function () {
+        var newKeybind = new Keybind("None", "None", {});
+        newKeybind.add();
+        readingKeybindInputFor = newKeybind.id;
+        readingKeyPress = true;
+        readingAction = false;
+        if (firstTimeCreatingKeybind) {
+            alert("Press any key, and then press a button in the simulation to bind them together. (This message will only be displayed once)");
+            firstTimeCreatingKeybind = false;
+        }
+    });
+
     setInterval(function() {
         let elapsedTime = getMainLoopDeltaTime();
         tick(elapsedTime * timeScale);
         trackedAuras.forEach(aura => { aura.update(); });
     }, 10);
-
-    document.onkeydown = function (e) {
-        // console.log(e);
-    }
 }
