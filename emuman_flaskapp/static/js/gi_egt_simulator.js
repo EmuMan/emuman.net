@@ -509,7 +509,7 @@ window.onload = function() {
                 logReaction(element, "frozen superconduct");
             } else if (element === "geo") {
                 reactionCoefficient = 0.5;
-                logReaction(element, "frozen crystallize + shatter");
+                logReaction(element, "shatter");
                 this.remove(); // shatter basically removes frozen
             } else if (element === "hydro") {
                 reactionCoefficient = 0.0;
@@ -537,6 +537,11 @@ window.onload = function() {
             } else {
                 this.valueElement.textContent = `${this.gauge.toFixed(2)}U`;
             }
+        }
+
+        applyTrigger(element, gauge) {
+            var remaining = super.applyTrigger(element, gauge);
+            return element === "pyro" ? 0.0 : remaining;
         }
     }
 
@@ -626,7 +631,7 @@ window.onload = function() {
     function applyElectroCharged() {
         // doesn't actually apply anything, just sets the last ec time
         // to add a very slight damage tick delay
-        lastElectroChargedTick = totalElapsedTime + 150.0;
+        lastElectroChargedTick = totalElapsedTime + 100.0;
     }
 
     function processElementalApplication(element, gauge) {
