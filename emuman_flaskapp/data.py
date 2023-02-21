@@ -218,6 +218,14 @@ spigot_plugins = [
 
 misc_apps = [
     {
+        "name": "EGT Simulator",
+        "descriptions": [
+            "A web-based application to simulate the complex game mechanics behind Genshin Impact's elemental reaction system (EGT = Elemental Gauge Theory). This project was the first time I really felt comfortable with frontend development and styling. The simulation itself is correct for almost all scenarios, but there are a couple of edge cases I'm still working to cover.",
+            "The website can be found <a href=\"https://emuman.net/egt_simulator\">here</a>."
+        ],
+        "image": "egt-simulator-demo.gif"
+    },
+    {
         "name": "corn",
         "descriptions": [
             "One of my primary passion projects, corn is a leaderboards-style Discord chat bot that I have been slowly adding to for the past few years. It started in Python as I was learning how to interact with different frameworks. Recently, in pursuit of a more robust structure, I migrated it to C# with the .NET framework, and also moved the data storage from JSON to SQLite. Today, corn is in 46 different servers and has many enthusiastic fans.",
