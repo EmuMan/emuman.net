@@ -48,6 +48,7 @@ window.onload = function() {
     let lastElectroChargedTick = 0.0;
     let currentMaxFreezeGauge = 0.0;
     let lastBurningApplication = 0.0;
+    let lastCrystallizeReaction = 0.0;
 
     let performReactions = true;
 
@@ -243,6 +244,7 @@ window.onload = function() {
                 logReaction(element, "superconduct");
             } else if (element === "geo") {
                 reactionCoefficient = 0.5;
+                lastCrystallizeReaction = totalElapsedTime
                 logReaction(element, "cryo crystallize");
             } else if (element === "hydro") {
                 reactionCoefficient = 1.0;
@@ -329,6 +331,7 @@ window.onload = function() {
                 applyQuicken(this.gauge, gauge);
             } else if (element === "geo") {
                 reactionCoefficient = 0.5;
+                lastCrystallizeReaction = totalElapsedTime;
                 logReaction(element, "electro crystallize");
             } else if (element === "hydro") {
                 reactionCoefficient = 0.0;
@@ -356,23 +359,28 @@ window.onload = function() {
         getReactionCoefficient(element, gauge) {
             let reactionCoefficient = 0.0;
             if (element === "anemo") {
-                reactionCoefficient = 0.0; // TODO: verify
+                reactionCoefficient = 0.0;
             } else if (element === "cryo") {
                 reactionCoefficient = 0.5;
+                lastCrystallizeReaction = totalElapsedTime;
                 logReaction(element, "cryo crystallize");
             } else if (element === "dendro") {
-                reactionCoefficient = 0.0; // TODO: verify
+                reactionCoefficient = 0.0;
             } else if (element === "electro") {
                 reactionCoefficient = 0.5;
+                lastCrystallizeReaction = totalElapsedTime;
                 logReaction(element, "electro crystallize");
             } else if (element === "hydro") {
                 reactionCoefficient = 0.5;
+                lastCrystallizeReaction = totalElapsedTime;
                 logReaction(element, "hydro crystallize");
             } else if (element === "pyro") {
                 reactionCoefficient = 0.5;
+                lastCrystallizeReaction = totalElapsedTime;
                 logReaction(element, "pyro crystallize");
             } else if (element === "frozen") {
                 reactionCoefficient = 0.5;
+                lastCrystallizeReaction = totalElapsedTime;
                 logReaction(element, "frozen crystallize");
             } else if (element === "quicken") {
                 reactionCoefficient = 0.0;
@@ -407,6 +415,7 @@ window.onload = function() {
                 }
             } else if (element === "geo") {
                 reactionCoefficient = 0.5;
+                lastCrystallizeReaction = totalElapsedTime;
                 logReaction(element, "hydro crystallize");
             } else if (element === "pyro") {
                 if (auraExists("frozen")) {
@@ -447,6 +456,7 @@ window.onload = function() {
                 logReaction(element, "overloaded");
             } else if (element === "geo") {
                 reactionCoefficient = 0.5;
+                lastCrystallizeReaction = totalElapsedTime;
                 logReaction(element, "pyro crystallize");
             } else if (element === "hydro") {
                 reactionCoefficient = 2.0;
@@ -527,6 +537,7 @@ window.onload = function() {
                 }
             } else if (element === "geo") {
                 reactionCoefficient = 0.5;
+                lastCrystallizeReaction = totalElapsedTime;
                 logReaction(element, "frozen crystallize");
             } else if (element === "hydro") {
                 reactionCoefficient = 0.0;
@@ -650,7 +661,7 @@ window.onload = function() {
     function applyElectroCharged() {
         // doesn't actually apply anything, just sets the last ec time
         // to add a very slight damage tick delay
-        lastElectroChargedTick = totalElapsedTime + 100.0;
+        lastElectroChargedTick = totalElapsedTime - 850.0;
     }
 
     function processElementalApplication(element, gauge) {
@@ -661,6 +672,11 @@ window.onload = function() {
         }
         let initialGauge = gauge;
         let elementSRP = SIMULTANEOUS_REACTION_PRIORITY[element];
+        // shatter was already handled, and the only other possible
+        // geo reaction is crystallize, which is on a global ICD
+        if (element === "geo" && totalElapsedTime - lastCrystallizeReaction < 1000.0) {
+            return;
+        }
         for (let i in elementSRP) {
             let auraType = elementSRP[i];
             let toReactWith = getAuraIfExists(auraType);
