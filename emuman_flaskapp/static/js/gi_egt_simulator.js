@@ -11,11 +11,11 @@ const SIMULTANEOUS_REACTION_PRIORITY = {
     "pyro": ["electro", "anemo", "hydro", "cryo", "dendro"],
     "hydro": ["pyro", "anemo", "cryo", "dendro", "electro"],
     "dendro": ["quicken", "electro", "pyro", "hydro"],
-    "electro": ["quicken", "pyro", "anemo", "hydro", "cryo", "frozen", "dendro"], // TODO: are cryo + frozen affected at the same time?
+    "electro": ["quicken", "pyro", "anemo", "hydro", "cryo", "frozen", "dendro"],
     "cryo": ["electro", "pyro", "anemo", "hydro"],
     "frozen": ["electro", "pyro", "anemo"],
     "anemo": ["electro", "pyro", "hydro", "cryo", "frozen"],
-    "geo": ["frozen", "electro", "pyro", "hydro", "cryo"],
+    "geo": ["electro", "pyro", "hydro", "cryo", "frozen"],
     "quicken": ["pyro", "hydro"],
     "burning": []
 }
@@ -48,6 +48,11 @@ window.onload = function() {
     let lastElectroChargedTick = 0.0;
     let currentMaxFreezeGauge = 0.0;
     let lastBurningApplication = 0.0;
+
+    let performReactions = true;
+
+    let hasSuperconductOccured = false;
+    let hasCryoSwirlOccured = false;
     
     // stack for new auras to be created, because reactions happen first
     let aurasToAdd = [];
@@ -119,7 +124,7 @@ window.onload = function() {
                 this.remove();
                 return -this.gauge;
             }
-            return 0;
+            return 0.0;
         }
 
         decay(timeElapsed) {
@@ -226,11 +231,15 @@ window.onload = function() {
             let reactionCoefficient = 0.0;
             if (element === "anemo") {
                 reactionCoefficient = 0.5;
+                // make sure frozen doesn't also swirl
+                hasCryoSwirlOccured = true;
                 logReaction(element, "cryo swirl");
             } else if (element === "dendro") {
                 reactionCoefficient = 0.0;
             } else if (element === "electro") {
                 reactionCoefficient = 1.0;
+                // make sure frozen doesn't also SC
+                hasSuperconductOccured = true;
                 logReaction(element, "superconduct");
             } else if (element === "geo") {
                 reactionCoefficient = 0.5;
@@ -391,8 +400,11 @@ window.onload = function() {
                 logReaction(element, "forward bloom");
             } else if (element === "electro") {
                 reactionCoefficient = 0.0;
-                applyElectroCharged();
-                logReaction(element, "electro-charged");
+                // frozen aura rejects electro-charged
+                if (!auraExists("frozen")) {
+                    applyElectroCharged();
+                    logReaction(element, "electro-charged");
+                }
             } else if (element === "geo") {
                 reactionCoefficient = 0.5;
                 logReaction(element, "hydro crystallize");
@@ -469,7 +481,7 @@ window.onload = function() {
                 reactionCoefficient = 1.0;
                 logReaction(element, "burning overloaded");
             } else if (element === "geo") {
-                reactionCoefficient = 0.0;
+                reactionCoefficient = 0.5;
             } else if (element === "hydro") {
                 reactionCoefficient = 2.0;
                 logReaction(element, "burning forward vaporize");
@@ -499,18 +511,23 @@ window.onload = function() {
             let reactionCoefficient = 0.0;
             if (element === "anemo") {
                 reactionCoefficient = 0.5;
-                logReaction(element, "frozen swirl");
+                if (!hasCryoSwirlOccured) {
+                    // make sure frozen doesn't also swirl
+                    logReaction(element, "frozen swirl");
+                }
             } else if (element === "cryo") {
                 reactionCoefficient = 0.0;
             } else if (element === "dendro") {
                 reactionCoefficient = 0.0;
             } else if (element === "electro") {
                 reactionCoefficient = 1.0;
-                logReaction(element, "frozen superconduct");
+                if (!hasSuperconductOccured) {
+                    // make sure frozen doesn't also SC
+                    logReaction(element, "frozen superconduct");
+                }
             } else if (element === "geo") {
                 reactionCoefficient = 0.5;
-                logReaction(element, "shatter");
-                this.remove(); // shatter basically removes frozen
+                logReaction(element, "frozen crystallize");
             } else if (element === "hydro") {
                 reactionCoefficient = 0.0;
             } else if (element === "pyro") {
@@ -559,8 +576,10 @@ window.onload = function() {
                 reactionCoefficient = 0.0;
             } else if (element === "dendro") {
                 reactionCoefficient = 0.0;
+                logReaction(element, "spread");
             } else if (element === "electro") {
                 reactionCoefficient = 0.0;
+                logReaction(element, "aggravate");
             } else if (element === "geo") {
                 reactionCoefficient = 0.0; // TODO: verify
             } else if (element === "hydro") {
@@ -635,6 +654,11 @@ window.onload = function() {
     }
 
     function processElementalApplication(element, gauge) {
+        // shatter is the very first thing to happen, i think
+        if (element === "geo" && auraExists("frozen")) {
+            getAuraIfExists("frozen").attackAura(8.0);
+            logReaction(element, "shatter");
+        }
         let initialGauge = gauge;
         let elementSRP = SIMULTANEOUS_REACTION_PRIORITY[element];
         for (let i in elementSRP) {
@@ -643,30 +667,33 @@ window.onload = function() {
             let remaining = gauge;
             if (toReactWith !== null) {
                 remaining = toReactWith.applyTrigger(element, gauge);
+                // don't log the same reaction on similar auras twice
+                performReactions = false;
             }
-            // pyro and burning aura get affected at the same time
             if (auraType === "pyro") {
                 let burningAura = getAuraIfExists("burning");
-                if (burningAura !== null) {
+                // if performReactions is false, then pyro already
+                // reacted with geo, which means the burning
+                // should be decreased as well
+                if (burningAura !== null && !performReactions) {
                     remaining = Math.min(remaining, burningAura.applyTrigger(element, gauge));
                 }
-            }
-            // TODO: i assume quicken + dendro works similarly to pyro + burning?
-            if (auraType === "dendro") {
+            } else if (auraType === "dendro") {
                 let quickenAura = getAuraIfExists("quicken");
                 if (quickenAura !== null) {
                     remaining = Math.min(remaining, quickenAura.applyTrigger(element, gauge));
                 }
-            }
-            // TODO: i assume frozen + cryo works similarly to pyro + burning?
-            if (auraType === "cryo") {
+            // pyro is the only element that consumes both cryo and frozen simultaneously
+            } else if (auraType === "cryo" && element === "pyro") {
                 let frozenAura = getAuraIfExists("frozen");
                 if (frozenAura !== null) {
                     remaining = Math.min(remaining, frozenAura.applyTrigger(element, gauge));
                 }
             }
-            if (gauge !== initialGauge && element === "geo") {
-                // geo doesn't do multiple reactions apparently
+            // now that all similar auras have been handled, re-enable reactions
+            performReactions = true;
+            if (remaining !== initialGauge && element === "geo") {
+                // geo doesn't do multiple reactions
                 break;
             }
             gauge = remaining;
@@ -674,6 +701,12 @@ window.onload = function() {
                 break;
             }
         }
+
+        // all potential elemental reactions have been processed.
+        // therefore, we don't have to worry about multiple superconduct
+        // or cryo swirl anymore.
+        hasSuperconductOccured = false;
+        hasCryoSwirlOccured = false;
 
         if (gauge === initialGauge && !NO_AURA.includes(element)) {
             // no reaction occured, which means the element can
@@ -763,6 +796,7 @@ window.onload = function() {
     }
 
     function logReaction(element, description) {
+        if (!performReactions) return;
         let logElement = document.createElement("li");
         logElement.classList.add(`color-${element}`);
         logElement.classList.add("log-message");
