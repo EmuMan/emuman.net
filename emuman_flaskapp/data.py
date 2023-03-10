@@ -153,69 +153,6 @@ original_songs = [
     }
 ]
 
-discord_bots = [
-    {
-        "name": "corn",
-        "pfp": "corn.png",
-        "prefix": "c!",
-        "link": "https://discordapp.com/oauth2/authorize?client_id=461849775516418059&scope=bot&permissions=0",
-        "descriptions": [
-            {
-                "text": "corn is one of the first Discord bots I ever made, but it's still one of my favorites. The rules are simple:",
-                "list": [
-                    "If a message has the word \"corn\" in it (must be in order, repeated letters are okay) with only punctuation/spaces separating the letters (e.g. \"<b>corn</b>\", \"<b>coooorn</b>\", \"<b>c</b>-<b>o</b>/<b>r</b>.<b>n</b>\", \"epi<b>c or n</b>ot\"), or if there is a 🌽 emoji in the message, then corn will respond with \"hello corn\".",
-                    "If a message has the word \"corn\" in it (must be in order) BUT there are other characters in between (e.g. \"<b>co</b>ol bu<b>rn</b>ing\", \"<b>c</b>ars <b>o</b>n <b>r</b>aw <b>n</b>oodles\", but not \"<b>c</b>ars <b>o</b>f New Je<b>r</b>sey\"), then corn reacts with the 🌽 emoji."
-                ]
-            },
-            {
-                "text": "Some other commmands you can give it:",
-                "list": [
-                    "<code>c!cool_corn &lt;caption&gt;</code> - generates a very cool picture with a given caption.",
-                    "<code>c!link</code> - gives the link to add corn to your server.",
-                    "<code>c!daily</code> - performs your daily shucking of corn (resets at 00:00 UTC).",
-                    "<code>c!corn</code> - gets your total corn count.",
-                    "<code>c!leaderboards</code> - displays the top corn havers in the guild."
-                ]
-            }
-        ]
-    },
-    {
-        "name": "Cord Against Humanity",
-        "pfp": "cah.png",
-        "prefix": "cah ",
-        "link": "https://discordapp.com/oauth2/authorize?client_id=959984417747660801&scope=bot&permissions=0",
-        "descriptions": [
-            {
-                "text": "As the name suggests, Cord Against Humanity aims to bring the Cards Against Humanity experience directly into Discord. It might not be the most elegant interface, but if for some reason you don't want to use any external services, it works. Features include",
-                "list": [
-                    "Channel-unique games",
-                    "Unlimited players",
-                    "Easily add new cards through a text file upload",
-                    "Automatic score tracking"
-                ]
-            }
-        ]
-    }
-]
-
-spigot_plugins = [
-    {
-        "name": "InstaDeath",
-        "description": "Basically, everything kills you in one hit. Your health will stay at 1/2 of a heart the whole time, and there's nothing you can do about it. Unlike most instant death plugins, the rest of the healthbar is even still there just to make you feel worse about your situation. Armor won't save you either, no matter how small the amount of damage you take is it will kill you. Instantly.",
-        "file": "instadeath-1.0.jar"
-    },
-    {
-        "name": "Vegancraft",
-        "description": "Add an extra challenge to your Minecraft server by removing your ability to use animal products! Actions such as consuming meat, crafting honey blocks, or equipping leather armor will kill you instantly.",
-        "file": "vegancraft-1.0.0.jar"
-    },
-    {
-        "name": "Spigot Manhunt",
-        "description": "A plugin to reproduce the Minecraft Manhunt scenario from, uh, Dream's videos. It uses the Lodestone Compass feature to track players, which doesn't really matter functionally, I just think it's cooler.",
-        "file": "spigot-manhunt-1.0.0.jar"
-    }
-]
-
 misc_apps = [
     {
         "name": "EGT Simulator",
