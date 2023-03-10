@@ -20,7 +20,11 @@ const SIMULTANEOUS_REACTION_PRIORITY = {
     "burning": []
 }
 
+let oldOnloadGES = window.onload;
+
 window.onload = function() {
+
+    if (oldOnloadGES !== null) oldOnloadGES();
 
     let timeScale = 1.0;
     let timeScaleIndex = 2;
