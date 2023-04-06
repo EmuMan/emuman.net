@@ -54,8 +54,18 @@
                 </select>
             </div>
             <div class="checkbox-container">
-                <input type="checkbox" id="show-durability-checkbox" class="checkbox" value="Show Durability">
-                <label for="show-durability-checkbox" class="checkbox-label">Show Durability</label>
+                <div>
+                    <input type="checkbox" id="show-durability-checkbox" class="checkbox" value="false">
+                    <label for="show-durability-checkbox" class="checkbox-label">Show Durability</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="log-ec-ticks-checkbox" class="checkbox" value="true">
+                    <label for="log-ec-ticks-checkbox" class="checkbox-label">Log Electro-Charged Ticks</label>
+                </div>
+                <div class="ping-container">
+                    <p>Ping:</p>
+                    <input class="ping-input" id="ping" type="number" title="Ping" placeholder="60" value="60">
+                </div>
             </div>
             <div id="element-buttons">
             </div>

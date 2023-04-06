@@ -217,10 +217,32 @@ body {
 
 .checkbox-container {
     padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.checkbox-container > * {
+    padding-top: 0.1rem;
+    padding-bottom: 0.1rem;
 }
 
 .checkbox-label {
     color: var(--clr-neutral-000);
+}
+
+.ping-container {
+    color: var(--clr-neutral-000);
+    display: flex;
+    flex-direction: row;
+}
+
+.ping-container > p {
+    padding-right: 0.5rem;
+}
+
+.ping-input {
+    width: 5rem;
 }
 
 #element-buttons {

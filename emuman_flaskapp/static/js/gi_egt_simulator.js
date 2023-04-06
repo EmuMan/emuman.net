@@ -6,7 +6,6 @@ const AURA_TYPES = ["anemo", "cryo", "dendro", "electro", "geo", "hydro", "pyro"
 const NO_AURA = ["anemo", "geo"];
 const TIMESCALES = [0.25, 0.5, 1.0, 2.0, 4.0];
 
-// This is a little tricky. I'm not sure all of this data is correct, but it's what the wiki had to offer.
 const SIMULTANEOUS_REACTION_PRIORITY = {
     "pyro": ["electro", "anemo", "hydro", "cryo", "dendro"],
     "hydro": ["pyro", "anemo", "cryo", "dendro", "electro"],
@@ -32,6 +31,7 @@ window.onload = function() {
     let lastRealTimeMeasurement = performance.now();
     let showDurability = false;
     let paused = false;
+    let ping = 60;
 
     let barsContainer = document.getElementById("bars");
     let buttonsContainer = document.getElementById("element-buttons");
@@ -40,6 +40,9 @@ window.onload = function() {
     let pauseButton = document.getElementById("pause");
     let speedDropdown = document.getElementById("speed");
     let keybindListElement = document.getElementById("keybind-list");
+    let showDurabilityElement = document.getElementById("show-durability-checkbox");
+    let logECTicksElement = document.getElementById("log-ec-ticks-checkbox");
+    let pingInputElement = document.getElementById("ping");
 
     let keybinds = [];
     let readingKeybindInputFor = 0;
@@ -49,7 +52,12 @@ window.onload = function() {
 
     let trackedAuras = [];
     
+    let performingElectroCharged = false;
     let lastElectroChargedTick = 0.0;
+    let lastElectroChargedTrigger = "hydro";
+    let logElectroChargedTicks = false;
+    let electroChargedScheduledTicks = [];
+
     let currentMaxFreezeGauge = 0.0;
     let lastBurningApplication = 0.0;
     let lastCrystallizeReaction = 0.0;
@@ -64,6 +72,7 @@ window.onload = function() {
 
     class Aura {
         constructor(element, gauge) {
+            this.exists = true;
             this.barElement = null;
             this.progressElement = null;
             this.valueElement = null;
@@ -189,8 +198,11 @@ window.onload = function() {
         }
 
         remove() {
-            trackedAuras.splice(trackedAuras.indexOf(this), 1);
-            this.containerElement.remove();
+            if (this.exists) {
+                this.exists = false;
+                trackedAuras.splice(trackedAuras.indexOf(this), 1);
+                this.containerElement.remove();
+            }
         }
     }
 
@@ -339,8 +351,11 @@ window.onload = function() {
                 logReaction(element, "electro crystallize");
             } else if (element === "hydro") {
                 reactionCoefficient = 0.0;
-                applyElectroCharged();
-                logReaction(element, "electro-charged");
+                lastElectroChargedTrigger = element;
+                if (!performingElectroCharged) {
+                    applyElectroCharged();
+                    logReaction(element, "electro-charged");
+                }
             } else if (element === "pyro") {
                 reactionCoefficient = 1.0;
                 logReaction(element, "overloaded");
@@ -414,8 +429,11 @@ window.onload = function() {
                 reactionCoefficient = 0.0;
                 // frozen aura rejects electro-charged
                 if (!auraExists("frozen")) {
-                    applyElectroCharged();
-                    logReaction(element, "electro-charged");
+                    lastElectroChargedTrigger = element;
+                    if (!performingElectroCharged) {
+                        applyElectroCharged();
+                        logReaction(element, "electro-charged");
+                    }
                 }
             } else if (element === "geo") {
                 reactionCoefficient = 0.5;
@@ -659,13 +677,18 @@ window.onload = function() {
     }
 
     function applyBurning() {
-        aurasToAdd.push({element: "burning", gauge: 2.0});
+        // burning does not refresh
+        if (!auraExists("burning")) {
+            aurasToAdd.push({element: "burning", gauge: 2.0});
+            lastBurningApplication = totalElapsedTime - 2_000.0 + 300.0
+        }
     }
 
     function applyElectroCharged() {
         // doesn't actually apply anything, just sets the last ec time
-        // to add a very slight damage tick delay
-        lastElectroChargedTick = totalElapsedTime - 850.0;
+        // to account for goofy ahh genshin ping reliability
+        performingElectroCharged = true;
+        lastElectroChargedTick = totalElapsedTime - 1_000;
     }
 
     function processElementalApplication(element, gauge) {
@@ -681,8 +704,7 @@ window.onload = function() {
         if (element === "geo" && totalElapsedTime - lastCrystallizeReaction < 1000.0) {
             return;
         }
-        for (let i in elementSRP) {
-            let auraType = elementSRP[i];
+        for (let auraType of elementSRP) {
             let toReactWith = getAuraIfExists(auraType);
             let remaining = gauge;
             if (toReactWith !== null) {
@@ -692,13 +714,12 @@ window.onload = function() {
             }
             if (auraType === "pyro") {
                 let burningAura = getAuraIfExists("burning");
-                // if performReactions is false, then pyro already
-                // reacted with geo, which means the burning
-                // should be decreased as well
-                if (burningAura !== null && !performReactions) {
+                // god please be how this works
+                if (burningAura !== null) {
                     remaining = Math.min(remaining, burningAura.applyTrigger(element, gauge));
                 }
-            } else if (auraType === "dendro") {
+            // aggravate is sort of an extra reaction and has its own ICD entry
+            } else if (auraType === "dendro" && element !== "electro") {
                 let quickenAura = getAuraIfExists("quicken");
                 if (quickenAura !== null) {
                     remaining = Math.min(remaining, quickenAura.applyTrigger(element, gauge));
@@ -773,14 +794,16 @@ window.onload = function() {
         totalElapsedTime += elapsedTime;
 
         // electrocharged ticks
-        let electroAura = getAuraIfExists("electro");
-        let hydroAura = getAuraIfExists("hydro");
-        if (electroAura !== null && hydroAura !== null &&
+        if (performingElectroCharged &&
             // wiki says this is a thing but i say it's not
             // electroAura.gauge > 0.4 && hydroAura.gauge > 0.4 && 
             totalElapsedTime - lastElectroChargedTick > 1000.0) {
-            electroAura.attackAura(0.4);
-            hydroAura.attackAura(0.4);
+            
+            // schedule an EC tick for later. the ping will be
+            // added to the time so that lag can be accurately
+            // compensated for.
+            electroChargedScheduledTicks.push(totalElapsedTime);
+
             lastElectroChargedTick = totalElapsedTime;
         }
 
@@ -804,6 +827,45 @@ window.onload = function() {
                     aura.decay(elapsedTime / 1000);
             if (decayResult) {
                 auraIndex++;
+            }
+        }
+
+        // register EC ticks on the "server", i.e. add lag to the
+        // scheduled EC ticks and use them to remove aura if possible
+        while (electroChargedScheduledTicks.length !== 0) {
+            if (totalElapsedTime > electroChargedScheduledTicks[0] + ping) {
+                // there is a tick that was "registered by the server"
+                let electroAura = getAuraIfExists("electro");
+                if (electroAura != null)
+                    electroAura.attackAura(0.4);
+                
+                let hydroAura = getAuraIfExists("hydro");
+                if (hydroAura != null)
+                    hydroAura.attackAura(0.4);
+
+                if (logElectroChargedTicks) {
+                    logReaction("electro", "(ec tick)");
+                }
+
+                electroChargedScheduledTicks.shift();
+            } else {
+                // the least recent tick has not yet been "registered by the server"
+                break;
+            }
+        }
+
+        // if there was EC before the tick and there is no longer EC,
+        // remove the EC presence so it can be triggered again
+        let electroAura = getAuraIfExists("electro");
+        let hydroAura = getAuraIfExists("hydro");
+        if (performingElectroCharged && (electroAura == null || hydroAura == null)) {
+            performingElectroCharged = false;
+            // according to KQM, there is a bug as of patch 2.5 where,
+            // when using electro as the trigger, any electro left over
+            // from EC when hydro runs out will not persist
+            if (lastElectroChargedTrigger === "electro" &&
+                electroAura != null && hydroAura == null) {
+                electroAura.remove();
             }
         }
     }
@@ -918,9 +980,13 @@ window.onload = function() {
         setTimeScale(parseInt(this.value, 10));
     });
 
-    document.getElementById("show-durability-checkbox").addEventListener("change", function () {
+    showDurabilityElement.addEventListener("change", function () {
         showDurability = this.checked;
         trackedAuras.forEach(aura => { aura.update(); });
+    });
+
+    logECTicksElement.addEventListener("change", function () {
+        logElectroChargedTicks = this.checked;
     });
 
     function getMainLoopDeltaTime() {
@@ -1061,7 +1127,7 @@ window.onload = function() {
         }
     }
 
-    function  setReadingKeybindKey(key) {
+    function setReadingKeybindKey(key) {
         keybinds[readingKeybindInputFor].key = key;
         readingKeyPress = false;
         readingAction = true;
@@ -1101,6 +1167,12 @@ window.onload = function() {
             alert("Press any key, and then press a button in the simulation to bind them together. (This message will only be displayed once)");
             firstTimeCreatingKeybind = false;
         }
+    });
+
+    pingInputElement.addEventListener("change", function() {
+        ping = parseInt(pingInputElement.value);
+        if (ping === NaN)
+            ping = 0;
     });
 
     setInterval(function() {
