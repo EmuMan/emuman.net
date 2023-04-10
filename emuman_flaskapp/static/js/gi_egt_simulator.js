@@ -31,6 +31,7 @@ window.onload = function() {
     let lastRealTimeMeasurement = performance.now();
     let showDurability = false;
     let paused = false;
+    let logApplications = false;
     let ping = 60;
 
     let barsContainer = document.getElementById("bars");
@@ -42,6 +43,7 @@ window.onload = function() {
     let keybindListElement = document.getElementById("keybind-list");
     let showDurabilityElement = document.getElementById("show-durability-checkbox");
     let logECTicksElement = document.getElementById("log-ec-ticks-checkbox");
+    let logApplicationsElement = document.getElementById("log-applications-checkbox");
     let pingInputElement = document.getElementById("ping");
 
     let keybinds = [];
@@ -692,11 +694,16 @@ window.onload = function() {
     }
 
     function processElementalApplication(element, gauge) {
+        if (logApplications) {
+            logReaction(element, `(applied ${gauge}U ${element})`)
+        }
+
         // shatter is the very first thing to happen, i think
         if (element === "geo" && auraExists("frozen")) {
             getAuraIfExists("frozen").attackAura(8.0);
             logReaction(element, "shatter");
         }
+
         let initialGauge = gauge;
         let elementSRP = SIMULTANEOUS_REACTION_PRIORITY[element];
         // shatter was already handled, and the only other possible
@@ -989,6 +996,16 @@ window.onload = function() {
         logElectroChargedTicks = this.checked;
     });
 
+    logApplicationsElement.addEventListener("change", function () {
+        logApplications = this.checked;
+    });
+
+    pingInputElement.addEventListener("change", function() {
+        ping = parseInt(pingInputElement.value);
+        if (ping === NaN)
+            ping = 0;
+    });
+
     function getMainLoopDeltaTime() {
         let currentTime = performance.now();
         let deltaTime = currentTime - lastRealTimeMeasurement;
@@ -1167,12 +1184,6 @@ window.onload = function() {
             alert("Press any key, and then press a button in the simulation to bind them together. (This message will only be displayed once)");
             firstTimeCreatingKeybind = false;
         }
-    });
-
-    pingInputElement.addEventListener("change", function() {
-        ping = parseInt(pingInputElement.value);
-        if (ping === NaN)
-            ping = 0;
     });
 
     setInterval(function() {
