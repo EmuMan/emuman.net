@@ -3,7 +3,7 @@ import json
 import os, sys
 import time
 
-from flask import render_template, request, send_from_directory
+from flask import render_template, request, send_from_directory, redirect
 from emuman_flaskapp import app
 from emuman_flaskapp.data import art_pieces, songtober_2020_songs, misc_apps, original_songs
 from emuman_flaskapp.utils import urlify, replace_links, portion, cols2rows
@@ -40,6 +40,10 @@ def add_cors_headers(response):
 @app.route("/streamredirect")
 def stream_redirect():
     return render_template("redirect.html")
+    
+@app.route("/corn")
+def corn_redirect():
+    return redirect('https://discordapp.com/oauth2/authorize?client_id=461849775516418059&scope=bot&permissions=0')
 
 
 @app.route("/")
