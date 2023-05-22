@@ -135,7 +135,8 @@ a {
     font-family: var(--ff-accent);
     display: grid;
     place-items: center;
-    width: min(41.67rem, 90vw);
+    width: min(41.67rem, 90%);
+    font-size: min(7.5rem, calc(41.67rem / 5.556));
     margin: auto;
 }
 
@@ -185,8 +186,8 @@ a {
 }
 
 .feature-img > img {
-    width: 23rem;
-    border-radius: 5%;
+    width: min(23rem, 90%);
+    border-radius: 1rem;
     object-fit: cover;  
 }
 
