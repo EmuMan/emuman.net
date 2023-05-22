@@ -5,7 +5,7 @@ import time
 
 from flask import render_template, request, send_from_directory, redirect
 from emuman_flaskapp import app
-from emuman_flaskapp.data import art_pieces, songtober_2020_songs, misc_apps, original_songs
+from emuman_flaskapp.data import art_pieces, songtober_2020_songs, misc_apps, original_songs, corn_features
 from emuman_flaskapp.utils import urlify, replace_links, portion, cols2rows
 
 app.jinja_env.globals.update(replace_links=replace_links)
@@ -42,8 +42,8 @@ def stream_redirect():
     return render_template("redirect.html")
     
 @app.route("/corn")
-def corn_redirect():
-    return redirect('https://discordapp.com/oauth2/authorize?client_id=461849775516418059&scope=bot&permissions=0')
+def corn():
+    return render_template("corn.html", features=corn_features)
 
 
 @app.route("/")

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Hello, EmuMan here. On this website, you can find out about all of the stuff I do, such as programming, writing music, and more!">
+
+    {% if title %}
+        <meta property="og:title" content="corn">
+    {% else %}
+        <meta property="og:title" content="corn">
+    {% endif %}
+    <meta property="og:type" content="website">
+    {% if not error %}
+    <meta property="og:url" content="https://emuman.net{{ url_for(request.endpoint) }}">
+    {% endif %}
+    <meta property="og:image" content="https://emuman.net{{ url_for('static', filename='icons/corn.png') }}">
+    <meta property="og:description" content="hello corn! The official site for the famous Discord bot 'corn'!">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/cornstyle.css') }}">
+
+    <script type="text/javascript" src="{{ url_for('static', filename='js/corn.js') }}"></script>
+    
+    {% block headcontent %}{% endblock headcontent %}
+
+    {% if title %}
+        <title>EmuMan - {{ title }}</title>
+    {% else %}
+        <title>EmuMan</title>
+    {% endif %}
+
+    <!-- IconifyIcon web component -->
+    <script src="https://code.iconify.design/iconify-icon/1.0.2/iconify-icon.min.js"></script>
+</head>
+<body>
+    <div class="background">
+        
+    </div>
+
+    <div class="header centered">
+        <img class="circular" src="{{ url_for('static', filename='icons/corn.png') }}">
+        <div class="typed-container">
+            <p class="typed">hello corn</p>
+        </div>
+    </div>
+
+    <div class="delay-reveal">
+        <div class="container">
+            <div class="content container">
+                <div class="centered">
+                    <h1 class="content-header">What is corn?</h1>
+                    <p class="content-description">One of my primary passion projects, corn is a leaderboards-style Discord chat bot that I have been slowly adding to for the past few years. With monthly updates and events, corn is sure to liven up any server you add it to.</p>
+                    <div class="centered">
+                        <button id="add-corn-1" class="corn-button">Add corn to your server!</button>
+                    </div>
+                    <br><hr><br>
+                    <h1 class="content-header">Features</h1>
+                    {% for feature in features %}
+                    {% if loop.index0 % 2 == 0 %}
+                    <div class="feature-entry flex-row-forwards">
+                    {% else %}
+                    <div class="feature-entry flex-row-reverse">
+                    {% endif %}
+                        <div>
+                            <h2 class="font-accent content-header">{{ feature.name }}</h2>
+                            {% for description in feature.descriptions %}
+                                <p class="content-description">{{ description | safe }}</p>
+                            {% endfor %}
+                        </div>
+                        <div class="feature-img">
+                            <img src="{{ url_for('static', filename='images/' + feature.image) }}">
+                        </div>
+                    </div>
+                    <br>
+                    {% endfor %}
+                    <div class="centered">
+                        <button id="add-corn-2" class="corn-button">Add corn to your server!</button>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <hr>
+                <div class="socials">
+                    <a href="https://github.com/EmuMan"><iconify-icon icon="mdi:github"></iconify-icon></a>
+                    <a href="https://discord.gg/avRCpqX"><iconify-icon icon="ic:baseline-discord"></iconify-icon></a>
+                    <a href="https://www.youtube.com/@EmuManMusic"><iconify-icon icon="mdi:youtube"></iconify-icon></a>
+                    <a href="https://www.twitch.tv/EmuManTV"><iconify-icon icon="mdi:twitch"></iconify-icon></a>
+                    <a href="https://soundcloud.com/emuman-809930856"><iconify-icon icon="ri:soundcloud-fill"></iconify-icon></a>
+                </div>
+            </div>
+        </div>
+    {% if reveal %} </div> {% endif %}
+</body>
+</html>
+

@@ -203,3 +203,34 @@ misc_apps = [
         "image": "wireframe-renderer-demo.gif"
     }
 ]
+
+corn_features = [
+    {
+        "name": "Leaderboards",
+        "descriptions": [
+            "Compete with others in your server to shuck the most corn every month! Log in every day for your daily random corn bonus, or participate in lots of corn discussion to increase your score!"
+        ],
+        "image": "corn-leaderboards.png"
+    },
+    {
+        "name": "Discussion",
+        "descriptions": [
+            "Have lots of fulfilling discussion with our corn overlords. The original purpose of corn, and still going strong."
+        ],
+        "image": "corn-reply.png"
+    },
+    {
+        "name": "Image Captioning",
+        "descriptions": [
+            "Create images with custom captions on them, straight from corn. There are currently two options to choose from: cool corn and sexy corn."
+        ],
+        "image": "cool-corn.png"
+    },
+    {
+        "name": "Stat Tracking",
+        "descriptions": [
+            "See all of your statistics both serverwide and global! Interested in your daily average? How much corn you've gained from pure discussion? You can find it all here!"
+        ],
+        "image": "corn-stats.png"
+    }
+]
