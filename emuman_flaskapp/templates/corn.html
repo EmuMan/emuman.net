@@ -4,7 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Hello, EmuMan here. On this website, you can find out about all of the stuff I do, such as programming, writing music, and more!">
+    <meta name="description" content="hello corn! The official site for the famous corn Discord bot!">
 
     {% if title %}
         <meta property="og:title" content="corn">
@@ -16,7 +16,7 @@
     <meta property="og:url" content="https://emuman.net{{ url_for(request.endpoint) }}">
     {% endif %}
     <meta property="og:image" content="https://emuman.net{{ url_for('static', filename='icons/corn.png') }}">
-    <meta property="og:description" content="hello corn! The official site for the famous Discord bot 'corn'!">
+    <meta property="og:description" content="hello corn! The official site for the famous corn Discord bot!">
 
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/cornstyle.css') }}">
 
@@ -24,11 +24,7 @@
     
     {% block headcontent %}{% endblock headcontent %}
 
-    {% if title %}
-        <title>EmuMan - {{ title }}</title>
-    {% else %}
-        <title>EmuMan</title>
-    {% endif %}
+    <title>corn</title>
 
     <!-- IconifyIcon web component -->
     <script src="https://code.iconify.design/iconify-icon/1.0.2/iconify-icon.min.js"></script>
