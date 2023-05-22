@@ -136,13 +136,14 @@ a {
     display: grid;
     place-items: center;
     width: min(41.67rem, 90%);
-    font-size: min(7.5rem, calc(41.67rem / 5.556));
     margin: auto;
+    container-type: inline-size;
 }
 
 .typed {
     margin: 0;
     font-size: min(7.5rem, calc(90vw / 5.556));
+    font-size: 18cqw;
     box-sizing: content-box;
     overflow: hidden;
     white-space: nowrap;
