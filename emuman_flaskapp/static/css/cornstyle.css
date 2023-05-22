@@ -10,7 +10,7 @@
     --clr-accent-000: #8f4000;
     --clr-accent-100: #865C49;
     --clr-accent-200: #ba8521;
-    --clr-accent-300: #f8d434;
+    --clr-accent-300: #dfc23f;
     
     /* --clr-accent-000: #063f13;
     --clr-accent-100: #865C49;
@@ -136,16 +136,14 @@ a {
     font-family: var(--ff-accent);
     display: grid;
     place-items: center;
-    width: min(41.67rem, 90vw);
+    width: fit-content;
     margin: auto;
-    container-type: inline-size;
 }
 
 .typed {
     margin: 0;
     padding: 0;
-    font-size: min(7.5rem, calc(90vw / 5.556));
-    font-size: 18cqw;
+    font-size: min(7.5rem, calc(80vw / 5.556));
     box-sizing: content-box;
     overflow: hidden;
     white-space: nowrap;
@@ -153,13 +151,6 @@ a {
     width: 0;
     animation: typing 1.0s steps(10, end) forwards, blinking 1s 1.5s infinite;
     color: var(--clr-neutral-900);
-}
-
-@media only screen and (max-width: 850px) {
-    .typed {
-        font-size: calc(83vw / 5.556);
-        font-size: 16.4cqw;
-    }
 }
 
 @keyframes typing {
@@ -178,8 +169,8 @@ a {
 /* ------------------------------ */
 
 .header {
-    padding-top: 10rem;
-    padding-bottom: 3rem;
+    padding-top: 5rem;
+    padding-bottom: 1.5rem;
 }
 
 .header > img {
@@ -242,7 +233,8 @@ a {
 
 .corn-button:hover {
     background-color: var(--clr-accent-300);
-    color: white;
+    color: var(--clr-accent-000);
+    cursor: pointer;
 }
 
 /* ------------------------------ */
