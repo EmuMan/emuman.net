@@ -174,7 +174,7 @@ misc_apps = [
         "name": "Reddit Sheets",
         "descriptions": [
             "Reddit Sheets is a Reddit client built to run in Google Sheets using multiple different API interactions through a Python script. It was conceived when I wanted a good unblocked Reddit client for school use, but it ended up just being a fun project when virtual classes came about.",
-            "Unfortunately, since Reddit Sheets uses both the Reddit and Google APIs, both of which have request limits (and would give you basic access to my account), I cannot just go around giving away a link to the sheets page willy-nilly. However, if you would like to set this up for yourself, you can find the source code <a class=\"inline-link\" href=\"https://github.com/EmuMan/reddit-sheets\" target=\"_blank\">here</a>. There are also instructions to help you get started."
+            "Unfortunately, since Reddit Sheets uses both the Reddit and Google APIs, both of which have limits (and would give you basic access to my account), it's not a document I can simply make publicly accessible. However, if you would like to set this up for yourself, you can find the source code <a class=\"inline-link\" href=\"https://github.com/EmuMan/reddit-sheets\" target=\"_blank\">here</a>. There are also instructions to help you get started."
         ],
         "image": "reddit-sheets-demo.gif"
     },
@@ -187,10 +187,18 @@ misc_apps = [
         "image": "cpe-123-demo.gif"
     },
     {
+        "name": "NPR Face Shader",
+        "descriptions": [
+            "A Blender addon that automatically generates smooth cel shading for non-photorealistic (NPR) characters. It offers a one-click solution to a process that has previously been notoriously tedious and time-consuming to work through: making complex 3D geometry look good with stylized shading edges in various angles.",
+            "There are a number of features built into the addon, including multiprocessing for performance improvements, automatic node group/material generation, multiple UV map support, and easy driver creation. You can find a link to the GitHub page and download <a class=\"inline-link\" href=\"https://github.com/EmuMan/npr-face-shader\" target=\"_blank\">here</a>."
+        ],
+        "image": "npr-face-shadows-demo.gif"
+    },
+    {
         "name": "Blender MIDI Utils",
         "descriptions": [
-            "If you've ever heard of Animusic, you probably have a pretty good idea of what this does. It basically allows you to take MIDI input and convert it into Blender keyframes, allowing you to easily create Animusic-like animations. Here is a small <a class=\"inline-link\" href=\"https://youtu.be/Duti3pvmtCU\" target=\"_blank\">demo</a> showcasing its capabilities as of now (admittedly not much, but I'm working on it).",
-            "If you want to try it out for yourself, you can find the source code and documentation <a class=\"inline-link\" href=\"https://github.com/EmuMan/blender-midi-utils\" target=\"_blank\">here</a>."
+            "If you've ever heard of Animusic, you probably have a pretty good idea of what this does. It basically allows you to take MIDI input and convert it into Blender keyframes, allowing you to easily create Animusic-like animations. Here is a small <a class=\"inline-link\" href=\"https://youtu.be/Duti3pvmtCU\" target=\"_blank\">demo</a> showcasing its capabilities.",
+            "If you want to try it out for yourself, you can find the source code and documentation <a class=\"inline-link\" href=\"https://github.com/EmuMan/blender-midi-utils\" target=\"_blank\">here</a>. It's been a long time since I updated it and made sure it still works, but I'm planning to revisit it soon."
         ],
         "image": "blender-midi-utils-demo.gif"  
     },
