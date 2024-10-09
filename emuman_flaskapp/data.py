@@ -155,10 +155,26 @@ original_songs = [
 
 misc_apps = [
     {
+        "name": "Cal Poly Esports Website",
+        "descriptions": [
+            "A full-stack web application designed to serve as the main hub for Cal Poly Esports. Features include an event calendar, news feed, club information, roster management, and more. The website was built using SvelteKit and is hosted on Azure, with a MongoDB database. There is also a user authentication system in place, allowing for administrators to manage their club's content.",
+            "The website can be found <a href=\"https://calpolyesports.com\" target=\"_blank\">here</a>."
+        ],
+        "image": "calpolyesports-website-demo.gif"
+    },
+    {
+        "name": "Live Scoreboard",
+        "descriptions": [
+            "An application written in Rust that allows for the easy creation of live scoreboards and overlays for various games. The program runs a web server asynchronously in the background, but also presents a GUI in which values can be updated in real-time, like teams, scores, and more. The UI is written in gtk4-rs, and the web server is built using Axum.",
+            "The source code can be found <a href=\"https://github.com/EmuMan/live-scoreboard\" target=\"_blank\">here</a>."
+        ],
+        "image": "live-scoreboard-demo.gif"
+    },
+    {
         "name": "EGT Simulator",
         "descriptions": [
             "A web-based application to simulate the complex game mechanics behind Genshin Impact's elemental reaction system (EGT = Elemental Gauge Theory). This project was the first time I really felt comfortable with frontend development and styling. The simulation itself is correct for almost all scenarios, but there are a couple of edge cases I'm still working to cover.",
-            "The website can be found <a href=\"https://emuman.net/egt_simulator\">here</a>."
+            "The website can be found <a href=\"https://emuman.net/egt_simulator\" target=\"_blank\">here</a>."
         ],
         "image": "egt-simulator-demo.gif"
     },
