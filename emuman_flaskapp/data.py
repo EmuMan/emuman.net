@@ -155,6 +155,15 @@ original_songs = [
 
 misc_apps = [
     {
+        "name": "GPU Black Hole Rasterizer",
+        "descriptions": [
+            "For my Computer Graphics class, we were given a final creative project to do. I decided to continue with our GPU rasterizer that we had been building up (plus a few of my own game engine-like systems) and create a black hole simulation. As far as I could tell, there was one other person that had done this before (specifically with rasterization), and you can find their paper <a href=\"https://www.researchgate.net/publication/305340208_Implementing_a_Rasterization_Framework_for_a_Black_Hole_Spacetime\">here</a>.",
+            "I adapted the techniques in the paper to my application, using symmetries to reduce dimensionality and then using the resulting polar coordinates to map into a 3D texture from which the geometry was distorted accordingly. The datapoints were sampled from BVP solutions to the Schwarzschild metric, which I generated using SciPy.",
+            "You can find a video demo <a href=\"https://youtu.be/vqTB9Rs9sYQ\">here</a>."
+        ],
+        "image": "black-hole-demo.gif"
+    },
+    {
         "name": "Cal Poly Esports Website",
         "descriptions": [
             "A full-stack web application designed to serve as the main hub for Cal Poly Esports. Features include an event calendar, news feed, club information, roster management, and more. The website was built using SvelteKit and is hosted on Azure, with a MongoDB database. There is also a user authentication system in place, allowing for administrators to manage their club's content.",
@@ -187,20 +196,20 @@ misc_apps = [
         "image": "corn-demo.gif"
     },
     {
-        "name": "Reddit Sheets",
-        "descriptions": [
-            "Reddit Sheets is a Reddit client built to run in Google Sheets using multiple different API interactions through a Python script. It was conceived when I wanted a good unblocked Reddit client for school use, but it ended up just being a fun project when virtual classes came about.",
-            "Unfortunately, since Reddit Sheets uses both the Reddit and Google APIs, both of which have limits (and would give you basic access to my account), it's not a document I can simply make publicly accessible. However, if you would like to set this up for yourself, you can find the source code <a class=\"inline-link\" href=\"https://github.com/EmuMan/reddit-sheets\" target=\"_blank\">here</a>. There are also instructions to help you get started."
-        ],
-        "image": "reddit-sheets-demo.gif"
-    },
-    {
         "name": "CPE-123 Coursework",
         "descriptions": [
             "I had a lot of fun messing around in this class (within reason of course), which was supposed to be an introduction to programming concepts using p5.js (Processing 5 in JavaScript). I ended up writing a small engine that wraps around p5.js, which I continually added to throughout the quarter. Eventually, it became a functional 2D/3D game engine with rudimentary axis-aligned bounding box collisions/physics.",
             "I was going to upload the work onto here, but I figured it would be better to just link to the website hosted on GitHub since it's easier to both publish and maintain. So, you can find a list of the labs and projects <a class=\"inline-link\" href=\"https://emuman.github.io/cpe-123\" target=\"_blank\">here</a>."
         ],
         "image": "cpe-123-demo.gif"
+    },
+    {
+        "name": "Reddit Sheets",
+        "descriptions": [
+            "Reddit Sheets is a Reddit client built to run in Google Sheets using multiple different API interactions through a Python script. It was conceived when I wanted a good unblocked Reddit client for school use, but it ended up just being a fun project when virtual classes came about.",
+            "Unfortunately, since Reddit Sheets uses both the Reddit and Google APIs, both of which have limits (and would give you basic access to my account), it's not a document I can simply make publicly accessible. However, if you would like to set this up for yourself, you can find the source code <a class=\"inline-link\" href=\"https://github.com/EmuMan/reddit-sheets\" target=\"_blank\">here</a>. There are also instructions to help you get started."
+        ],
+        "image": "reddit-sheets-demo.gif"
     },
     {
         "name": "NPR Face Shader",
