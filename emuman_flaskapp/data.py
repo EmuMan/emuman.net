@@ -240,8 +240,9 @@ programming = [
 games = [
     {
         "name": "Johnrey",
+        "technologies": "Unity, C#",
         "descriptions": [
-            "One of my favorite classes at Cal Poly was CSC 378, a game design class in disguise. I took the class with my roommate and one of the projects we created was Johnrey, built with the Unity game engine. I'm quite proud of the mechanics I developed for this game, including the animations and platforming technology.",
+            "One of my favorite classes at Cal Poly was CSC 378, a game design class in disguise. I took the class with my roommate and one of the projects we created was Johnrey. I'm quite proud of the mechanics I developed for this game, including the animations and platforming technology.",
             "Johnrey is a 2D platformer in which you, John, are a stick figure wielding a bow and arrow. Your goal is to reach Big John, but to do so you must navigate your terrain and defeat the numerous devils shooting fireballs at you. My partner for this project was <a href=\"https://shayandaijavad.com/\" target=\"_blank\">Shayan Daijavad</a>."
         ],
         "link": "https://users.csc.calpoly.edu/~sdaijava/johnrey/",
@@ -249,6 +250,7 @@ games = [
     },
     {
         "name": "Bubble Collapse",
+        "technologies": "Bevy, Rust, ECS",
         "descriptions": [
             "For Global Game Jam 2025, I decided to try something different and used Bevy as my game engine. Bevy is an ECS-based game engine written in Rust, which meant I had to get used to a couple of things. The first was ECS (Entity-Component-System) architecture, which is a bit different from the OOP (Object-Oriented Programming) style traditionally used in games. The second was programming the entire game in pure Rust, as Bevy has no UI editor. I ended up really enjoying using Bevy, and I feel like with the ECS architecture and pure programming model I ran into fewer obstacles than I normally would with a traditional engine.",
             "The game itself is an almost-idle game where you have to pop bubbles to earn points. However, the bubbles you pop with your mouse cursor do not give you points; only the bubbles popped by the resulting shockwaves do. Through popping bubbles, you can earn upgrades to increase the bubble spawn rate and introduce new types of bubbles into the system."
@@ -258,26 +260,29 @@ games = [
     },
     {
         "name": "Evil-Neuro's Dungeon",
+        "technologies": "Godot, FL Studio",
         "descriptions": [
-            "This is a game I made with a few others for the 2023 Neuro-sama Birthday Game Jam. Instead of my usual programming role with games, I ended up mostly just writing the soundtrack for this one, but I'm still including it so far up because I think it is some of my best work to date.",
-            "The game itself was made in Godot over the course of 72 hours, in collaboration with <a href=\"https://aurumkitsune.itch.io/\" target=\"_blank\">AurumKitsune</a>, <a href=\"https://olatiny.itch.io/\" target=\"_blank\">Thomas Gelman</a>, and <a href=\"https://greeeni.itch.io/\" target=\"_blank\">Greeni</a>. It is a roguelike turn-based game where you have to carefully choose your abilites to make it through the dungeon and defeat the final boss."
+            "This is a game I made with a few others for the 2023 Neuro-sama Birthday Game Jam. Instead of my usual programming role with games, I ended up mostly just writing the soundtrack for this one, but I'm still including it so far up because I think it is some of my best work to date. The game itself was made over the course of 72 hours, in collaboration with <a href=\"https://aurumkitsune.itch.io/\" target=\"_blank\">AurumKitsune</a>, <a href=\"https://olatiny.itch.io/\" target=\"_blank\">Thomas Gelman</a>, and <a href=\"https://greeeni.itch.io/\" target=\"_blank\">Greeni</a>.",
+            "Evil-Neuro's Dungeon is a roguelike turn-based game where you have to carefully choose your abilites to make it through the dungeon and defeat the final boss."
         ],
         "link": "https://aurumkitsune.itch.io/evil-neuros-dungeon",
         "image": "evil-neuros-dungeon.png"
     },
     {
         "name": "Larry's Deadly Dungeon",
+        "technologies": "Godot, GDScript, FL Studio",
         "descriptions": [
-            "Cal Poly Veteran's Day Game Jam 2024 was the first game jam I helped run as the President of Cal Poly Game Development Club, and this was my solo submission for that jam. I used Godot for the engine and decided to keep it simple with a 2D platformer. The game jam period unfortunately intersected with a couple of other important club events, but I was still able to finish the game in time.",
-            "The game centers around a reactor in the middle of a procedurally generated stage, and every once in a while the reactor malfunctions, causing the physics interactions to go haywire (the prompt being \"Unstable\"). By killing enemies you collect points, and once you die, the game is over."
+            "Cal Poly Veteran's Day Game Jam 2024 was the first game jam I helped run as the President of Cal Poly Game Development Club, and this was my solo submission for that jam. Using the theme of \"Unstable\", I decided to keep it simple with a 2D platformer. The game jam period unfortunately intersected with a couple of other important club events, but I was still able to finish the game in time.",
+            "The game centers around a reactor in the middle of a procedurally generated stage, and every once in a while the reactor malfunctions, causing the physics interactions to go haywire. The music was also designed to react and transition between these states. By killing enemies you collect points, and once you die, the game is over."
         ],
         "link": "https://emumangames.itch.io/larrys-deadly-dungeon",
         "image": "larrys-deadly-dungeon.png"
     },
     {
         "name": "Sun Bird",
+        "technologies": "Unity, C#, FL Studio",
         "descriptions": [
-            "This is another project I made with a few others for the aforementioned Cal Poly CSC 378 class. For this game, I helped develop the enemy AI systems (including the boss fight at the end), the basic shooting mechanics, the wave system, and the music. My collaborators were <a href=\"https://shayandaijavad.com/\" target=\"_blank\">Shayan Daijavad</a>, Jacob Shapero, and Will Kang, all other students in the class, and we decided on Unity for the engine.",
+            "This is another project I made with a few others for the aforementioned Cal Poly CSC 378 class. For this game, I helped develop the enemy AI systems (including the boss fight at the end), the basic shooting mechanics, the wave system, and the music. My collaborators were <a href=\"https://shayandaijavad.com/\" target=\"_blank\">Shayan Daijavad</a>, Jacob Shapero, and Will Kang, all other students in the class.",
             "The game is a 2D top-down shooter/bullet heaven game where you play as a phoenix trying to escape a world filled with vampires to reach the sun. With the variety of enemy types, upgrades, and the final boss, I'm pretty happy with how this one turned out."
         ],
         "link": "https://emumangames.itch.io/sun-bird",
@@ -285,8 +290,9 @@ games = [
     },
     {
         "name": "Feed the Flame",
+        "technologies": "Unity, C#, FL Studio",
         "descriptions": [
-            "I made this game for some sort of Cal Poly Game Jam in 2023 along with <a href=\"https://naimadadrec.itch.io/\" target=\"_blank\">naimad.adrec</a> in Unity. It's a 2D tower defense game of sorts where you have to manage a campfire by feeding it resources and upgrading it to handle larger waves of enemies. Most of my contributions were the sound design and event animations, but I also helped a little with the programming.",
+            "I made this game for some sort of Cal Poly Game Jam in 2023 along with <a href=\"https://naimadadrec.itch.io/\" target=\"_blank\">naimad.adrec</a>. It's a 2D tower defense game of sorts where you have to manage a campfire by feeding it resources and upgrading it to handle larger waves of enemies. Most of my contributions were the sound design and event animations, but I also helped a little with the programming.",
             "The published game is not very balanced and has a few bugs, but I still think it's pretty fun."
         ],
         "link": "https://naimadadrec.itch.io/feed-the-flame",
@@ -294,6 +300,7 @@ games = [
     },
     {
         "name": "Part Picker Picture",
+        "technologies": "Unity, C#, FL Studio",
         "descriptions": [
             "With the Global Game Jam 2024 theme being \"Make Me Laugh\", a couple of others (<a href=\"https://nikman800.itch.io/\" target=\"_blank\">Nikman</a> and <a href=\"https://skywing11.itch.io/\" target=\"_blank\">Skywing11</a>) and I decided to try our hand at a collaborative game that could be played with friends. I helped with programming the drawing mechanic and also did the soundtrack for the game.",
             "In Part Picker Picture, each player takes turns drawing a part of a character, and the different parts are all stitched together at the end to create the final result. It's a pretty simple concept, but it's a lot of fun to play with a small group of people and I'd say we stuck to the theme pretty well."
@@ -303,8 +310,9 @@ games = [
     },
     {
         "name": "Defend (From) Your Roots",
+        "technologies": "Godot, GDScript, FL Studio, Wwise",
         "descriptions": [
-            "Global Game Jam 2023 was my first game jam at Cal Poly, and the theme was \"Roots\". I worked with <a href=\"https://v3.globalgamejam.org/users/n8-ball\" target=\"_blank\">N8 Ball</a> and <a href=\"https://v3.globalgamejam.org/users/jwnimble\" target=\"_blank\">Jwnimble</a> to create a VR game in Godot. Unfortunately, the 3D assets were too big to be loaded onto the VR headset, but the rest of the game still worked fine.",
+            "Global Game Jam 2023 was my first game jam at Cal Poly, and the theme was \"Roots\". I worked with <a href=\"https://v3.globalgamejam.org/users/n8-ball\" target=\"_blank\">N8 Ball</a> and <a href=\"https://v3.globalgamejam.org/users/jwnimble\" target=\"_blank\">Jwnimble</a> to create a VR game in Godot. Unfortunately, the 3D assets were too big to be loaded onto the VR headset, but I was able to port the inputs to keyboard controls and the game ended up still being functional.",
             "The game is a rhythm game where you have to input a sequence of notes, and then subsequently defend from that sequence of inputted notes. All the audio is synchronized through Wwise, with smooth transitions between levels. The music was written by someone else in the project; I forgot their name, but I will update this if it gets back to me."
         ],
         "link": "https://v3.globalgamejam.org/2023/games/defend-your-roots-0",

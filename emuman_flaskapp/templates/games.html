@@ -13,6 +13,7 @@
     {% endif %}
         <div>
             <h2 class="font-accent">{{ game.name }}</h2>
+            <p style="margin-top: -0.8rem; margin-bottom: 1rem;"><i>{{ game.technologies }}</i></p>
             {% for description in game.descriptions %}
                 <p>{{ description | safe }}</p>
             {% endfor %}
