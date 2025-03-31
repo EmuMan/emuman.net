@@ -1,4 +1,4 @@
-art_pieces = [
+art = [
     {
         "file": "desert_scene.png",
         "description": "A desert scene I made in Blender, with touch-ups in photoshop."
@@ -153,13 +153,13 @@ original_songs = [
     }
 ]
 
-misc_apps = [
+programming = [
     {
         "name": "GPU Black Hole Rasterizer",
         "descriptions": [
-            "For my Computer Graphics class, we were given a final creative project to do. I decided to continue with our GPU rasterizer that we had been building up (plus a few of my own game engine-like systems) and create a black hole simulation. As far as I could tell, there was one other person that had done this before (specifically with rasterization), and you can find their paper <a href=\"https://www.researchgate.net/publication/305340208_Implementing_a_Rasterization_Framework_for_a_Black_Hole_Spacetime\">here</a>.",
+            "For my Computer Graphics class, we were given a final creative project to do. I decided to continue with our GPU rasterizer that we had been building up (plus a few of my own game engine-like systems) and create a black hole simulation. As far as I could tell, there was one other person that had done this before (specifically with rasterization), and you can find their paper <a href=\"https://www.researchgate.net/publication/305340208_Implementing_a_Rasterization_Framework_for_a_Black_Hole_Spacetime\" target=\"_blank\">here</a>.",
             "I adapted the techniques in the paper to my application, using symmetries to reduce dimensionality and then using the resulting polar coordinates to map into a 3D texture from which the geometry was distorted accordingly. The datapoints were sampled from BVP solutions to the Schwarzschild metric, which I generated using SciPy.",
-            "You can find a video demo <a href=\"https://youtu.be/vqTB9Rs9sYQ\">here</a>."
+            "You can find a video demo <a href=\"https://youtu.be/vqTB9Rs9sYQ\" target=\"_blank\">here</a>."
         ],
         "image": "black-hole-demo.gif"
     },
@@ -191,7 +191,7 @@ misc_apps = [
         "name": "corn",
         "descriptions": [
             "One of my primary passion projects, corn is a leaderboards-style Discord chat bot that I have been slowly adding to for the past few years. It started in Python as I was learning how to interact with different frameworks. Recently, in pursuit of a more robust structure, I migrated it to C# with the .NET framework, and also moved the data storage from JSON to SQLite. Today, corn is in 46 different servers and has many enthusiastic fans.",
-            "There are quite a few things you can do with corn, including ranking up on the server-wide leaderboards and generating images of corn with custom captions. I am working on getting it up on more public channels, but for now, you can either add it to your server <a class=\"inline-link\" href=\"https://discordapp.com/oauth2/authorize?client_id=461849775516418059&scope=bot&permissions=0\" target=\"_blank\">here</a> or click the Discord icon down below to join the official server."
+            "There are quite a few things you can do with corn, including ranking up on the server-wide leaderboards and generating images of corn with custom captions. Click <a href=\"https://emuman.net/corn\" target=\"_blank\">here</a> to visit corn's official website!"
         ],
         "image": "corn-demo.gif"
     },
@@ -234,6 +234,81 @@ misc_apps = [
             "The application uses OpenGL, and everything down to the line-drawing algorithm is custom made. It also includes a simple .OBJ parser, which is how I loaded the models you see to the side from Blender. Because I wrote it so long ago, it is very buggy and probably packed with memory leaks, but I have it on my to-do list to clean it up and put it on GitHub for showcase. I will update here when that happens."
         ],
         "image": "wireframe-renderer-demo.gif"
+    }
+]
+
+games = [
+    {
+        "name": "Johnrey",
+        "descriptions": [
+            "One of my favorite classes at Cal Poly was CSC 378, a game design class in disguise. I took the class with my roommate and one of the projects we created was Johnrey, built with the Unity game engine. I'm quite proud of the mechanics I developed for this game, including the animations and platforming technology.",
+            "Johnrey is a 2D platformer in which you, John, are a stick figure wielding a bow and arrow. Your goal is to reach Big John, but to do so you must navigate your terrain and defeat the numerous devils shooting fireballs at you. My partner for this project was <a href=\"https://shayandaijavad.com/\" target=\"_blank\">Shayan Daijavad</a>."
+        ],
+        "link": "https://users.csc.calpoly.edu/~sdaijava/johnrey/",
+        "image": "johnrey.png"
+    },
+    {
+        "name": "Bubble Collapse",
+        "descriptions": [
+            "For Global Game Jam 2025, I decided to try something different and used Bevy as my game engine. Bevy is an ECS-based game engine written in Rust, which meant I had to get used to a couple of things. The first was ECS (Entity-Component-System) architecture, which is a bit different from the OOP (Object-Oriented Programming) style traditionally used in games. The second was programming the entire game in pure Rust, as Bevy has no UI editor. I ended up really enjoying using Bevy, and I feel like with the ECS architecture and pure programming model I ran into fewer obstacles than I normally would with a traditional engine.",
+            "The game itself is an almost-idle game where you have to pop bubbles to earn points. However, the bubbles you pop with your mouse cursor do not give you points; only the bubbles popped by the resulting shockwaves do. Through popping bubbles, you can earn upgrades to increase the bubble spawn rate and introduce new types of bubbles into the system."
+        ],
+        "link": "https://emumangames.itch.io/bubble-collapse",
+        "image": "bubble-collapse.png"
+    },
+    {
+        "name": "Evil-Neuro's Dungeon",
+        "descriptions": [
+            "This is a game I made with a few others for the 2023 Neuro-sama Birthday Game Jam. Instead of my usual programming role with games, I ended up mostly just writing the soundtrack for this one, but I'm still including it so far up because I think it is some of my best work to date.",
+            "The game itself was made in Godot over the course of 72 hours, in collaboration with <a href=\"https://aurumkitsune.itch.io/\" target=\"_blank\">AurumKitsune</a>, <a href=\"https://olatiny.itch.io/\" target=\"_blank\">Thomas Gelman</a>, and <a href=\"https://greeeni.itch.io/\" target=\"_blank\">Greeni</a>. It is a roguelike turn-based game where you have to carefully choose your abilites to make it through the dungeon and defeat the final boss."
+        ],
+        "link": "https://aurumkitsune.itch.io/evil-neuros-dungeon",
+        "image": "evil-neuros-dungeon.png"
+    },
+    {
+        "name": "Larry's Deadly Dungeon",
+        "descriptions": [
+            "Cal Poly Veteran's Day Game Jam 2024 was the first game jam I helped run as the President of Cal Poly Game Development Club, and this was my solo submission for that jam. I used Godot for the engine and decided to keep it simple with a 2D platformer. The game jam period unfortunately intersected with a couple of other important club events, but I was still able to finish the game in time.",
+            "The game centers around a reactor in the middle of a procedurally generated stage, and every once in a while the reactor malfunctions, causing the physics interactions to go haywire (the prompt being \"Unstable\"). By killing enemies you collect points, and once you die, the game is over."
+        ],
+        "link": "https://emumangames.itch.io/larrys-deadly-dungeon",
+        "image": "larrys-deadly-dungeon.png"
+    },
+    {
+        "name": "Sun Bird",
+        "descriptions": [
+            "This is another project I made with a few others for the aforementioned Cal Poly CSC 378 class. For this game, I helped develop the enemy AI systems (including the boss fight at the end), the basic shooting mechanics, the wave system, and the music. My collaborators were <a href=\"https://shayandaijavad.com/\" target=\"_blank\">Shayan Daijavad</a>, Jacob Shapero, and Will Kang, all other students in the class, and we decided on Unity for the engine.",
+            "The game is a 2D top-down shooter/bullet heaven game where you play as a phoenix trying to escape a world filled with vampires to reach the sun. With the variety of enemy types, upgrades, and the final boss, I'm pretty happy with how this one turned out."
+        ],
+        "link": "https://emumangames.itch.io/sun-bird",
+        "image": "sun-bird.png"
+    },
+    {
+        "name": "Feed the Flame",
+        "descriptions": [
+            "I made this game for some sort of Cal Poly Game Jam in 2023 along with <a href=\"https://naimadadrec.itch.io/\" target=\"_blank\">naimad.adrec</a> in Unity. It's a 2D tower defense game of sorts where you have to manage a campfire by feeding it resources and upgrading it to handle larger waves of enemies. Most of my contributions were the sound design and event animations, but I also helped a little with the programming.",
+            "The published game is not very balanced and has a few bugs, but I still think it's pretty fun."
+        ],
+        "link": "https://naimadadrec.itch.io/feed-the-flame",
+        "image": "feed-the-flame.png"
+    },
+    {
+        "name": "Part Picker Picture",
+        "descriptions": [
+            "With the Global Game Jam 2024 theme being \"Make Me Laugh\", a couple of others (<a href=\"https://nikman800.itch.io/\" target=\"_blank\">Nikman</a> and <a href=\"https://skywing11.itch.io/\" target=\"_blank\">Skywing11</a>) and I decided to try our hand at a collaborative game that could be played with friends. I helped with programming the drawing mechanic and also did the soundtrack for the game.",
+            "In Part Picker Picture, each player takes turns drawing a part of a character, and the different parts are all stitched together at the end to create the final result. It's a pretty simple concept, but it's a lot of fun to play with a small group of people and I'd say we stuck to the theme pretty well."
+        ],
+        "link": "https://nikman800.itch.io/part-picker-picture",
+        "image": "part-picker-picture.png"
+    },
+    {
+        "name": "Defend (From) Your Roots",
+        "descriptions": [
+            "Global Game Jam 2023 was my first game jam at Cal Poly, and the theme was \"Roots\". I worked with <a href=\"https://v3.globalgamejam.org/users/n8-ball\" target=\"_blank\">N8 Ball</a> and <a href=\"https://v3.globalgamejam.org/users/jwnimble\" target=\"_blank\">Jwnimble</a> to create a VR game in Godot. Unfortunately, the 3D assets were too big to be loaded onto the VR headset, but the rest of the game still worked fine.",
+            "The game is a rhythm game where you have to input a sequence of notes, and then subsequently defend from that sequence of inputted notes. All the audio is synchronized through Wwise, with smooth transitions between levels. The music was written by someone else in the project; I forgot their name, but I will update this if it gets back to me."
+        ],
+        "link": "https://v3.globalgamejam.org/2023/games/defend-your-roots-0",
+        "image": "defend-from-your-roots.png"
     }
 ]
 

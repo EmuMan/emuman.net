@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="centered">
+    <h1>Games</h1>
+    <p>A collection of games that I have worked on, both solo projects and collaborations, for game jams, school, or just personal experiments.</p>
+    <br><hr><br>
+    {% for game in games %}
+    {% if loop.index0 % 2 == 0 %}
+    <div class="programming-entry flex-row-forwards">
+    {% else %}
+    <div class="programming-entry flex-row-reverse">
+    {% endif %}
+        <div>
+            <h2 class="font-accent">{{ game.name }}</h2>
+            {% for description in game.descriptions %}
+                <p>{{ description | safe }}</p>
+            {% endfor %}
+            <a href="{{ game.link }}" target="_blank">Click here to play {{ game.name }}!</a>
+        </div>
+        <div class="programming-img">
+            <img style="object-fit: cover;" src="{{ url_for('static', filename='images/' + game.image) }}">
+        </div>
+    </div>
+    <br>
+    {% endfor %}
+</div>
+{% endblock content %}

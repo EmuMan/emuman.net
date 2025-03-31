@@ -222,6 +222,11 @@ a {
     width: 23rem;
     border-radius: 5%;
     object-fit: cover;
+    transition: transform 0.3s ease-in-out;
+}
+
+.programming-img > img:hover {
+    transform: scale(1.1);
 }
 
 /* ----------------------- */

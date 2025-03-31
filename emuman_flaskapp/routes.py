@@ -5,7 +5,7 @@ import time
 
 from flask import render_template, request, send_from_directory, redirect
 from emuman_flaskapp import app
-from emuman_flaskapp.data import art_pieces, songtober_2020_songs, misc_apps, original_songs, corn_features
+import emuman_flaskapp.data as data
 from emuman_flaskapp.utils import urlify, replace_links, portion, cols2rows
 
 app.jinja_env.globals.update(replace_links=replace_links)
@@ -43,7 +43,7 @@ def stream_redirect():
     
 @app.route("/corn")
 def corn():
-    return render_template("corn.html", features=corn_features)
+    return render_template("corn.html", features=data.corn_features)
 
 
 @app.route("/")
@@ -52,19 +52,23 @@ def index():
 
 @app.route("/programming")
 def programming():
-    return render_template("programming.html", title="Programming", applications=misc_apps)
+    return render_template("programming.html", title="Programming", applications=data.programming)
+
+@app.route("/games")
+def games():
+    return render_template("games.html", title="Games", games=data.games)
     
 @app.route("/art")
 def art():
-    return render_template("art.html", title="Art", art=art_pieces)
+    return render_template("art.html", title="Art", art=data.art)
 
 @app.route("/music")
 def music():
-    return render_template("music.html", title="Music", songs=original_songs)
+    return render_template("music.html", title="Music", songs=data.original_songs)
 
 @app.route("/songtober/2020")
 def songtober_2020():
-    return render_template("songtober_2020.html", title="Songtober 2020", songs=songtober_2020_songs)
+    return render_template("songtober_2020.html", title="Songtober 2020", songs=data.songtober_2020_songs)
 
 @app.route("/cbrenders")
 def cbrenders():
