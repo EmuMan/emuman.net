@@ -20,27 +20,37 @@ app.jinja_env.globals.update(cols2rows=cols2rows)
 def static_from_root():
     return send_from_directory(app.static_folder, request.path[1:])
 
+
 @app.errorhandler(404)
 def page_not_found(error):
-    return render_template('404.html', error=True, title="Page Not Found"), 404
+    return render_template("404.html", error=True, title="Page Not Found"), 404
+
 
 @app.after_request
 def add_cors_headers(response):
     # https://stackoverflow.com/questions/42681311/flask-access-control-allow-origin-for-multiple-urls
-    response.headers.add('Access-Control-Allow-Origin', '*')
-    response.headers.add('Access-Control-Allow-Credentials', 'true')
-    response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
-    response.headers.add('Access-Control-Allow-Headers', 'Cache-Control')
-    response.headers.add('Access-Control-Allow-Headers', 'X-Requested-With')
-    response.headers.add('Access-Control-Allow-Headers', 'Authorization')
-    #response.headers.add('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE')
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    response.headers.add("Access-Control-Allow-Credentials", "true")
+    response.headers.add("Access-Control-Allow-Headers", "Content-Type")
+    response.headers.add("Access-Control-Allow-Headers", "Cache-Control")
+    response.headers.add("Access-Control-Allow-Headers", "X-Requested-With")
+    response.headers.add("Access-Control-Allow-Headers", "Authorization")
+    # response.headers.add('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE')
     return response
 
 
 @app.route("/streamredirect")
 def stream_redirect():
     return render_template("redirect.html")
-    
+
+
+@app.route("/resume")
+def resume_redirect():
+    return send_from_directory(
+        app.static_folder, "files/jacob_kelleran_general_resume_10_25.pdf"
+    )
+
+
 @app.route("/corn")
 def corn():
     return render_template("corn.html", features=data.corn_features)
@@ -50,25 +60,35 @@ def corn():
 def index():
     return render_template("index.html", reveal=True)
 
+
 @app.route("/programming")
 def programming():
-    return render_template("programming.html", title="Programming", applications=data.programming)
+    return render_template(
+        "programming.html", title="Programming", applications=data.programming
+    )
+
 
 @app.route("/games")
 def games():
     return render_template("games.html", title="Games", games=data.games)
-    
+
+
 @app.route("/art")
 def art():
     return render_template("art.html", title="Art", art=data.art)
+
 
 @app.route("/music")
 def music():
     return render_template("music.html", title="Music", songs=data.original_songs)
 
+
 @app.route("/songtober/2020")
 def songtober_2020():
-    return render_template("songtober_2020.html", title="Songtober 2020", songs=data.songtober_2020_songs)
+    return render_template(
+        "songtober_2020.html", title="Songtober 2020", songs=data.songtober_2020_songs
+    )
+
 
 @app.route("/cbrenders")
 def cbrenders():
@@ -79,14 +99,17 @@ def cbrenders():
         season = 6
     return render_template("cbrenders.html", season=season)
 
+
 @app.route("/about")
 def about():
     return render_template("about.html", title="About Me")
 
-@app.route('/phone_number_tool')
-def phone_number_tool():
-    return render_template('phone_number_tool.html')
 
-@app.route('/egt_simulator')
+@app.route("/phone_number_tool")
+def phone_number_tool():
+    return render_template("phone_number_tool.html")
+
+
+@app.route("/egt_simulator")
 def egt_simulator():
-    return render_template('gi_egt_simulator.html')
+    return render_template("gi_egt_simulator.html")
