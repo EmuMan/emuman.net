@@ -1,12 +1,14 @@
-import random
 import json
-import os, sys
+import os
+import random
+import sys
 import time
 
-from flask import render_template, request, send_from_directory, redirect
-from emuman_flaskapp import app
+from flask import redirect, render_template, request, send_from_directory
+
 import emuman_flaskapp.data as data
-from emuman_flaskapp.utils import urlify, replace_links, portion, cols2rows
+from emuman_flaskapp import app
+from emuman_flaskapp.utils import cols2rows, portion, replace_links, urlify
 
 app.jinja_env.globals.update(replace_links=replace_links)
 app.jinja_env.globals.update(urlify=urlify)
@@ -47,7 +49,7 @@ def stream_redirect():
 @app.route("/resume")
 def resume_redirect():
     return send_from_directory(
-        app.static_folder, "files/jacob_kelleran_general_resume_10_25.pdf"
+        app.static_folder, "files/jacob_kelleran_general_resume.pdf"
     )
 
 
