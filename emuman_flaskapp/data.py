@@ -155,10 +155,18 @@ programming = [
         "name": "GPU Black Hole Rasterizer",
         "descriptions": [
             'This is one of my favorite projects to date; a physically modeled black hole distortion effect in a fully rasterized engine. As far as I could tell, at the time I made this, only one other person that had done this before (specifically with rasterization), and you can find their paper <a href="https://www.researchgate.net/publication/305340208_Implementing_a_Rasterization_Framework_for_a_Black_Hole_Spacetime" target="_blank">here</a>.',
-            "I adapted the techniques in the paper to my application, using symmetries to reduce dimensionality and then using the resulting polar coordinates to map into a 3D texture from which the geometry was distorted accordingly. The datapoints were sampled from BVP solutions to the Schwarzschild metric, which I generated using SciPy.",
+            "I adapted the techniques in the paper to my application, using symmetries to reduce dimensionality and then using the resulting polar coordinates to map into a 3D texture from which the geometry was distorted accordingly. The datapoints were sampled from boundary value problem solutions to the Schwarzschild metric, which I generated using SciPy.",
             'You can find a video demo <a href="https://youtu.be/vqTB9Rs9sYQ" target="_blank">here</a>.',
         ],
         "image": "black-hole-demo.gif",
+    },
+    {
+        "name": "StreamShow",
+        "descriptions": [
+            "Built using SvelteKit / Svelte 5, StreamShow is a web application that allows for content creators to easily create, manage, and visualize modular gameshows in real-time. The app emphasizes flexibility and customization, allowing for hosts to create presets using a variety of game modes and display them on a custom theme. Using Firebase, states are synchronized in real-time between the host, player, and spectator views, and the whole system integrates seamlessly with OBS.",
+            'The application is hosted on Azure using full CI/CD. You can try it out for yourself <a href="https://streamshow.emuman.net/" target="_blank">here</a>, although it should be considered as heavily in-development. You can also check out the <a href="https://github.com/EmuMan/streamshow" target="_blank">source code</a> if you\'d like.',
+        ],
+        "image": "streamshow-demo.gif",
     },
     {
         "name": "Cal Poly Esports Website",
