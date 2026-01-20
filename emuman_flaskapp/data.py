@@ -156,7 +156,7 @@ programming = [
         "descriptions": [
             'This is one of my favorite projects to date; a physically modeled black hole distortion effect in a fully rasterized engine. As far as I could tell, at the time I made this, only one other person that had done this before (specifically with rasterization), and you can find their paper <a href="https://www.researchgate.net/publication/305340208_Implementing_a_Rasterization_Framework_for_a_Black_Hole_Spacetime" target="_blank">here</a>.',
             "I adapted the techniques in the paper to my application, using symmetries to reduce dimensionality and then using the resulting polar coordinates to map into a 3D texture from which the geometry was distorted accordingly. The datapoints were sampled from boundary value problem solutions to the Schwarzschild metric, which I generated using SciPy.",
-            'You can find a video demo <a href="https://youtu.be/vqTB9Rs9sYQ" target="_blank">here</a>.',
+            'You can find a video demo <a href="https://youtu.be/vqTB9Rs9sYQ" target="_blank">here</a>, or build the project from source and run it <a href="https://github.com/EmuMan/black-hole-rasterizer" target="_blank">here</a>.',
         ],
         "image": "black-hole-demo.gif",
     },
