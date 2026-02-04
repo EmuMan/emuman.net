@@ -12,7 +12,7 @@ const PUBLIC_DIR = path.join(process.cwd(), "public");
 
 async function uploadFile(
   filePath: string,
-  blobPath: string
+  blobPath: string,
 ): Promise<string | null> {
   if (!fs.existsSync(filePath)) {
     console.warn(`File not found: ${filePath}`);
@@ -22,6 +22,8 @@ async function uploadFile(
   const fileBuffer = fs.readFileSync(filePath);
   const blob = await put(blobPath, fileBuffer, {
     access: "public",
+    addRandomSuffix: false,
+    allowOverwrite: true,
   });
 
   console.log(`Uploaded: ${blobPath} -> ${blob.url}`);
@@ -102,7 +104,9 @@ async function migrateCornImages() {
 
 async function main() {
   if (!process.env.BLOB_READ_WRITE_TOKEN) {
-    console.error("Error: BLOB_READ_WRITE_TOKEN environment variable is not set.");
+    console.error(
+      "Error: BLOB_READ_WRITE_TOKEN environment variable is not set.",
+    );
     console.error("Please add it to your .env file.");
     console.error("You can get this token from your Vercel project settings.");
     process.exit(1);

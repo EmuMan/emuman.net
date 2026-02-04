@@ -53,7 +53,10 @@ export default async function Songtober2020Page() {
       <br />
       <hr className="border-[var(--clr-neutral-400)]" />
       <br />
-      <MusicPlayer songs={songs} musicPath="/music/songtober_2020/" />
+      <MusicPlayer
+        songs={songs}
+        musicPath={`${process.env.NEXT_PUBLIC_BLOB_URL || ""}/music/songtober_2020/`}
+      />
     </div>
   );
 }

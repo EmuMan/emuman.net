@@ -30,7 +30,7 @@ export default function AboutPage() {
         <strong>
           you can{" "}
           <a
-            href="/files/jacob_kelleran_general_resume_10_25.pdf"
+            href={`${process.env.NEXT_PUBLIC_BLOB_URL || ""}/files/jacob_kelleran_general_resume.pdf`}
             target="_blank"
             className="inline-link"
           >

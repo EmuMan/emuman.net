@@ -36,7 +36,10 @@ export default async function MusicPage() {
       <br />
       <hr className="border-[var(--clr-neutral-400)]" />
       <br />
-      <MusicPlayer songs={songs} musicPath="/music/originals/" />
+      <MusicPlayer
+        songs={songs}
+        musicPath={`${process.env.NEXT_PUBLIC_BLOB_URL || ""}/music/originals/`}
+      />
     </div>
   );
 }
