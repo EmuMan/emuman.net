@@ -1,0 +1,65 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Art {
+  id          String @id @default(cuid())
+  file        String
+  imageUrl    String?  // Vercel Blob URL
+  description String
+  order       Int    @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Song {
+  id          String   @id @default(cuid())
+  index       Int
+  title       String
+  songId      String   @unique
+  description String   @db.Text
+  collection  String   // "original" or "songtober_2020"
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([collection])
+}
+
+model ProgrammingProject {
+  id           String   @id @default(cuid())
+  name         String
+  descriptions String[] @db.Text
+  image        String
+  imageUrl     String?  // Vercel Blob URL
+  order        Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Game {
+  id           String   @id @default(cuid())
+  name         String
+  technologies String
+  descriptions String[] @db.Text
+  link         String
+  image        String
+  imageUrl     String?  // Vercel Blob URL
+  order        Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model CornFeature {
+  id           String   @id @default(cuid())
+  name         String
+  descriptions String[] @db.Text
+  image        String
+  imageUrl     String?  // Vercel Blob URL
+  order        Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
