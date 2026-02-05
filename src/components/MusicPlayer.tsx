@@ -22,10 +22,21 @@ function formatDuration(seconds: number): string {
   return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
 }
 
+function getInitialSongId(songs: Song[]): string {
+  if (typeof window !== "undefined") {
+    const params = new URLSearchParams(window.location.search);
+    const urlId = params.get("id");
+    if (urlId && songs.some((s) => s.songId === urlId)) {
+      return urlId;
+    }
+  }
+  return songs[0]?.songId || "";
+}
+
 export default function MusicPlayer({ songs, musicPath }: MusicPlayerProps) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const [currentSongId, setCurrentSongId] = useState<string>(
-    songs[0]?.songId || "",
+  const [currentSongId, setCurrentSongId] = useState<string>(() =>
+    getInitialSongId(songs),
   );
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
@@ -62,14 +73,6 @@ export default function MusicPlayer({ songs, musicPath }: MusicPlayerProps) {
       window.history.replaceState(null, "", `?id=${currentSongId}`);
     }
   }, [currentSongId]);
-
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const urlId = params.get("id");
-    if (urlId && songs.some((s) => s.songId === urlId)) {
-      setCurrentSongId(urlId);
-    }
-  }, [songs]);
 
   const playSong = (songId: string) => {
     if (audioRef.current) {

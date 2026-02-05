@@ -32,7 +32,7 @@ export default function AboutPage() {
           <a
             href={`${process.env.NEXT_PUBLIC_BLOB_URL || ""}/files/jacob_kelleran_general_resume.pdf`}
             target="_blank"
-            className="inline-link"
+            className="underline hover:text-[var(--clr-neutral-500)] transition-colors duration-200"
           >
             download my general resume here
           </a>
@@ -48,8 +48,14 @@ export default function AboutPage() {
 
       <h2 className="text-2xl font-bold mb-4">How can I contact you?</h2>
       <p className="mb-6">
-        The best ways to contact me are through Discord (emuman) or by email
-        (jacob.kelleran@outlook.com).
+        The best ways to contact me are through Discord (emuman) or by email (
+        <a
+          href="mailto:jacob.kelleran@outlook.com"
+          className="underline hover:text-[var(--clr-neutral-500)] transition-colors duration-200"
+        >
+          jacob.kelleran@outlook.com
+        </a>
+        ).
       </p>
 
       <h2 className="text-2xl font-bold mb-4">Where else can I find you?</h2>
