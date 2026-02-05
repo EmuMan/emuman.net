@@ -23,29 +23,29 @@ export default async function ArtPage() {
       <br />
       <hr className="border-[var(--clr-neutral-400)]" />
       <br />
-      <div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {artworks.map((art) => {
           const imageSrc = art.imageUrl || `/art/${art.file}`;
           return (
-            <div key={art.id} className="gallery-responsive">
-              <div className="gallery-entry">
-                <a href={imageSrc} target="_blank">
-                  <Image
-                    src={imageSrc}
-                    alt={art.description}
-                    width={400}
-                    height={300}
-                    className="gallery-img"
-                  />
-                </a>
-                <div className="gallery-desc">
-                  <p>{art.description}</p>
-                </div>
+            <a
+              key={art.id}
+              href={imageSrc}
+              target="_blank"
+              className="group relative overflow-hidden rounded-lg"
+            >
+              <Image
+                src={imageSrc}
+                alt={art.description}
+                width={400}
+                height={300}
+                className="w-full h-auto rounded-lg transition-transform duration-300 ease-in-out group-hover:scale-105"
+              />
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                <p>{art.description}</p>
               </div>
-            </div>
+            </a>
           );
         })}
-        <div className="clearfix" />
       </div>
     </div>
   );

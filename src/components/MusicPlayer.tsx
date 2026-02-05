@@ -25,7 +25,7 @@ function formatDuration(seconds: number): string {
 export default function MusicPlayer({ songs, musicPath }: MusicPlayerProps) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [currentSongId, setCurrentSongId] = useState<string>(
-    songs[0]?.songId || ""
+    songs[0]?.songId || "",
   );
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
@@ -42,10 +42,9 @@ export default function MusicPlayer({ songs, musicPath }: MusicPlayerProps) {
     (songId: string) => {
       return `${musicPath}${songId}.mp3`;
     },
-    [musicPath]
+    [musicPath],
   );
 
-  // Load durations for all songs
   useEffect(() => {
     songs.forEach((song) => {
       const audio = new Audio(getSongUrl(song.songId));
@@ -58,14 +57,12 @@ export default function MusicPlayer({ songs, musicPath }: MusicPlayerProps) {
     });
   }, [songs, getSongUrl]);
 
-  // Update URL when song changes
   useEffect(() => {
     if (currentSongId) {
       window.history.replaceState(null, "", `?id=${currentSongId}`);
     }
   }, [currentSongId]);
 
-  // Initialize from URL
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const urlId = params.get("id");
@@ -164,57 +161,74 @@ export default function MusicPlayer({ songs, musicPath }: MusicPlayerProps) {
 
   return (
     <div className="text-center">
-      <div className="scrolling-table mx-auto max-w-4xl">
-        <table id="song-table" className="w-full">
+      {/* Song table */}
+      <div className="mx-auto max-w-4xl overflow-y-auto h-[300px]">
+        <table className="w-full border-collapse">
           <thead>
             <tr>
-              <th className="w-[10%] text-center">#</th>
-              <th className="text-left">Title</th>
-              <th className="text-right">Duration</th>
+              <th className="w-[10%] text-center sticky top-0 bg-[var(--clr-accent-100)] px-4 py-2">
+                #
+              </th>
+              <th className="text-left sticky top-0 bg-[var(--clr-accent-100)] px-4 py-2">
+                Title
+              </th>
+              <th className="text-right sticky top-0 bg-[var(--clr-accent-100)] px-4 py-2">
+                Duration
+              </th>
             </tr>
           </thead>
           <tbody>
-            {songs.map((song) => (
-              <tr
-                key={song.id}
-                className={currentSongId === song.songId ? "playing" : ""}
-                onClick={() => playSong(song.songId)}
-                onMouseEnter={() => setHoveredSong(song.songId)}
-                onMouseLeave={() => setHoveredSong(null)}
-              >
-                <td className="text-center py-2">
-                  {hoveredSong === song.songId ? (
-                    <Image
-                      src="/images/small_arrow.png"
-                      alt="Play"
-                      width={16}
-                      height={16}
-                      className="inline"
-                    />
-                  ) : (
-                    song.index
-                  )}
-                </td>
-                <td className="text-left">{song.title}</td>
-                <td className="text-right">
-                  {durations[song.songId]
-                    ? formatDuration(durations[song.songId])
-                    : "--:--"}
-                </td>
-              </tr>
-            ))}
+            {songs.map((song) => {
+              const isCurrentSong = currentSongId === song.songId;
+              const isHovered = hoveredSong === song.songId;
+              return (
+                <tr
+                  key={song.id}
+                  onClick={() => playSong(song.songId)}
+                  onMouseEnter={() => setHoveredSong(song.songId)}
+                  onMouseLeave={() => setHoveredSong(null)}
+                  className={`cursor-pointer transition-colors ${
+                    isHovered
+                      ? "bg-[var(--clr-accent-200)]"
+                      : isCurrentSong
+                        ? "bg-[var(--clr-accent-200)]"
+                        : "bg-[var(--clr-accent-000)]"
+                  }`}
+                >
+                  <td className="text-center py-2 px-4">
+                    {isHovered ? (
+                      <Image
+                        src="/images/small_arrow.png"
+                        alt="Play"
+                        width={16}
+                        height={16}
+                        className="inline"
+                      />
+                    ) : (
+                      song.index
+                    )}
+                  </td>
+                  <td className="text-left px-4">{song.title}</td>
+                  <td className="text-right px-4">
+                    {durations[song.songId]
+                      ? formatDuration(durations[song.songId])
+                      : "--:--"}
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
 
-      <div className="mt-8" id="player">
+      {/* Player controls */}
+      <div className="mt-8">
         <p className="text-lg">- Now playing -</p>
         <p className="text-3xl font-bold my-2">{currentSong?.title || ""}</p>
 
         <div className="my-4">
           <input
             type="range"
-            id="seek"
             value={currentTime}
             max={duration || 100}
             onChange={handleSeek}
@@ -229,7 +243,12 @@ export default function MusicPlayer({ songs, musicPath }: MusicPlayerProps) {
           <div className="flex-1" />
           <div className="flex items-center gap-4">
             <button onClick={prevSong} className="hover:opacity-70">
-              <Image src="/images/prev.png" alt="Previous" width={32} height={32} />
+              <Image
+                src="/images/prev.png"
+                alt="Previous"
+                width={32}
+                height={32}
+              />
             </button>
             <button onClick={togglePlay} className="hover:opacity-70">
               <Image
@@ -254,7 +273,6 @@ export default function MusicPlayer({ songs, musicPath }: MusicPlayerProps) {
             </button>
             <input
               type="range"
-              id="volume"
               value={isMuted ? 0 : volume * 100}
               max={100}
               onChange={handleVolumeChange}
@@ -264,6 +282,7 @@ export default function MusicPlayer({ songs, musicPath }: MusicPlayerProps) {
         </div>
       </div>
 
+      {/* Song description */}
       <div className="mt-8 px-[20%]">
         {currentSong && (
           <p dangerouslySetInnerHTML={{ __html: currentSong.description }} />

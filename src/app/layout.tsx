@@ -37,12 +37,19 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="antialiased">
-        <div className="background-gradient" />
+        {/* Background gradient */}
+        <div
+          className="fixed top-0 left-0 w-full h-full -z-10"
+          style={{
+            background:
+              "radial-gradient(circle, var(--clr-accent-100) 0%, var(--clr-accent-000) 100%)",
+          }}
+        />
         <Header />
         <div className="delay-reveal">
           <Navigation />
           <div className="mx-auto w-[min(85%,1250px)]">
-            <main className="content">{children}</main>
+            <main className="pb-8">{children}</main>
             <Footer />
           </div>
         </div>
