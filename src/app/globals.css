@@ -126,6 +126,12 @@
     font-family: var(--font-accent);
 }
 
+.typed-corn {
+    animation:
+        typing 1s steps(10, end) forwards,
+        blinking 1s 1.5s infinite;
+}
+
 .delay-reveal {
     opacity: 0%;
     padding-top: 2rem;

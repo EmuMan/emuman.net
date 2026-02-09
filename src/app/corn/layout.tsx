@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import "../globals.css";
 import "./corn.css";
 import Script from "next/script";
 
@@ -52,35 +51,33 @@ export default function CornLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className="antialiased">
-        <Script
-          src="https://code.iconify.design/iconify-icon/1.0.2/iconify-icon.min.js"
-          strategy="lazyOnload"
-        />
-        <div className="corn-background" />
-        {children}
-        <div className="delay-reveal">
-          <div className="mx-auto w-[min(85%,1250px)]">
-            <hr className="border-neutral-400" />
-            <footer className="flex flex-row justify-center py-8">
-              {socialLinks.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-center px-2 text-5xl hover:opacity-70 transition-opacity"
-                  aria-label={link.label}
-                  dangerouslySetInnerHTML={{
-                    __html: `<iconify-icon icon="${link.icon}"></iconify-icon>`,
-                  }}
-                />
-              ))}
-            </footer>
-          </div>
+    <>
+      <Script
+        src="https://code.iconify.design/iconify-icon/1.0.2/iconify-icon.min.js"
+        strategy="lazyOnload"
+      />
+      <div className="corn-background" />
+      {children}
+      <div className="delay-reveal">
+        <div className="mx-auto w-[min(85%,1250px)]">
+          <hr className="border-neutral-800 my-4 border-2" />
+          <footer className="flex flex-row justify-center py-8">
+            {socialLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-center px-2 text-5xl hover:opacity-70 transition-opacity"
+                aria-label={link.label}
+                dangerouslySetInnerHTML={{
+                  __html: `<iconify-icon icon="${link.icon}"></iconify-icon>`,
+                }}
+              />
+            ))}
+          </footer>
         </div>
-      </body>
-    </html>
+      </div>
+    </>
   );
 }

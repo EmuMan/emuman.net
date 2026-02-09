@@ -17,8 +17,8 @@ export default async function CornPage() {
           height={150}
           className="rounded-full mx-auto mb-12"
         />
-        <div className="typed-container mx-auto">
-          <p className="corn-typed">hello corn</p>
+        <div className="grid place-items-center w-fit mx-auto font-accent">
+          <p className="typed typed-corn">hello corn</p>
         </div>
       </header>
 
@@ -34,7 +34,7 @@ export default async function CornPage() {
             </p>
             <CornAddButton />
             <br />
-            <hr className="border-neutral-400" />
+            <hr className="border-neutral-800 border-2 my-4" />
             <br />
 
             <h1 className="text-4xl font-bold mb-8">Features</h1>
@@ -49,7 +49,7 @@ export default async function CornPage() {
                   } max-md:flex-col`}
                 >
                   <div className="flex-1 p-4">
-                    <h2 className="text-2xl font-(--ff-accent) mb-2">
+                    <h2 className="text-3xl font-accent font-bold mb-4">
                       {feature.name}
                     </h2>
                     {feature.descriptions.map((desc, i) => (
