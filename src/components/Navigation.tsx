@@ -20,10 +20,10 @@ export default function Navigation() {
         <Link
           key={item.href}
           href={item.href}
-          className={`text-center px-12 py-4 no-underline font-[var(--ff-accent)] text-3xl transition-colors duration-500 ${
+          className={`text-center px-12 py-4 no-underline font-accent text-3xl transition-colors duration-500 ${
             pathname === item.href
-              ? "text-[var(--clr-neutral-500)]"
-              : "text-[var(--clr-neutral-900)] hover:text-[var(--clr-neutral-500)]"
+              ? "text-neutral-600"
+              : "text-neutral-900 hover:text-neutral-600"
           }`}
         >
           {item.label}

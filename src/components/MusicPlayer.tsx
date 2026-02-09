@@ -165,17 +165,17 @@ export default function MusicPlayer({ songs, musicPath }: MusicPlayerProps) {
   return (
     <div className="text-center">
       {/* Song table */}
-      <div className="mx-auto max-w-4xl overflow-y-auto h-[300px]">
+      <div className="mx-auto max-w-4xl overflow-y-auto h-75">
         <table className="w-full border-collapse">
           <thead>
             <tr>
-              <th className="w-[10%] text-center sticky top-0 bg-[var(--clr-accent-100)] px-4 py-2">
+              <th className="w-[10%] text-center sticky top-0 bg-accent-100 px-4 py-2">
                 #
               </th>
-              <th className="text-left sticky top-0 bg-[var(--clr-accent-100)] px-4 py-2">
+              <th className="text-left sticky top-0 bg-accent-100 px-4 py-2">
                 Title
               </th>
-              <th className="text-right sticky top-0 bg-[var(--clr-accent-100)] px-4 py-2">
+              <th className="text-right sticky top-0 bg-accent-100 px-4 py-2">
                 Duration
               </th>
             </tr>
@@ -192,10 +192,10 @@ export default function MusicPlayer({ songs, musicPath }: MusicPlayerProps) {
                   onMouseLeave={() => setHoveredSong(null)}
                   className={`cursor-pointer transition-colors ${
                     isHovered
-                      ? "bg-[var(--clr-accent-200)]"
+                      ? "bg-accent-200"
                       : isCurrentSong
-                        ? "bg-[var(--clr-accent-200)]"
-                        : "bg-[var(--clr-accent-000)]"
+                        ? "bg-accent-200"
+                        : "bg-accent-000"
                   }`}
                 >
                   <td className="text-center py-2 px-4">
@@ -235,7 +235,7 @@ export default function MusicPlayer({ songs, musicPath }: MusicPlayerProps) {
             value={currentTime}
             max={duration || 100}
             onChange={handleSeek}
-            className="w-[70%] accent-[var(--clr-neutral-900)]"
+            className="w-[70%] accent-neutral-900"
           />
           <span className="ml-4">
             {formatDuration(currentTime)} / {formatDuration(duration)}
@@ -279,7 +279,7 @@ export default function MusicPlayer({ songs, musicPath }: MusicPlayerProps) {
               value={isMuted ? 0 : volume * 100}
               max={100}
               onChange={handleVolumeChange}
-              className="w-[min(40%,150px)] accent-[var(--clr-neutral-900)]"
+              className="w-[min(40%,150px)] accent-neutral-900"
             />
           </div>
         </div>

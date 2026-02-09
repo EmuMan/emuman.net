@@ -21,7 +21,7 @@ export default async function GamesPage() {
         collaborations, for game jams, school, or just personal experiments.
       </p>
       <br />
-      <hr className="border-[var(--clr-neutral-400)]" />
+      <hr className="border-neutral-400" />
       <br />
       {games.map((game, index) => (
         <div key={game.id}>

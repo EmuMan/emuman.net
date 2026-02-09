@@ -42,7 +42,7 @@ export default function RootLayout({
           className="fixed top-0 left-0 w-full h-full -z-10"
           style={{
             background:
-              "radial-gradient(circle, var(--clr-accent-100) 0%, var(--clr-accent-000) 100%)",
+              "radial-gradient(circle, var(--color-accent-100) 0%, var(--color-accent-0) 100%)",
           }}
         />
         <Header />

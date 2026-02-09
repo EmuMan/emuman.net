@@ -12,8 +12,8 @@
     --clr-hydro: #0e8dc0;
     --clr-pyro: #e8621a;
 
-    --ff-primary: 'Consolas', Consolas, monospace;
-    --ff-accent: Arial, Helvetica, sans-serif;
+    --ff-primary: Arial, Helvetica, sans-serif;
+    --ff-accent: "Consolas", Consolas, monospace;
 }
 
 *,
@@ -109,7 +109,8 @@ body {
     display: grid;
 }
 
-.progress, .marker-list {
+.progress,
+.marker-list {
     grid-column: 1;
     grid-row: 1;
 }
@@ -166,19 +167,19 @@ body {
     width: 10px;
     padding-right: 1rem;
 }
-  
+
 /* Track */
 .scrolling-list::-webkit-scrollbar-track {
     background: #ddd;
     border-radius: 10px;
 }
-  
+
 /* Handle */
 .scrolling-list::-webkit-scrollbar-thumb {
     background: #888;
     border-radius: 10px;
 }
-  
+
 /* Handle on hover */
 .scrolling-list::-webkit-scrollbar-thumb:hover {
     background: #555;
@@ -358,15 +359,27 @@ body {
 }
 
 .background-burning {
-    background-image: linear-gradient(to right, var(--clr-pyro), var(--clr-dendro));
+    background-image: linear-gradient(
+        to right,
+        var(--clr-pyro),
+        var(--clr-dendro)
+    );
 }
 
 .background-frozen {
-    background-image: linear-gradient(to right, var(--clr-cryo), var(--clr-hydro));
+    background-image: linear-gradient(
+        to right,
+        var(--clr-cryo),
+        var(--clr-hydro)
+    );
 }
 
 .background-quicken {
-    background-image: linear-gradient(to right, var(--clr-electro), var(--clr-dendro));
+    background-image: linear-gradient(
+        to right,
+        var(--clr-electro),
+        var(--clr-dendro)
+    );
 }
 
 .color-anemo {
@@ -398,21 +411,33 @@ body {
 }
 
 .color-burning {
-    background-image: linear-gradient(to right, var(--clr-pyro), var(--clr-dendro));
+    background-image: linear-gradient(
+        to right,
+        var(--clr-pyro),
+        var(--clr-dendro)
+    );
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 .color-frozen {
-    background-image: linear-gradient(to right, var(--clr-cryo), var(--clr-hydro));
+    background-image: linear-gradient(
+        to right,
+        var(--clr-cryo),
+        var(--clr-hydro)
+    );
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 .color-quicken {
-    background-image: linear-gradient(to right, var(--clr-electro), var(--clr-dendro));
+    background-image: linear-gradient(
+        to right,
+        var(--clr-electro),
+        var(--clr-dendro)
+    );
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;

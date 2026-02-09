@@ -62,7 +62,7 @@ export default function CornLayout({
         {children}
         <div className="delay-reveal">
           <div className="mx-auto w-[min(85%,1250px)]">
-            <hr className="border-[var(--clr-neutral-400)]" />
+            <hr className="border-neutral-400" />
             <footer className="flex flex-row justify-center py-8">
               {socialLinks.map((link) => (
                 <a

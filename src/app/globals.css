@@ -1,37 +1,36 @@
 @import "tailwindcss";
 
-:root {
-    --clr-neutral-000: #000000;
-    --clr-neutral-200: #303138;
-    --clr-neutral-300: #3d3f46;
-    --clr-neutral-400: #4a4d55;
-    --clr-neutral-500: #75767e;
-    --clr-neutral-600: #9496a0;
-    --clr-neutral-900: #eaedf8;
+@theme {
+    /* Colors */
+    --color-neutral-0: #000000;
+    --color-neutral-100: #1a1b22;
+    --color-neutral-200: #303138;
+    --color-neutral-300: #3d3f46;
+    --color-neutral-400: #4a4d55;
+    --color-neutral-500: #75767e;
+    --color-neutral-600: #9496a0;
+    --color-neutral-700: #b1b3be;
+    --color-neutral-800: #d0d2db;
+    --color-neutral-900: #eaedf8;
 
-    --clr-accent-000: #100725;
-    --clr-accent-100: #25144b;
-    --clr-accent-200: #241d36;
+    --color-accent-0: #100725;
+    --color-accent-100: #25144b;
+    --color-accent-200: #241d36;
 
-    --ff-accent: "Consolas", Consolas, monospace;
-    --ff-primary: Arial, Helvetica, sans-serif;
-}
+    --color-corn-0: #8f4000;
+    --color-corn-100: #865c49;
+    --color-corn-200: #ba8521;
+    --color-corn-300: #dfc23f;
 
-@theme inline {
-    --color-neutral-000: var(--clr-neutral-000);
-    --color-neutral-200: var(--clr-neutral-200);
-    --color-neutral-300: var(--clr-neutral-300);
-    --color-neutral-400: var(--clr-neutral-400);
-    --color-neutral-500: var(--clr-neutral-500);
-    --color-neutral-600: var(--clr-neutral-600);
-    --color-neutral-900: var(--clr-neutral-900);
+    /* Fonts */
+    --font-accent: Consolas, monospace;
+    --font-primary: Arial, Helvetica, sans-serif;
 
-    --color-accent-000: var(--clr-accent-000);
-    --color-accent-100: var(--clr-accent-100);
-    --color-accent-200: var(--clr-accent-200);
-
-    --font-accent: var(--ff-accent);
-    --font-primary: var(--ff-primary);
+    /* Background images */
+    --background-image-gradient-radial: radial-gradient(
+        circle,
+        var(--tw-gradient-stops)
+    );
 }
 
 /* Base resets */
@@ -49,27 +48,26 @@
     p {
         margin: 0;
     }
-}
 
-@layer base {
     body {
-        font-family: var(--ff-primary);
-        color: var(--clr-neutral-900);
+        font-family: var(--font-primary);
+        color: var(--color-neutral-900);
         min-height: 100vh;
     }
 
     a {
-        color: var(--clr-neutral-900);
+        color: var(--color-neutral-900);
     }
 }
 
+/* Link hover effect for description text */
 .description-text a {
     text-decoration: underline;
     transition: color 0.2s;
 }
 
 .description-text a:hover {
-    color: var(--clr-neutral-500);
+    color: var(--color-neutral-500);
 }
 
 /* Keyframe animations - must stay in CSS */
@@ -90,10 +88,10 @@
         border-color: transparent;
     }
     50% {
-        border-color: var(--clr-neutral-900);
+        border-color: var(--color-neutral-900);
     }
     80% {
-        border-color: var(--clr-neutral-900);
+        border-color: var(--color-neutral-900);
     }
     100% {
         border-color: transparent;
@@ -124,8 +122,8 @@
     animation:
         typing 1s steps(6, end) forwards,
         blinking 1s 1.5s infinite;
-    color: var(--clr-neutral-900);
-    font-family: var(--ff-accent);
+    color: var(--color-neutral-900);
+    font-family: var(--font-accent);
 }
 
 .delay-reveal {

@@ -21,7 +21,7 @@ export default async function ProgrammingPage() {
         hobby and for school.
       </p>
       <br />
-      <hr className="border-[var(--clr-neutral-400)]" />
+      <hr className="border-neutral-400" />
       <br />
       {projects.map((project, index) => (
         <div key={project.id}>

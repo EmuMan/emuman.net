@@ -34,7 +34,7 @@ export default async function CornPage() {
             </p>
             <CornAddButton />
             <br />
-            <hr className="border-[var(--clr-neutral-400)]" />
+            <hr className="border-neutral-400" />
             <br />
 
             <h1 className="text-4xl font-bold mb-8">Features</h1>
@@ -49,7 +49,7 @@ export default async function CornPage() {
                   } max-md:flex-col`}
                 >
                   <div className="flex-1 p-4">
-                    <h2 className="text-2xl font-[var(--ff-accent)] mb-2">
+                    <h2 className="text-2xl font-(--ff-accent) mb-2">
                       {feature.name}
                     </h2>
                     {feature.descriptions.map((desc, i) => (

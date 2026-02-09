@@ -18,7 +18,7 @@ export default async function MusicPage() {
     <div className="text-center">
       <h1 className="text-4xl font-bold mb-4">Original Music</h1>
       <br />
-      <hr className="border-[var(--clr-neutral-400)]" />
+      <hr className="border-neutral-400" />
       <br />
       <p className="text-lg mb-4">
         I write music sometimes, and before I started properly posting it
@@ -34,7 +34,7 @@ export default async function MusicPage() {
         listening experience much better. I promise.
       </p>
       <br />
-      <hr className="border-[var(--clr-neutral-400)]" />
+      <hr className="border-neutral-400" />
       <br />
       <MusicPlayer
         songs={songs}

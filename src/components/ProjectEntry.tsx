@@ -25,16 +25,14 @@ export default function ProjectEntry({
       className={`flex items-center max-md:flex-col ${reverse ? "flex-row-reverse" : "flex-row"}`}
     >
       <div className="p-6 md:p-12">
-        <h2 className="font-[var(--ff-accent)] text-2xl mb-2">{name}</h2>
+        <h2 className="font-accent font-bold text-2xl">{name}</h2>
         {technologies && (
-          <p className="mb-4 italic text-[var(--clr-neutral-600)]">
-            {technologies}
-          </p>
+          <p className=" mt-1italic text-neutral-700">{technologies}</p>
         )}
         {descriptions.map((description, index) => (
           <p
             key={index}
-            className="mb-2 description-text"
+            className="mt-4 mb-2 description-text"
             dangerouslySetInnerHTML={{ __html: description }}
           />
         ))}
@@ -43,20 +41,19 @@ export default function ProjectEntry({
             href={link}
             target="_blank"
             rel="noopener noreferrer"
-            className="underline transition-colors duration-200 hover:text-[var(--clr-neutral-500)]"
+            className="underline transition-colors duration-200 hover:text-neutral-500"
           >
             Click here to play {name}!
           </a>
         )}
       </div>
-      <div className="flex-shrink-0 overflow-hidden p-6 md:p-12 max-md:w-[22rem] w-[28rem]">
+      <div className="shrink-0 overflow-hidden p-6 md:p-12 max-md:w-88 w-md">
         <Image
           src={imageSrc}
           alt={name}
           width={448}
           height={448}
-          style={{ borderRadius: "12px" }}
-          className="w-full h-auto object-cover transition-transform duration-300 ease-in-out hover:scale-110"
+          className="w-full h-auto object-cover rounded-xl transition-transform duration-300 ease-in-out hover:scale-110"
           unoptimized={image.endsWith(".gif")}
         />
       </div>

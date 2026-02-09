@@ -18,7 +18,7 @@ export default async function Songtober2020Page() {
     <div className="text-center">
       <h1 className="text-4xl font-bold mb-4">Songtober 2020</h1>
       <br />
-      <hr className="border-[var(--clr-neutral-400)]" />
+      <hr className="border-neutral-400" />
       <br />
 
       <h2 className="text-2xl font-bold mb-4">What is Songtober?</h2>
@@ -51,7 +51,7 @@ export default async function Songtober2020Page() {
         listening experience much better. I promise.
       </p>
       <br />
-      <hr className="border-[var(--clr-neutral-400)]" />
+      <hr className="border-neutral-400" />
       <br />
       <MusicPlayer
         songs={songs}

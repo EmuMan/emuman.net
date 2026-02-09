@@ -32,7 +32,7 @@ export default function Footer() {
         strategy="lazyOnload"
       />
       <footer className="mt-8">
-        <hr className="border-[var(--clr-neutral-400)]" />
+        <hr className="border-neutral-400" />
         <div className="flex flex-row justify-center py-8">
           {socialLinks.map((link) => (
             <a
