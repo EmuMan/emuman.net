@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+    <meta name="description" content="A mostly-accurate elemental gauge theory simulation tool for learning and experimentation.">
+
+    <meta property="og:title" content="Elemental Gauge Theory Simulator">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://emuman.net/egt_simulator">
+    <meta property="og:image" content="https://emuman.net/images/emu.png">
+    <meta property="og:description" content="A mostly-accurate elemental gauge theory simulation tool for learning and experimentation.">
+
+    <link rel="stylesheet" type="text/css" href="/css/gi_egt_simulator_style.css">
+    <script type="text/javascript" src="/js/gi_egt_simulator.js"></script>
+    <script type="text/javascript" src="/js/gi_egt_darkmode.js"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.3/iconify-icon.min.js"></script>
+
+    <title>Elemental Gauge Theory Simulator</title>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Elemental Gauge Theory Simulator</h1>
+            <p>A (mostly) accurate simulator for elemental application and reactions</p>
+            <p><small><i>Note: There are bound to be errors at this point in development. If you see any, message emuman on Discord (or ping me in KQM).</i></small></p>
+        </div>
+        <div class="simulation">
+            <div id="bars">
+            </div>
+            <div class="log-box">
+                <div class="log-container">
+                    <ul id="reaction-log" class="scrolling-list">
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="ui-container">
+            <div class="playback-buttons-container">
+                <a id="darkmode"><iconify-icon icon="clarity:lightbulb-solid"></iconify-icon></a>
+                <a id="clear"><iconify-icon icon="clarity:trash-solid"></iconify-icon></a>
+                <a id="play" class="hide-button"><iconify-icon icon="clarity:play-solid"></iconify-icon></a>
+                <a id="pause"><iconify-icon icon="clarity:pause-solid"></iconify-icon></a>
+                <a id="step-forward"><iconify-icon icon="clarity:step-forward-solid"></iconify-icon></a>
+                <select name="speed" id="speed">
+                    <option value="0">0.25x</option>
+                    <option value="1">0.5x</option>
+                    <option selected value="2">1.0x</option>
+                    <option value="3">2.0x</option>
+                    <option value="4">4.0x</option>
+                </select>
+            </div>
+            <div class="checkbox-container">
+                <div>
+                    <input type="checkbox" id="show-durability-checkbox" class="checkbox">
+                    <label for="show-durability-checkbox" class="checkbox-label">Show Durability</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="log-ec-ticks-checkbox" class="checkbox">
+                    <label for="log-ec-ticks-checkbox" class="checkbox-label">Log Electro-Charged Ticks</label>
+                </div>
+                <div>
+                    <input type="checkbox" id="log-applications-checkbox" class="checkbox">
+                    <label for="log-applications-checkbox" class="checkbox-label">Log Elemental Applications</label>
+                </div>
+                <div class="ping-container">
+                    <p>Ping:</p>
+                    <input class="ping-input" id="ping" type="number" title="Ping" placeholder="60" value="60">
+                </div>
+            </div>
+            <div id="element-buttons">
+            </div>
+            <div class="keybinds-box">
+                <div class="keybinds-container">
+                    <p class="keybinds-title">Keybinds</p>
+                    <ul id="keybind-list" class="scrolling-list">
+
+                    </ul>
+                    <a id="add-keybind" class="keybinds-footer">Add keybind</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

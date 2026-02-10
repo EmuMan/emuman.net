@@ -1,0 +1,139 @@
+@import "tailwindcss";
+
+@theme {
+    /* Colors */
+    --color-neutral-0: #000000;
+    --color-neutral-100: #1a1b22;
+    --color-neutral-200: #303138;
+    --color-neutral-300: #3d3f46;
+    --color-neutral-400: #4a4d55;
+    --color-neutral-500: #75767e;
+    --color-neutral-600: #9496a0;
+    --color-neutral-700: #b1b3be;
+    --color-neutral-800: #d0d2db;
+    --color-neutral-900: #eaedf8;
+
+    --color-accent-0: #100725;
+    --color-accent-100: #25144b;
+    --color-accent-200: #241d36;
+
+    --color-corn-0: #8f4000;
+    --color-corn-100: #865c49;
+    --color-corn-200: #ba8521;
+    --color-corn-300: #dfc23f;
+
+    /* Fonts */
+    --font-accent: Consolas, monospace;
+    --font-primary: Arial, Helvetica, sans-serif;
+
+    /* Background images */
+    --background-image-gradient-radial: radial-gradient(
+        circle,
+        var(--tw-gradient-stops)
+    );
+}
+
+/* Base resets */
+@layer base {
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    body,
+    h1,
+    h2,
+    h3,
+    p {
+        margin: 0;
+    }
+
+    body {
+        font-family: var(--font-primary);
+        color: var(--color-neutral-900);
+        min-height: 100vh;
+    }
+
+    a {
+        color: var(--color-neutral-900);
+    }
+}
+
+/* Link hover effect for description text */
+.description-text a {
+    text-decoration: underline;
+    transition: color 0.2s;
+}
+
+.description-text a:hover {
+    color: var(--color-neutral-500);
+}
+
+/* Keyframe animations - must stay in CSS */
+@keyframes typing {
+    from {
+        width: 0%;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes blinking {
+    0% {
+        border-color: transparent;
+    }
+    30% {
+        border-color: transparent;
+    }
+    50% {
+        border-color: var(--color-neutral-900);
+    }
+    80% {
+        border-color: var(--color-neutral-900);
+    }
+    100% {
+        border-color: transparent;
+    }
+}
+
+@keyframes reveal {
+    0% {
+        padding-top: 2rem;
+        opacity: 0%;
+    }
+    100% {
+        padding-top: 0rem;
+        opacity: 100%;
+    }
+}
+
+/* Animation classes that use keyframes */
+.typed {
+    margin: 0;
+    padding: 0;
+    font-size: min(7.5rem, calc(80vw / 3.33));
+    box-sizing: content-box;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 0.5rem solid;
+    width: 0;
+    animation:
+        typing 1s steps(6, end) forwards,
+        blinking 1s 1.5s infinite;
+    color: var(--color-neutral-900);
+    font-family: var(--font-accent);
+}
+
+.typed-corn {
+    animation:
+        typing 1s steps(10, end) forwards,
+        blinking 1s 1.5s infinite;
+}
+
+.delay-reveal {
+    opacity: 0%;
+    padding-top: 2rem;
+    animation: 0.5s ease-out 1.5s 1 forwards reveal;
+}
