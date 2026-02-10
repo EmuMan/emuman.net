@@ -8,7 +8,7 @@ export default function NotFound() {
       <p className="mb-8">
         The page you&apos;re looking for doesn&apos;t exist or has been moved.
       </p>
-      <Link href="/" className="inline-link text-xl hover:text-neutral-500">
+      <Link href="/" className="inline-link text-xl hover:text-neutral-600">
         Go back home
       </Link>
     </div>

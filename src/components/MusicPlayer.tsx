@@ -201,7 +201,7 @@ export default function MusicPlayer({ songs, musicPath }: MusicPlayerProps) {
                   <td className="text-center py-2 px-4">
                     {isHovered ? (
                       <Image
-                        src="/images/small_arrow.png"
+                        src="/icons/small_arrow.png"
                         alt="Play"
                         width={16}
                         height={16}
@@ -247,7 +247,7 @@ export default function MusicPlayer({ songs, musicPath }: MusicPlayerProps) {
           <div className="flex items-center gap-4">
             <button onClick={prevSong} className="hover:opacity-70">
               <Image
-                src="/images/prev.png"
+                src="/icons/prev.png"
                 alt="Previous"
                 width={32}
                 height={32}
@@ -255,20 +255,20 @@ export default function MusicPlayer({ songs, musicPath }: MusicPlayerProps) {
             </button>
             <button onClick={togglePlay} className="hover:opacity-70">
               <Image
-                src={isPlaying ? "/images/pause.png" : "/images/play.png"}
+                src={isPlaying ? "/icons/pause.png" : "/icons/play.png"}
                 alt={isPlaying ? "Pause" : "Play"}
                 width={48}
                 height={48}
               />
             </button>
             <button onClick={nextSong} className="hover:opacity-70">
-              <Image src="/images/next.png" alt="Next" width={32} height={32} />
+              <Image src="/icons/next.png" alt="Next" width={32} height={32} />
             </button>
           </div>
           <div className="flex-1 flex items-center justify-start gap-2">
             <button onClick={toggleMute} className="hover:opacity-70">
               <Image
-                src={isMuted ? "/images/mute.png" : "/images/speaker.png"}
+                src={isMuted ? "/icons/mute.png" : "/icons/speaker.png"}
                 alt={isMuted ? "Unmute" : "Mute"}
                 width={32}
                 height={32}

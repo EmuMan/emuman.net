@@ -21,9 +21,9 @@ export default async function CBRendersPage({ searchParams }: Props) {
       </h1>
       <CBRendersClient initialSeason={season} />
       <br />
-      <hr className="border-[var(--clr-neutral-400)]" />
+      <hr className="border-neutral-400" />
       <br />
-      <div className="w-full h-[600px]">
+      <div className="w-full h-150">
         <iframe
           src={`/cbrenders/s${season}/index.html`}
           className="w-full h-full border-0"
