@@ -1,12 +1,17 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import Image from "next/image";
 
 const ROTATION_SPEED = 0.0004; // radians per frame (matches Starfield)
 
 export default function MilkyWay() {
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const handleImageLoad = useCallback(() => {
+    const el = containerRef.current;
+    if (el) el.style.opacity = "0.5";
+  }, []);
 
   useEffect(() => {
     const el = containerRef.current;
@@ -23,13 +28,8 @@ export default function MilkyWay() {
 
     animationId = requestAnimationFrame(rotate);
 
-    const timeout = setTimeout(() => {
-      el!.style.opacity = "0.5";
-    }, 200);
-
     return () => {
       cancelAnimationFrame(animationId);
-      clearTimeout(timeout);
     };
   }, []);
 
@@ -50,6 +50,7 @@ export default function MilkyWay() {
         fill
         draggable={false}
         className="block object-cover select-none"
+        onLoad={handleImageLoad}
       />
     </div>
   );
