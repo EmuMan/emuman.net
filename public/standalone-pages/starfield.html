@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Galaxy — SVG Bloom Demo</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Courier+Prime&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            html,
+            body {
+                width: 100%;
+                height: 100%;
+                background: radial-gradient(
+                    ellipse at center,
+                    rgba(12, 8, 20, 1),
+                    rgba(5, 4, 12, 1) 50%,
+                    #000
+                );
+                overflow: hidden;
+                font-family: "Cormorant Garamond", Georgia, serif;
+                color: #e8dfc8;
+            }
+
+            #canvas {
+                position: fixed;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                filter: url(#bloom);
+                opacity: 0;
+                transition: opacity 0.8s ease-in;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- The SVG filter — hidden, just defines the effect -->
+        <svg
+            style="position: absolute; width: 0; height: 0; overflow: hidden"
+            aria-hidden="true"
+        >
+            <defs>
+                <filter
+                    id="bloom"
+                    x="-50%"
+                    y="-50%"
+                    width="200%"
+                    height="200%"
+                    color-interpolation-filters="sRGB"
+                >
+                    <!-- Layer 1: tight glow -->
+                    <feGaussianBlur
+                        in="SourceGraphic"
+                        stdDeviation="2"
+                        result="b1"
+                    />
+                    <feBlend
+                        in="SourceGraphic"
+                        in2="b1"
+                        mode="screen"
+                        result="c1"
+                    />
+
+                    <!-- Layer 2: medium glow -->
+                    <feGaussianBlur
+                        in="SourceGraphic"
+                        stdDeviation="8"
+                        result="b2"
+                    />
+                    <feBlend in="c1" in2="b2" mode="screen" result="c2" />
+
+                    <!-- Layer 3: wide glow -->
+                    <feGaussianBlur
+                        in="SourceGraphic"
+                        stdDeviation="20"
+                        result="b3"
+                    />
+                    <feBlend in="c2" in2="b3" mode="screen" result="c3" />
+
+                    <!-- Layer 4: atmospheric haze -->
+                    <feGaussianBlur
+                        in="SourceGraphic"
+                        stdDeviation="40"
+                        result="b4"
+                    />
+                    <feBlend in="c3" in2="b4" mode="screen" />
+                </filter>
+            </defs>
+        </svg>
+
+        <canvas id="canvas"></canvas>
+
+        <script>
+            const canvas = document.getElementById("canvas");
+            const ctx = canvas.getContext("2d");
+
+            // ── Star data ──────────────────────────────────────────────
+            const FIELD_RADIUS = 1500; // virtual coordinate space radius
+            const ROTATION_SPEED = 0.0004;
+
+            // Star color palettes — realistic stellar colors
+            const starColors = [
+                // Blue-white (hot O/B type)
+                "#cde0ff",
+                "#d8e8ff",
+                "#e4efff",
+                "#f2f6ff",
+                // White (A type)
+                "#ffffff",
+                "#f8faff",
+                // Yellow-white (F type)
+                "#fffaf0",
+                "#fff4dc",
+                // Yellow (G type — like our sun)
+                "#fff3c8",
+                "#ffefb8",
+                // Orange (K type)
+                "#ffddb0",
+                "#ffd4a0",
+                // Red (M type — most common)
+                "#ffccb0",
+                "#ffc4a8",
+                "#ffbda0",
+                // Rare blue giants
+                "#b8d8ff",
+                "#a8ccff",
+            ];
+
+            // Bright nebula-tinted accent stars (sparse)
+            const accentColors = ["#ffe0ff", "#ddc8ff", "#c8ddff", "#ffe8c8"];
+
+            let stars = [];
+
+            function randomStarColor() {
+                // Weight towards cooler/dimmer stars (more realistic)
+                const r = Math.random();
+                if (r < 0.03)
+                    return accentColors[
+                        Math.floor(Math.random() * accentColors.length)
+                    ];
+                if (r < 0.12) return starColors[Math.floor(Math.random() * 4)]; // blue-white
+                if (r < 0.25)
+                    return starColors[4 + Math.floor(Math.random() * 2)]; // white
+                if (r < 0.4)
+                    return starColors[6 + Math.floor(Math.random() * 2)]; // yellow-white
+                if (r < 0.55)
+                    return starColors[8 + Math.floor(Math.random() * 2)]; // yellow
+                if (r < 0.7)
+                    return starColors[10 + Math.floor(Math.random() * 2)]; // orange
+                return starColors[12 + Math.floor(Math.random() * 3)]; // red
+            }
+
+            function galaxyDistribution() {
+                // Polar coords with spiral density falloff
+                // Use gaussian-ish distribution for radius to cluster stars toward center
+                let r;
+                const t = Math.random();
+                if (t < 0.6) {
+                    // Core cluster
+                    r = Math.pow(Math.random(), 0.5) * FIELD_RADIUS * 0.6;
+                } else {
+                    // Outer halo
+                    r = FIELD_RADIUS * (0.4 + Math.random() * 0.6);
+                }
+                const angle = Math.random() * Math.PI * 2;
+                return { x: Math.cos(angle) * r, y: Math.sin(angle) * r };
+            }
+
+            function buildStars(count) {
+                stars = Array.from({ length: count }, () => {
+                    const pos = galaxyDistribution();
+                    const distFraction =
+                        Math.hypot(pos.x, pos.y) / FIELD_RADIUS;
+                    // Stars closer to center are slightly brighter/larger
+                    const brightness = 1 - distFraction * 0.6;
+                    const isBright = Math.random() < 0.03;
+                    return {
+                        x: pos.x,
+                        y: pos.y,
+                        radius: isBright
+                            ? Math.random() * 1.8 + 1.0
+                            : Math.random() * 0.9 + 0.2,
+                        color: randomStarColor(),
+                        alpha: brightness * (0.5 + Math.random() * 0.5),
+                        // Twinkling
+                        twinkleSpeed: Math.random() * 0.02 + 0.005,
+                        twinkleOffset: Math.random() * Math.PI * 2,
+                    };
+                });
+            }
+
+            // ── Rendering ──────────────────────────────────────────────
+            let angle = 0;
+
+            // Group stars by color to minimize shadowColor state changes
+            // (key perf optimization — reduces per-draw state switches)
+            let starGroups = {};
+            function groupStars() {
+                starGroups = {};
+                for (const star of stars) {
+                    if (!starGroups[star.color]) starGroups[star.color] = [];
+                    starGroups[star.color].push(star);
+                }
+            }
+
+            function resize() {
+                canvas.width = window.innerWidth * 2;
+                canvas.height = window.innerHeight * 2;
+            }
+            resize();
+            window.addEventListener("resize", resize);
+
+            let t = 0;
+            function draw() {
+                t++;
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                const cx = canvas.width / 2,
+                    cy = canvas.height / 2;
+
+                ctx.save();
+                ctx.translate(cx, cy);
+                ctx.rotate(angle);
+
+                // Draw grouped by color for fewer state changes
+                for (const [color, group] of Object.entries(starGroups)) {
+                    ctx.fillStyle = color;
+                    // Only set shadow for this color group once
+                    ctx.shadowColor = color;
+
+                    for (const star of group) {
+                        const twinkle =
+                            0.85 +
+                            0.15 *
+                                Math.sin(
+                                    t * star.twinkleSpeed + star.twinkleOffset,
+                                );
+                        const r = star.radius * twinkle;
+                        const alpha = star.alpha * twinkle;
+
+                        ctx.globalAlpha = alpha;
+                        ctx.shadowBlur = r > 1.2 ? r * 4 : 0; // only glow larger stars
+                        ctx.beginPath();
+                        ctx.arc(star.x, star.y, r, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                }
+
+                ctx.restore();
+                ctx.globalAlpha = 1;
+                ctx.shadowBlur = 0;
+
+                angle += ROTATION_SPEED;
+                requestAnimationFrame(draw);
+            }
+
+            // Firefox SVG filter workaround: the filter's internal buffers
+            // need to initialize with a small render first, then rebuild.
+            // Without this, sub-pixel stars flicker due to a filter caching bug.
+            buildStars(100);
+            groupStars();
+            draw();
+
+            setTimeout(() => {
+                buildStars(10000);
+                groupStars();
+                canvas.style.opacity = 1;
+            }, 100);
+        </script>
+    </body>
+</html>

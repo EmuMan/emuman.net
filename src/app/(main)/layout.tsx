@@ -3,7 +3,7 @@ import Header from "@/components/Header";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import Starfield from "@/components/Starfield";
-import MilkyWay from "@/components/MilkyWay";
+import RotatingImage from "@/components/RotatingImage";
 
 export default function MainLayout({
   children,
@@ -22,8 +22,8 @@ export default function MainLayout({
       />
       {/* Galaxy + header section */}
       <div className="relative">
-        <Starfield />
-        <MilkyWay />
+        <RotatingImage src="/images/starfield.png" />
+        <RotatingImage src="/images/milkyway_bright.png" opacity={0.5} />
         <Header />
         {/* Gradient fade from transparent to background */}
         <div
