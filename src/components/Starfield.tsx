@@ -57,7 +57,7 @@ function randomStarColor(): string {
   return starColors[12 + Math.floor(Math.random() * 3)];
 }
 
-function galaxyDistribution(): { x: number; y: number } {
+function starDistribution(): { x: number; y: number } {
   const t = Math.random();
   let r: number;
   if (t < 0.6) {
@@ -71,7 +71,7 @@ function galaxyDistribution(): { x: number; y: number } {
 
 function buildStars(count: number): Star[] {
   return Array.from({ length: count }, () => {
-    const pos = galaxyDistribution();
+    const pos = starDistribution();
     const distFraction = Math.hypot(pos.x, pos.y) / FIELD_RADIUS;
     const brightness = 1 - distFraction * 0.6;
     const isBright = Math.random() < 0.03;
@@ -100,7 +100,7 @@ function groupStars(stars: Star[]): Map<string, Star[]> {
   return groups;
 }
 
-export default function Galaxy() {
+export default function Starfield() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -129,7 +129,7 @@ export default function Galaxy() {
       ctx!.clearRect(0, 0, canvas!.width, canvas!.height);
 
       const cx = canvas!.width / 2;
-      const cy = canvas!.height / 2;
+      const cy = canvas!.height / 2 + window.innerHeight * 0.1;
 
       ctx!.save();
       ctx!.translate(cx, cy);

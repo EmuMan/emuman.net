@@ -1,0 +1,492 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Milky Way — Cloud Demo</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                background: #03010a;
+                width: 100vw;
+                height: 100vh;
+                overflow: hidden;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .scene {
+                position: relative;
+                width: 100vw;
+                height: 100vh;
+            }
+
+            /* Hidden: only exists so the browser applies the SVG filter for snapshotting */
+            #filtered-source {
+                position: absolute;
+                left: 0;
+                top: 0;
+                filter: url(#nebula-warp);
+                visibility: hidden;
+            }
+
+            /* The snapshot image that actually gets rotated */
+            .rotator {
+                position: absolute;
+                width: 150vmax;
+                height: 150vmax;
+                left: 50%;
+                top: 50%;
+                translate: -50% -50%;
+                will-change: transform;
+                opacity: 0;
+                transition: opacity 1.5s ease-in;
+            }
+
+            .rotator.visible {
+                opacity: 1;
+            }
+
+            .rotator img {
+                width: 100%;
+                height: 100%;
+            }
+
+            /* Hidden SVG just to define the filter */
+            #filters {
+                position: absolute;
+                width: 0;
+                height: 0;
+                overflow: hidden;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- SVG filter definition -->
+        <svg id="filters" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <filter
+                    id="nebula-warp"
+                    x="-10%"
+                    y="-10%"
+                    width="120%"
+                    height="120%"
+                    color-interpolation-filters="sRGB"
+                >
+                    <!-- Coarse warp layer -->
+                    <feTurbulence
+                        id="turb1"
+                        type="fractalNoise"
+                        baseFrequency="0.008 0.005"
+                        numOctaves="4"
+                        seed="7"
+                        result="noise1"
+                    />
+                    <feDisplacementMap
+                        in="SourceGraphic"
+                        in2="noise1"
+                        scale="90"
+                        xChannelSelector="R"
+                        yChannelSelector="G"
+                        result="warped1"
+                    />
+                    <!-- Fine detail warp layer -->
+                    <feTurbulence
+                        id="turb2"
+                        type="fractalNoise"
+                        baseFrequency="0.022 0.018"
+                        numOctaves="3"
+                        seed="42"
+                        result="noise2"
+                    />
+                    <feDisplacementMap
+                        in="warped1"
+                        in2="noise2"
+                        scale="28"
+                        xChannelSelector="G"
+                        yChannelSelector="B"
+                        result="warped2"
+                    />
+                    <!-- Blur to soften and blend the warped image -->
+                    <feGaussianBlur
+                        in="warped2"
+                        stdDeviation="8"
+                        result="blurred"
+                    />
+                    <!-- Boost contrast/vibrancy -->
+                    <feComponentTransfer in="blurred">
+                        <feFuncR
+                            type="gamma"
+                            amplitude="1.1"
+                            exponent="0.9"
+                            offset="0"
+                        />
+                        <feFuncG
+                            type="gamma"
+                            amplitude="1.0"
+                            exponent="0.85"
+                            offset="0"
+                        />
+                        <feFuncB
+                            type="gamma"
+                            amplitude="1.15"
+                            exponent="0.8"
+                            offset="0"
+                        />
+                    </feComponentTransfer>
+                </filter>
+            </defs>
+        </svg>
+
+        <div class="scene">
+            <!-- Hidden canvas with filter — used only to produce the snapshot -->
+            <canvas id="filtered-source"></canvas>
+            <!-- Rotated container holds the baked snapshot (no filter) -->
+            <div class="rotator">
+                <img id="snapshot" alt="" />
+            </div>
+        </div>
+
+        <div class="label">Milky Way — Nebula Clouds</div>
+
+        <script>
+            const sourceCanvas = document.getElementById("filtered-source");
+            const ctx = sourceCanvas.getContext("2d");
+            const rotator = document.querySelector(".rotator");
+            const snapshotImg = document.getElementById("snapshot");
+
+            const ROTATION_SPEED = 0.0002; // radians per millisecond (~30s per full rotation)
+            const diskAngle = 0.0;
+            // const diskAngle = -Math.PI * 0.065; // slight tilt
+
+            let W, H, cx, cy;
+            let blobGroups = [];
+
+            // Draw an elliptical radial gradient blob
+            function drawBlob(
+                x,
+                y,
+                rx,
+                ry,
+                angle,
+                colorStops,
+                alpha = 1,
+                composite = "screen",
+            ) {
+                ctx.save();
+                ctx.globalAlpha = alpha;
+                ctx.globalCompositeOperation = composite;
+                ctx.translate(x, y);
+                ctx.rotate(angle);
+                ctx.scale(rx, ry);
+
+                const grad = ctx.createRadialGradient(0, 0, 0, 0, 0, 1);
+                colorStops.forEach(([stop, color]) =>
+                    grad.addColorStop(stop, color),
+                );
+
+                ctx.beginPath();
+                ctx.arc(0, 0, 1, 0, Math.PI * 2);
+                ctx.fillStyle = grad;
+                ctx.fill();
+                ctx.restore();
+            }
+
+            // Generate random blob data for a group. Returns a BlobGroup object:
+            // { blobs: Blob[], colorStops, composite }
+            // where Blob = { dx, dy, rx, ry, ang, r, g, b, a }
+            function generateBlobGroup({
+                count = 6,
+                dxRange = [-W * 0.3, W * 0.3],
+                dyRange = [-H * 0.06, H * 0.06],
+                rxRange = [W * 0.06, W * 0.15],
+                ryRange = [H * 0.035, H * 0.06],
+                angRange = [-0.5, 0.5],
+                rRange = [0, 255],
+                gRange = [0, 255],
+                bRange = [0, 255],
+                aRange = [0.5, 0.8],
+                colorStops,
+                composite = "screen",
+            }) {
+                const rand = (lo, hi) => lo + Math.random() * (hi - lo);
+                return {
+                    colorStops,
+                    composite,
+                    blobs: Array.from({ length: count }, () => ({
+                        dx: rand(...dxRange),
+                        dy: rand(...dyRange),
+                        rx: rand(...rxRange),
+                        ry: rand(...ryRange),
+                        ang: rand(...angRange),
+                        r: Math.round(rand(...rRange)),
+                        g: Math.round(rand(...gRange)),
+                        b: Math.round(rand(...bRange)),
+                        a: rand(...aRange),
+                    })),
+                };
+            }
+
+            // Render a BlobGroup object to the canvas
+            function drawBlobGroup(group) {
+                for (const { dx, dy, rx, ry, ang, r, g, b, a } of group.blobs) {
+                    drawBlob(
+                        cx + dx,
+                        cy + dy,
+                        rx,
+                        ry,
+                        ang + diskAngle,
+                        group.colorStops(r, g, b, a),
+                        a,
+                        group.composite,
+                    );
+                }
+            }
+
+            function initBlobGroups() {
+                blobGroups = [
+                    // ── Blue star-forming regions ──────────────────────────────
+                    generateBlobGroup({
+                        count: 6,
+                        dxRange: [-W * 0.38, W * 0.38],
+                        dyRange: [-H * 0.06, H * 0.06],
+                        rxRange: [W * 0.06, W * 0.15],
+                        ryRange: [H * 0.035, H * 0.06],
+                        angRange: [-0.5, 0.5],
+                        rRange: [15, 65],
+                        gRange: [50, 110],
+                        bRange: [155, 225],
+                        aRange: [0.5, 0.8],
+                        colorStops: (r, g, b) => [
+                            [0, `rgba(${r + 80}, ${g + 40}, ${b + 55}, 0.9)`],
+                            [0.3, `rgba(${r + 30}, ${g},      ${b},      0.6)`],
+                            [
+                                0.7,
+                                `rgba(${r},      ${g - 20}, ${b - 30}, 0.25)`,
+                            ],
+                            [1, "rgba(0,0,0,0)"],
+                        ],
+                    }),
+                    // ── Violet/magenta nebula pockets ──────────────────────────
+                    generateBlobGroup({
+                        count: 24,
+                        dxRange: [-W * 0.32, W * 0.32],
+                        dyRange: [-H * 0.07, H * 0.07],
+                        rxRange: [W * 0.04, W * 0.09],
+                        ryRange: [H * 0.035, H * 0.065],
+                        angRange: [-0.65, 0.65],
+                        rRange: [95, 165],
+                        gRange: [15, 55],
+                        bRange: [135, 195],
+                        aRange: [0.65, 0.65],
+                        colorStops: (r, g, b) => [
+                            [0, `rgba(${r},      ${g + 20}, ${b},      0.9)`],
+                            [0.4, `rgba(${r - 20}, ${g},      ${b - 20}, 0.5)`],
+                            [1, "rgba(0,0,0,0)"],
+                        ],
+                    }),
+                    // --- White core surrounding dust lanes (screen composite) ---
+                    generateBlobGroup({
+                        count: 6,
+                        dxRange: [-W * 0.25, W * 0.25],
+                        dyRange: [-H * 0.02, H * 0.02],
+                        rxRange: [W * 0.36, W * 0.58],
+                        ryRange: [H * 0.048, H * 0.072],
+                        angRange: [-0.06, 0.06],
+                        colorStops: () => [
+                            [0, "rgba(255, 255, 255, 0.3)"],
+                            [0.5, "rgba(255, 255, 255, 0.1)"],
+                            [1, "rgba(0, 0, 0, 0)"],
+                        ],
+                    }),
+                    // ── Dust lanes (multiply composite) ────────────────────────
+                    generateBlobGroup({
+                        count: 3,
+                        dxRange: [-W * 0.25, W * 0.25],
+                        dyRange: [-H * 0.02, H * 0.02],
+                        rxRange: [W * 0.36, W * 0.58],
+                        ryRange: [H * 0.024, H * 0.036],
+                        angRange: [-0.06, 0.06],
+                        composite: "multiply",
+                        colorStops: () => [
+                            [0, "rgba(200, 100, 200, 0.7)"],
+                            [0.5, "rgba(200, 100, 200, 0.3)"],
+                            [1, "rgba(0, 0, 0, 0)"],
+                        ],
+                    }),
+                ];
+            }
+
+            // Paint the nebula to the source canvas
+            function paintNebula() {
+                ctx.clearRect(0, 0, W, H);
+
+                // Deep background fill — very subtle glow at center
+                const bg = ctx.createRadialGradient(
+                    cx,
+                    cy,
+                    0,
+                    cx,
+                    cy,
+                    Math.max(W, H) * 0.7,
+                );
+                bg.addColorStop(0, "rgba(12, 4, 28, 1)");
+                bg.addColorStop(1, "rgba(3, 1, 10, 1)");
+                ctx.fillStyle = bg;
+                ctx.fillRect(0, 0, W, H);
+
+                // ── Galactic disk base ─────────────────────────────────────────
+                const diskW = W * 0.88;
+                const diskH = H * 0.18;
+
+                // Outer disk haze — deep blue
+                drawBlob(
+                    cx,
+                    cy,
+                    diskW * 0.5,
+                    diskH * 2.2,
+                    diskAngle,
+                    [
+                        [0, "rgba(20, 10, 80, 0.7)"],
+                        [0.5, "rgba(10, 5, 50, 0.3)"],
+                        [1, "rgba(0,0,0,0)"],
+                    ],
+                    0.9,
+                );
+
+                // Mid disk — indigo/violet
+                drawBlob(
+                    cx,
+                    cy,
+                    diskW * 0.48,
+                    diskH * 1.1,
+                    diskAngle,
+                    [
+                        [0, "rgba(90, 40, 180, 0.85)"],
+                        [0.35, "rgba(55, 20, 130, 0.6)"],
+                        [0.7, "rgba(20,  8,  70, 0.25)"],
+                        [1, "rgba(0,0,0,0)"],
+                    ],
+                    0.85,
+                );
+
+                // ── Galactic bar (brighter central feature) ───────────────────
+                drawBlob(
+                    cx,
+                    cy,
+                    diskW * 0.26,
+                    diskH * 0.52,
+                    diskAngle + 0.08,
+                    [
+                        [0, "rgba(200, 160, 255, 0.9)"],
+                        [0.2, "rgba(140, 80, 240, 0.75)"],
+                        [0.55, "rgba(70, 30, 160, 0.35)"],
+                        [1, "rgba(0,0,0,0)"],
+                    ],
+                    1.0,
+                );
+
+                // Core hot spot — near-white center
+                drawBlob(
+                    cx,
+                    cy,
+                    diskW * 0.08,
+                    diskH * 0.28,
+                    diskAngle,
+                    [
+                        [0, "rgba(240, 220, 255, 1.0)"],
+                        [0.3, "rgba(180, 120, 255, 0.8)"],
+                        [0.7, "rgba(100, 50, 200, 0.3)"],
+                        [1, "rgba(0,0,0,0)"],
+                    ],
+                    1.0,
+                );
+
+                // ── Randomized blob groups (pre-generated) ─────────────────────
+                blobGroups.forEach((group) => drawBlobGroup(group));
+
+                // ── Edge glow halos (far arm tips) ───────────────────────────
+                [
+                    [-W * 0.4, H * 0.06, 0.5],
+                    [W * 0.4, -H * 0.04, -0.4],
+                ].forEach(([dx, dy, ang]) => {
+                    drawBlob(
+                        cx + dx,
+                        cy + dy,
+                        W * 0.13,
+                        H * 0.07,
+                        diskAngle + ang,
+                        [
+                            [0, "rgba(50, 20, 120, 0.6)"],
+                            [0.5, "rgba(20,  8,  60, 0.25)"],
+                            [1, "rgba(0,0,0,0)"],
+                        ],
+                        0.7,
+                    );
+                });
+            }
+
+            // Capture the filtered canvas into a static image, then hide the source
+            function bakeFilteredSnapshot() {
+                // Make source visible momentarily so the filter renders
+                sourceCanvas.style.visibility = "visible";
+
+                // Use rAF to ensure the browser has painted with the filter applied,
+                // then snapshot via an offscreen canvas that draws the filtered element
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        // toDataURL captures the canvas bitmap (pre-filter),
+                        // so we use a foreignObject SVG trick to capture the
+                        // post-filter result. Simpler: just apply the filter
+                        // in canvas-land using CanvasRenderingContext2D.filter.
+                        const bakeCanvas = document.createElement("canvas");
+                        bakeCanvas.width = W;
+                        bakeCanvas.height = H;
+                        const bakeCtx = bakeCanvas.getContext("2d");
+                        bakeCtx.filter = getComputedStyle(sourceCanvas).filter;
+                        bakeCtx.drawImage(sourceCanvas, 0, 0);
+
+                        sourceCanvas.style.visibility = "hidden";
+
+                        // Wait for the image to decode before fading in
+                        snapshotImg.src = bakeCanvas.toDataURL();
+                        snapshotImg.decode().then(() => {
+                            rotator.classList.add("visible");
+                            requestAnimationFrame(animate);
+                        });
+                    });
+                });
+            }
+
+            // Animate rotation via CSS transform (GPU-accelerated, no repaint)
+            function animate(timestamp) {
+                const angle = timestamp * ROTATION_SPEED;
+                rotator.style.transform = `rotate(${angle}rad)`;
+                requestAnimationFrame(animate);
+            }
+
+            function resize() {
+                // Size the canvas oversized to avoid corner clipping when rotated
+                const size = Math.ceil(
+                    Math.hypot(window.innerWidth, window.innerHeight) * 1.2,
+                );
+                W = sourceCanvas.width = size;
+                H = sourceCanvas.height = size;
+                cx = W / 2;
+                cy = H / 2;
+                initBlobGroups();
+                paintNebula();
+                bakeFilteredSnapshot();
+            }
+
+            window.addEventListener("resize", resize);
+            resize();
+        </script>
+    </body>
+</html>
