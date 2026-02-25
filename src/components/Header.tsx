@@ -2,7 +2,7 @@
 
 export default function Header() {
   return (
-    <header className="pt-60 pb-20">
+    <header className="flex-1 flex items-center justify-center pt-[5%]">
       <div className="grid place-items-center w-fit mx-auto font-accent">
         <p className="typed">EmuMan</p>
       </div>

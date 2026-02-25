@@ -8,7 +8,7 @@ export default function Home() {
         My name is <b>Jacob Kelleran</b>, and this is my website!
       </p>
       <br />
-      <p className="text-lg">
+      <p className="text-xl">
         Here, you will can find various content related to me, including
         different projects, applications, and art. Feel free to dig around, or{" "}
         <Link

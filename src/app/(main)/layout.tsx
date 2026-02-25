@@ -2,7 +2,6 @@ import "../globals.css";
 import Header from "@/components/Header";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import Starfield from "@/components/Starfield";
 import RotatingImage from "@/components/RotatingImage";
 
 export default function MainLayout({
@@ -21,13 +20,13 @@ export default function MainLayout({
         }}
       />
       {/* Galaxy + header section */}
-      <div className="relative">
+      <div className="relative h-[60vh] flex flex-col">
         <RotatingImage src="/images/starfield.png" />
         <RotatingImage src="/images/milkyway_bright.png" opacity={0.5} />
         <Header />
         {/* Gradient fade from transparent to background */}
         <div
-          className="h-32"
+          className="h-32 mt-auto"
           style={{
             background:
               "radial-gradient(circle, var(--color-accent-100) 0%, var(--color-accent-0) 100%)",
