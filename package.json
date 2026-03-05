@@ -23,6 +23,10 @@
     "react": "19.2.3",
     "react-dom": "19.2.3"
   },
+  "overrides": {
+    "@hono/node-server": ">=1.19.10",
+    "hono": ">=4.12.4"
+  },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
