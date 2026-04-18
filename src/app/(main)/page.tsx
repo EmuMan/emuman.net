@@ -9,8 +9,8 @@ export default function Home() {
       </p>
       <br />
       <p className="text-xl">
-        Here, you will can find various content related to me, including
-        different projects, applications, and art. Feel free to dig around, or{" "}
+        Here, you can find various content related to me, including different
+        projects, applications, and art. Feel free to dig around, or{" "}
         <Link
           href="/about"
           className="underline hover:text-neutral-600 transition-colors duration-200"
